@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Star, ExternalLink } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Leave a Review | Unfiltered Barbershop",
   description: "Love your cut? Share your experience on Google.",

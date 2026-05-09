@@ -26,8 +26,8 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
-              Simi Valley's premier luxury barbershop. Precision cuts, modern culture,
-              and an elite grooming experience you won't find anywhere else.
+              Simi Valley&apos;s premier luxury barbershop. Precision cuts, modern culture,
+              and an elite grooming experience you won&apos;t find anywhere else.
             </p>
             <div className="flex items-center gap-3">
               <a

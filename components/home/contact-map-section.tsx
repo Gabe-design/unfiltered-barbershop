@@ -2,8 +2,7 @@
 import { InstagramIcon } from '@/components/ui/instagram-icon';
 
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import Link from "next/link";
+import { MapPin, Phone, Clock } from "lucide-react";
 import { BUSINESS_HOURS, SHOP_ADDRESS } from "@/lib/utils";
 
 export function ContactMapSection() {

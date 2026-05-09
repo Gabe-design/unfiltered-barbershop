@@ -363,7 +363,7 @@ export function Step7Confirmation() {
           transition={{ delay: 0.38 }}
           className="bg-[#111111] border border-[#262626] rounded-2xl p-5 mb-8"
         >
-          <p className="text-white font-semibold text-sm mb-5">What's Next?</p>
+          <p className="text-white font-semibold text-sm mb-5">What&apos;s Next?</p>
           <div className="space-y-4">
             <NextStep
               number={1}

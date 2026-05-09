@@ -24,8 +24,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const pages = await prisma.seoPage.findMany({ where: { isActive: true }, select: { slug: true } });
-  return pages.map((p) => ({ slug: p.slug }));
+  try {
+    const pages = await prisma.seoPage.findMany({ where: { isActive: true }, select: { slug: true } });
+    return pages.map((p) => ({ slug: p.slug }));
+  } catch {
+    return [];
+  }
 }
 
 const SERVICES = [

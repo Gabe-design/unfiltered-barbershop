@@ -1,4 +1,4 @@
-# Unfiltered Barbershop — Premium Booking Platform
+# Unfiltered Barbershop - Premium Booking Platform
 
 > **Production-ready, full-stack luxury barbershop booking system built with Next.js 14, Prisma, PostgreSQL, and NextAuth.**
 

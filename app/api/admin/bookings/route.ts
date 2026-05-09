@@ -2,19 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { sendReviewRequest } from "@/lib/email";
 import { z } from "zod";
 
-async function requireAdmin(req: NextRequest) {
+async function requireAdmin() {
   const session = await getServerSession(authOptions);
-  if (!session || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
-    return null;
-  }
+  if (!session || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role)) return null;
   return session;
 }
 
 export async function GET(req: NextRequest) {
-  const session = await requireAdmin(req);
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await requireAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { searchParams } = new URL(req.url);
   const status = searchParams.get("status");
@@ -24,10 +22,10 @@ export async function GET(req: NextRequest) {
   const dateTo = searchParams.get("dateTo");
   const search = searchParams.get("search");
 
-  const where: any = {};
+  const where: Record<string, unknown> = {};
   if (status && status !== "all") where.status = status;
-  if (dateFrom) where.date = { ...where.date, gte: new Date(dateFrom) };
-  if (dateTo) where.date = { ...where.date, lte: new Date(dateTo) };
+  if (dateFrom) where.date = { ...(where.date as object), gte: new Date(dateFrom) };
+  if (dateTo) where.date = { ...(where.date as object), lte: new Date(dateTo) };
   if (search) {
     where.OR = [
       { customerName: { contains: search, mode: "insensitive" } },
@@ -64,16 +62,50 @@ const updateSchema = z.object({
 });
 
 export async function PATCH(req: NextRequest) {
-  const session = await requireAdmin(req);
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await requireAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json();
   const data = updateSchema.parse(body);
+
+  const prevBooking = await prisma.booking.findUnique({ where: { id: data.id } });
 
   const booking = await prisma.booking.update({
     where: { id: data.id },
     data: { status: data.status },
   });
+
+  // Auto-trigger review request when marking a booking as COMPLETED
+  if (data.status === "COMPLETED" && prevBooking?.status !== "COMPLETED") {
+    const settings = await prisma.appSettings.findUnique({ where: { id: "global" } });
+
+    if (settings?.reviewRequestEnabled && booking.reviewStatus === "NOT_REQUESTED") {
+      const existing = await prisma.reviewRequest.findUnique({ where: { bookingId: booking.id } });
+      if (!existing) {
+        const reviewRequest = await prisma.reviewRequest.create({
+          data: {
+            bookingId: booking.id,
+            customerId: booking.customerId ?? undefined,
+            email: booking.customerEmail,
+            status: "REQUESTED",
+            sentAt: new Date(),
+          },
+        });
+
+        await prisma.booking.update({
+          where: { id: booking.id },
+          data: { reviewStatus: "REQUESTED" },
+        });
+
+        sendReviewRequest({
+          customerName: booking.customerName,
+          customerEmail: booking.customerEmail,
+          confirmationId: booking.confirmationId,
+          googleReviewUrl: settings.googleReviewUrl ?? "",
+          reviewRequestId: reviewRequest.id,
+        }).catch(console.error);
+      }
+    }
+  }
 
   return NextResponse.json(booking);
 }

@@ -141,6 +141,157 @@ export async function sendAdminNotification(data: BookingEmailData) {
   });
 }
 
+export async function sendReviewRequest(data: {
+  customerName: string;
+  customerEmail: string;
+  confirmationId: string;
+  googleReviewUrl: string;
+  reviewRequestId: string;
+}) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://unfilteredbarbershop.com";
+  const trackingUrl = `${baseUrl}/api/review-request/${data.reviewRequestId}`;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <h1 style="font-size:28px;font-weight:900;color:#FFFFFF;letter-spacing:3px;margin:0;">UNFILTERED</h1>
+      <p style="color:#3B82F6;letter-spacing:6px;font-size:11px;margin:4px 0 0;">BARBERSHOP</p>
+    </div>
+    <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:16px;">⭐</div>
+      <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 12px;">How was your experience?</h2>
+      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${data.customerName}, we hope you loved your visit. Your review means the world to us and helps other guys in Simi Valley find us.</p>
+      <a href="${trackingUrl}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Leave a Google Review</a>
+      <p style="color:#6B7280;font-size:11px;margin:20px 0 0;">Takes less than 60 seconds</p>
+    </div>
+    <p style="text-align:center;color:#6B7280;font-size:12px;margin-top:24px;">© ${new Date().getFullYear()} Unfiltered Barbershop · Simi Valley, CA</p>
+  </div>
+</body>
+</html>`;
+
+  return resend.emails.send({
+    from: FROM_EMAIL,
+    to: data.customerEmail,
+    subject: "How was your cut? Leave us a quick review ⭐",
+    html,
+  });
+}
+
+export async function sendRebookingReminder(data: {
+  customerName: string;
+  customerEmail: string;
+  barberName?: string;
+  bookingUrl: string;
+  weeksAgo: number;
+}) {
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <h1 style="font-size:28px;font-weight:900;color:#FFFFFF;letter-spacing:3px;margin:0;">UNFILTERED</h1>
+      <p style="color:#3B82F6;letter-spacing:6px;font-size:11px;margin:4px 0 0;">BARBERSHOP</p>
+    </div>
+    <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:16px;">✂️</div>
+      <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 12px;">Time for a fresh cut?</h2>
+      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${data.customerName}, it's been about ${data.weeksAgo} week${data.weeksAgo !== 1 ? "s" : ""} since your last visit. ${data.barberName ? `${data.barberName} is ready to keep you looking sharp.` : "Your barber is ready to keep you looking sharp."}</p>
+      <a href="${data.bookingUrl}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Book Now</a>
+    </div>
+    <p style="text-align:center;color:#6B7280;font-size:12px;margin-top:24px;">© ${new Date().getFullYear()} Unfiltered Barbershop · 1706 Erringer Rd Suite #4, Simi Valley, CA 93065</p>
+  </div>
+</body>
+</html>`;
+
+  return resend.emails.send({
+    from: FROM_EMAIL,
+    to: data.customerEmail,
+    subject: "Time for your next fresh cut ✂️",
+    html,
+  });
+}
+
+export async function sendAbandonedBookingFollowUp(data: {
+  name: string;
+  email: string;
+  serviceSlug?: string;
+  bookingUrl: string;
+}) {
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <h1 style="font-size:28px;font-weight:900;color:#FFFFFF;letter-spacing:3px;margin:0;">UNFILTERED</h1>
+      <p style="color:#3B82F6;letter-spacing:6px;font-size:11px;margin:4px 0 0;">BARBERSHOP</p>
+    </div>
+    <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:16px;">💈</div>
+      <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 12px;">Still want to lock in your spot?</h2>
+      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${data.name}, you started booking with us but didn't finish. Slots fill up fast — lock yours in before it's gone.</p>
+      <a href="${data.bookingUrl}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Complete My Booking</a>
+    </div>
+    <p style="text-align:center;color:#6B7280;font-size:12px;margin-top:24px;">© ${new Date().getFullYear()} Unfiltered Barbershop · Simi Valley, CA</p>
+  </div>
+</body>
+</html>`;
+
+  return resend.emails.send({
+    from: FROM_EMAIL,
+    to: data.email,
+    subject: "Still want to lock in your spot? 💈",
+    html,
+  });
+}
+
+export async function sendReferralInvite(data: {
+  referrerName: string;
+  refereeEmail: string;
+  referralCode: string;
+  bookingUrl: string;
+  rewardDescription: string;
+}) {
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <h1 style="font-size:28px;font-weight:900;color:#FFFFFF;letter-spacing:3px;margin:0;">UNFILTERED</h1>
+      <p style="color:#3B82F6;letter-spacing:6px;font-size:11px;margin:4px 0 0;">BARBERSHOP</p>
+    </div>
+    <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:16px;">🎁</div>
+      <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 12px;">${data.referrerName} invited you to Unfiltered</h2>
+      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Your first visit comes with a special reward: <strong style="color:#FFFFFF;">${data.rewardDescription}</strong>.</p>
+      <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:16px;margin-bottom:24px;">
+        <p style="color:#9CA3AF;font-size:12px;margin:0 0 4px;">Your referral code</p>
+        <p style="color:#3B82F6;font-size:24px;font-weight:900;letter-spacing:4px;margin:0;">${data.referralCode}</p>
+      </div>
+      <a href="${data.bookingUrl}?ref=${data.referralCode}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Book Now</a>
+    </div>
+    <p style="text-align:center;color:#6B7280;font-size:12px;margin-top:24px;">© ${new Date().getFullYear()} Unfiltered Barbershop · Simi Valley, CA</p>
+  </div>
+</body>
+</html>`;
+
+  return resend.emails.send({
+    from: FROM_EMAIL,
+    to: data.refereeEmail,
+    subject: `${data.referrerName} invited you to Unfiltered Barbershop 🎁`,
+    html,
+  });
+}
+
 export async function sendContactNotification(data: {
   name: string;
   email: string;

@@ -84,14 +84,24 @@ async function main() {
   }
 
   // Services
-  const services = [
+  const services: {
+    name: string;
+    slug: string;
+    description: string;
+    price: number;
+    duration: number;
+    category: ServiceCategory;
+    afterHoursFee?: number;
+    displayOrder: number;
+    isHouseCall?: boolean;
+  }[] = [
     {
       name: "Haircut",
       slug: "haircut",
       description: "Haircuts before opening hours (9 AM) and after hours (7 PM) have a $20 extra fee. Our signature precision haircut tailored to your style.",
       price: 45,
       duration: 60,
-      category: "HAIRCUT" as ServiceCategory,
+      category: "HAIRCUT",
       afterHoursFee: 20,
       displayOrder: 1,
     },
@@ -101,7 +111,7 @@ async function main() {
       description: "Elevate your look with a precision haircut plus our signature enhancement treatment for a fuller, richer finish.",
       price: 50,
       duration: 60,
-      category: "ENHANCEMENT" as ServiceCategory,
+      category: "ENHANCEMENT",
       displayOrder: 2,
     },
     {
@@ -110,7 +120,7 @@ async function main() {
       description: "Express yourself with a precision cut plus custom artistic line designs crafted by our master barbers.",
       price: 55,
       duration: 75,
-      category: "DESIGN" as ServiceCategory,
+      category: "DESIGN",
       displayOrder: 3,
     },
     {
@@ -119,7 +129,7 @@ async function main() {
       description: "The complete grooming experience. Precision haircut combined with expert beard sculpting. Services before opening hours (9 AM) and after hours (7 PM) have a $20 extra fee.",
       price: 60,
       duration: 60,
-      category: "COMBO" as ServiceCategory,
+      category: "COMBO",
       afterHoursFee: 20,
       displayOrder: 4,
     },
@@ -129,7 +139,7 @@ async function main() {
       description: "A luxurious beard service featuring precise trimming, clean line-ups, and a relaxing hot towel treatment for the ultimate grooming ritual.",
       price: 30,
       duration: 45,
-      category: "BEARD" as ServiceCategory,
+      category: "BEARD",
       displayOrder: 5,
     },
     {
@@ -138,7 +148,7 @@ async function main() {
       description: "A quick, clean shape-up to keep your edges crisp and your look fresh between full appointments.",
       price: 20,
       duration: 15,
-      category: "HAIRCUT" as ServiceCategory,
+      category: "HAIRCUT",
       displayOrder: 6,
     },
     {
@@ -147,7 +157,7 @@ async function main() {
       description: "We come to you. Price includes a 40-mile radius from our shop. The ultimate luxury grooming experience delivered to your door. Contact us for any questions.",
       price: 300,
       duration: 180,
-      category: "HOUSE_CALL" as ServiceCategory,
+      category: "HOUSE_CALL",
       isHouseCall: true,
       displayOrder: 7,
     },

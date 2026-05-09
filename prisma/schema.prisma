@@ -1,0 +1,249 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role      @default(CUSTOMER)
+  phone         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  bookings      Booking[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Barber {
+  id           String        @id @default(cuid())
+  name         String
+  slug         String        @unique
+  bio          String?       @db.Text
+  image        String?
+  instagram    String?
+  specialty    String?
+  rating       Float         @default(5.0)
+  reviewCount  Int           @default(0)
+  isActive     Boolean       @default(true)
+  offersHouseCall Boolean    @default(false)
+  displayOrder Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  bookings     Booking[]
+  availability BarberAvailability[]
+  blockedDates BlockedDate[]
+}
+
+model Service {
+  id           String        @id @default(cuid())
+  name         String
+  slug         String        @unique
+  description  String?       @db.Text
+  price        Float
+  duration     Int           // in minutes
+  category     ServiceCategory @default(HAIRCUT)
+  isActive     Boolean       @default(true)
+  isHouseCall  Boolean       @default(false)
+  image        String?
+  displayOrder Int           @default(0)
+  afterHoursFee Float        @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  bookingItems BookingItem[]
+  addOns       AddOn[]       @relation("ServiceAddOns")
+}
+
+model AddOn {
+  id           String        @id @default(cuid())
+  name         String
+  price        Float
+  duration     Int           @default(0) // extra minutes
+  isActive     Boolean       @default(true)
+  displayOrder Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  services     Service[]     @relation("ServiceAddOns")
+  bookingItems BookingItem[]
+}
+
+model Booking {
+  id              String        @id @default(cuid())
+  confirmationId  String        @unique @default(cuid())
+  status          BookingStatus @default(PENDING)
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  notes           String?       @db.Text
+  date            DateTime
+  startTime       String        // "09:00"
+  endTime         String        // "10:00"
+  totalPrice      Float
+  totalDuration   Int           // minutes
+  isHouseCall     Boolean       @default(false)
+  houseCallAddress String?
+  houseCallCity   String?
+  houseCallZip    String?
+  houseCallUnit   String?
+  smsReminder     Boolean       @default(false)
+  barberId        String?
+  userId          String?
+  barber          Barber?       @relation(fields: [barberId], references: [id])
+  user            User?         @relation(fields: [userId], references: [id])
+  items           BookingItem[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model BookingItem {
+  id        String   @id @default(cuid())
+  bookingId String
+  serviceId String?
+  addOnId   String?
+  quantity  Int      @default(1)
+  price     Float
+  duration  Int
+  booking   Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  service   Service? @relation(fields: [serviceId], references: [id])
+  addOn     AddOn?   @relation(fields: [addOnId], references: [id])
+}
+
+model BarberAvailability {
+  id         String    @id @default(cuid())
+  barberId   String
+  dayOfWeek  Int       // 0=Sunday, 1=Monday...6=Saturday
+  startTime  String    // "09:00"
+  endTime    String    // "19:00"
+  isActive   Boolean   @default(true)
+  slotInterval Int     @default(30) // minutes between slots
+  bufferTime Int       @default(0)  // buffer after each appointment
+  barber     Barber    @relation(fields: [barberId], references: [id], onDelete: Cascade)
+
+  @@unique([barberId, dayOfWeek])
+}
+
+model BlockedDate {
+  id        String   @id @default(cuid())
+  barberId  String
+  date      DateTime
+  reason    String?
+  barber    Barber   @relation(fields: [barberId], references: [id], onDelete: Cascade)
+}
+
+model GalleryImage {
+  id           String   @id @default(cuid())
+  url          String
+  alt          String?
+  category     String?
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  customerName String
+  rating      Int      @default(5)
+  content     String   @db.Text
+  service     String?
+  isActive    Boolean  @default(true)
+  displayOrder Int     @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model FAQ {
+  id           String   @id @default(cuid())
+  question     String
+  answer       String   @db.Text
+  category     String?
+  isActive     Boolean  @default(true)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ContactMessage {
+  id          String        @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  service     String?
+  message     String        @db.Text
+  status      ContactStatus @default(NEW)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CONTACTED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum ServiceCategory {
+  HAIRCUT
+  BEARD
+  DESIGN
+  ENHANCEMENT
+  HOUSE_CALL
+  COMBO
+}
+
+enum ContactStatus {
+  NEW
+  READ
+  REPLIED
+  ARCHIVED
+}

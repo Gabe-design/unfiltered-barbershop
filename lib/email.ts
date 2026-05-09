@@ -2,7 +2,7 @@ import { Resend } from "resend";
 import { format } from "date-fns";
 import { formatCurrency, formatDuration, formatTime } from "./utils";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const getResend = () => new Resend(process.env.RESEND_API_KEY ?? "placeholder");
 
 const FROM_EMAIL = "Unfiltered Barbershop <bookings@unfilteredbarbershop.com>";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@unfilteredbarbershop.com";
@@ -101,7 +101,7 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM_EMAIL,
     to: data.customerEmail,
     subject: `Booking Confirmed — ${dateStr} at ${timeStr} | Unfiltered Barbershop`,
@@ -133,7 +133,7 @@ export async function sendAdminNotification(data: BookingEmailData) {
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM_EMAIL,
     to: ADMIN_EMAIL,
     subject: `New Booking: ${data.customerName} — ${dateStr} ${timeStr}`,
@@ -173,7 +173,7 @@ export async function sendReviewRequest(data: {
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM_EMAIL,
     to: data.customerEmail,
     subject: "How was your cut? Leave us a quick review ⭐",
@@ -209,7 +209,7 @@ export async function sendRebookingReminder(data: {
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM_EMAIL,
     to: data.customerEmail,
     subject: "Time for your next fresh cut ✂️",
@@ -244,7 +244,7 @@ export async function sendAbandonedBookingFollowUp(data: {
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM_EMAIL,
     to: data.email,
     subject: "Still want to lock in your spot? 💈",
@@ -284,7 +284,7 @@ export async function sendReferralInvite(data: {
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM_EMAIL,
     to: data.refereeEmail,
     subject: `${data.referrerName} invited you to Unfiltered Barbershop 🎁`,
@@ -315,7 +315,7 @@ export async function sendContactNotification(data: {
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM_EMAIL,
     to: ADMIN_EMAIL,
     subject: `Contact Form: ${data.name} — ${data.service || "General Inquiry"}`,

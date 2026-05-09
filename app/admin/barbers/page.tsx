@@ -686,7 +686,7 @@ export default function BarbersPage() {
           <div className="bg-[#111111] border border-zinc-800 rounded-xl p-12 text-center">
             <User className="w-10 h-10 text-zinc-700 mx-auto mb-3" />
             <p className="text-zinc-400 font-medium">No barbers yet</p>
-            <p className="text-zinc-600 text-sm mt-1">Click "Add Barber" to get started</p>
+            <p className="text-zinc-600 text-sm mt-1">Click &quot;Add Barber&quot; to get started</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">

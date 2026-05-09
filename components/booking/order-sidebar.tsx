@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Clock, DollarSign, User, Calendar, Scissors } from "lucide-react";
+import { X, Clock, DollarSign, Calendar, Scissors } from "lucide-react";
 import { format } from "date-fns";
 import {
   useBookingStore,

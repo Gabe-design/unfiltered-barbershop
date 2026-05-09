@@ -48,7 +48,7 @@ export function Step1Service() {
           Choose Your Service
         </h2>
         <p className="text-gray-400 text-sm">
-          Select the service you'd like to book. Prices and durations are listed for each option.
+          Select the service you&apos;d like to book. Prices and durations are listed for each option.
         </p>
       </motion.div>
 

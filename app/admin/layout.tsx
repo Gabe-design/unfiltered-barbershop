@@ -20,7 +20,6 @@ import {
   Star,
   Gift,
   Trophy,
-  Zap,
   Mail,
   UserX,
   Tag,

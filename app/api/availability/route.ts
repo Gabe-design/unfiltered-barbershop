@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { generateTimeSlots, timeToMinutes, minutesToTime } from "@/lib/utils";
-import { format, parse, startOfDay, isSameDay } from "date-fns";
+import { generateTimeSlots, timeToMinutes } from "@/lib/utils";
+import { startOfDay, isSameDay } from "date-fns";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -46,7 +46,7 @@ export async function GET(req: NextRequest) {
   }
 
   // Get existing bookings for this day
-  const bookingsWhere: any = {
+  const bookingsWhere: { date: { gte: Date; lt: Date }; status: { notIn: string[] }; barberId?: string } = {
     date: { gte: startOfDate, lt: endOfDate },
     status: { notIn: ["CANCELLED", "NO_SHOW"] },
   };

@@ -281,9 +281,9 @@ export default function TeamPage() {
                   Join Our Team
                 </h2>
                 <p className="text-white/50 text-base mb-8 max-w-md mx-auto leading-relaxed">
-                  Are you a skilled barber who takes pride in their craft? We're always
+                  Are you a skilled barber who takes pride in their craft? We&apos;re always
                   looking for talent that fits the Unfiltered standard. Reach out and
-                  let's talk.
+                  let&apos;s talk.
                 </p>
                 <a
                   href="mailto:careers@unfilteredbarbershop.com"

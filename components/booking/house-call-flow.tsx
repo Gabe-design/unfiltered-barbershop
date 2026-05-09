@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+
+
 import { format } from "date-fns";
 import {
   User,
@@ -19,7 +20,7 @@ import {
   Info,
 } from "lucide-react";
 import { useBookingStore, BARBERS } from "@/lib/booking-store";
-import { cn, formatTime, generateConfirmationId } from "@/lib/utils";
+import { cn, generateConfirmationId } from "@/lib/utils";
 
 // ─── Schema ───────────────────────────────────────────────────────────────────
 
@@ -233,7 +234,7 @@ export function HouseCallFlow() {
           Your Location Details
         </h2>
         <p className="text-gray-400 text-sm">
-          We'll bring the full Unfiltered experience to your door. Please fill in your address and contact details.
+          We&apos;ll bring the full Unfiltered experience to your door. Please fill in your address and contact details.
         </p>
       </div>
 
@@ -242,7 +243,7 @@ export function HouseCallFlow() {
         <Info className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
         <p className="text-blue-200 text-xs leading-relaxed">
           House calls are available within a <strong>40-mile radius</strong> of Simi Valley, CA 93065.
-          Additional travel fees may apply for distances over 20 miles. We'll confirm with you after booking.
+          Additional travel fees may apply for distances over 20 miles. We&apos;ll confirm with you after booking.
         </p>
       </div>
 

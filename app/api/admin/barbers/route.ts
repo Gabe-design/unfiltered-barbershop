@@ -4,14 +4,14 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
-async function requireAdmin(req: NextRequest) {
+async function requireAdmin() {
   const session = await getServerSession(authOptions);
   if (!session || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role)) return null;
   return session;
 }
 
 export async function GET(req: NextRequest) {
-  const session = await requireAdmin(req);
+  const session = await requireAdmin();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const barbers = await prisma.barber.findMany({
@@ -38,7 +38,7 @@ const barberSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const session = await requireAdmin(req);
+  const session = await requireAdmin();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json();
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  const session = await requireAdmin(req);
+  const session = await requireAdmin();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json();
@@ -78,7 +78,7 @@ export async function PATCH(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const session = await requireAdmin(req);
+  const session = await requireAdmin();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { searchParams } = new URL(req.url);

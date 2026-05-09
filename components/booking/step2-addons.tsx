@@ -33,7 +33,7 @@ export function Step2AddOns() {
           Enhance Your Experience
         </h2>
         <p className="text-gray-400 text-sm">
-          Customize your visit with optional add-ons. Skip this step if you don't need anything extra.
+          Customize your visit with optional add-ons. Skip this step if you don&apos;t need anything extra.
         </p>
       </motion.div>
 
@@ -47,7 +47,7 @@ export function Step2AddOns() {
         }}
         className="space-y-3"
       >
-        {ADD_ONS.map((addOn, index) => {
+        {ADD_ONS.map((addOn) => {
           const qty = selectedAddOns[addOn.id as AddOnId] ?? 0;
           const isActive = qty > 0;
 

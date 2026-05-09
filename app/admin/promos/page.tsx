@@ -203,7 +203,7 @@ export default function PromosPage() {
                     </div>
                     {p.description && <p className="text-zinc-400 text-xs mb-2">{p.description}</p>}
                     {p.bannerText && (
-                      <p className="text-blue-400 text-xs italic mb-2">"{p.bannerText}"</p>
+                      <p className="text-blue-400 text-xs italic mb-2">&quot;{p.bannerText}&quot;</p>
                     )}
                     <div className="flex items-center gap-3 text-xs text-zinc-500 flex-wrap">
                       <span className="font-mono font-bold text-white bg-zinc-800 px-2 py-0.5 rounded">{p.code}</span>

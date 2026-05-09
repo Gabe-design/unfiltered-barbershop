@@ -385,7 +385,7 @@ export default function BookingsPage() {
         setSelectedBooking((prev) => prev ? { ...prev, status: newStatus } : prev);
       }
       toast.success("Status updated");
-    } catch (err) {
+    } catch {
       toast.error("Failed to update status");
     } finally {
       setUpdatingId(null);

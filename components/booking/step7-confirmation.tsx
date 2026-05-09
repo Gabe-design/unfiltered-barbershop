@@ -206,7 +206,7 @@ export function Step7Confirmation() {
             transition={{ delay: 0.2 }}
             className="text-3xl sm:text-4xl font-bold text-white mb-2"
           >
-            You're All Set!
+            You&apos;re All Set!
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -352,7 +352,7 @@ export function Step7Confirmation() {
           <p className="text-gray-400 text-xs leading-relaxed">
             A confirmation email has been sent to{" "}
             <span className="text-white font-medium">{customerEmail}</span>. Check
-            your spam folder if you don't see it within a few minutes.
+            your spam folder if you don&apos;t see it within a few minutes.
           </p>
         </motion.div>
 

@@ -11,7 +11,7 @@ import {
   DollarSign,
 } from "lucide-react";
 import { useBookingStore, ADD_ONS } from "@/lib/booking-store";
-import { cn, formatCurrency, formatDuration, formatTime } from "@/lib/utils";
+import { formatCurrency, formatDuration, formatTime } from "@/lib/utils";
 
 interface SummaryRowProps {
   label: string;

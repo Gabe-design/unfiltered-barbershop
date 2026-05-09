@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Image, Plus, Trash2, RefreshCw, X } from "lucide-react";
+import { Image as ImageIcon, Plus, Trash2, RefreshCw, X } from "lucide-react";
 import toast from "react-hot-toast";
 import NextImage from "next/image";
 
@@ -75,7 +75,7 @@ export default function GalleryPage() {
     <div className="p-6 space-y-5 max-w-7xl mx-auto">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-purple-500/10 rounded-lg"><Image className="w-4 h-4 text-purple-400" /></div>
+          <div className="p-2 bg-purple-500/10 rounded-lg"><ImageIcon className="w-4 h-4 text-purple-400" /></div>
           <div>
             <h1 className="text-xl font-bold text-white">Gallery</h1>
             <p className="text-zinc-400 text-xs mt-0.5">{images.length} images</p>
@@ -95,7 +95,7 @@ export default function GalleryPage() {
         <div className="flex justify-center py-12"><div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" /></div>
       ) : images.length === 0 ? (
         <div className="bg-[#111111] border border-zinc-800 rounded-xl py-12 text-center">
-          <Image className="w-8 h-8 text-zinc-700 mx-auto mb-3" />
+          <ImageIcon className="w-8 h-8 text-zinc-700 mx-auto mb-3" />
           <p className="text-zinc-500 text-sm">No gallery images yet.</p>
         </div>
       ) : (

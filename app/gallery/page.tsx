@@ -324,7 +324,7 @@ export default function GalleryPage() {
                 </h2>
                 <p className="text-white/50 text-base mb-8 max-w-md mx-auto leading-relaxed">
                   We drop fresh content daily on InstagramIcon — new cuts, behind-the-scenes,
-                  and exclusive specials. Don't miss out.
+                  and exclusive specials. Don&apos;t miss out.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a

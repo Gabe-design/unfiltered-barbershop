@@ -298,7 +298,7 @@ export default function FAQPage() {
                   Still Have Questions?
                 </h2>
                 <p className="text-white/50 text-sm sm:text-base mb-8 max-w-sm mx-auto leading-relaxed">
-                  Can't find the answer you're looking for? Reach out directly and we'll
+                  Can&apos;t find the answer you&apos;re looking for? Reach out directly and we&apos;ll
                   get back to you promptly.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">

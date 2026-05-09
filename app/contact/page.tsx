@@ -129,8 +129,8 @@ export default function ContactPage() {
                 </span>
               </h1>
               <p className="text-white/50 text-lg leading-relaxed max-w-xl mx-auto">
-                Questions, bookings, or just want to say hello — we're here. Drop us
-                a message and we'll get back to you quickly.
+                Questions, bookings, or just want to say hello — we&apos;re here. Drop us
+                a message and we&apos;ll get back to you quickly.
               </p>
             </motion.div>
           </div>
@@ -149,7 +149,7 @@ export default function ContactPage() {
                 <div className="bg-[#111111] border border-[#262626] rounded-3xl p-7 sm:p-9">
                   <h2 className="text-white font-black text-2xl mb-2">Send a Message</h2>
                   <p className="text-white/40 text-sm mb-7">
-                    Fill out the form below and we'll respond within 24 hours.
+                    Fill out the form below and we&apos;ll respond within 24 hours.
                   </p>
 
                   {submitted ? (
@@ -163,7 +163,7 @@ export default function ContactPage() {
                       </div>
                       <h3 className="text-white font-bold text-xl">Message Sent!</h3>
                       <p className="text-white/50 text-sm max-w-xs leading-relaxed">
-                        Thanks for reaching out. We'll get back to you within 24 hours.
+                        Thanks for reaching out. We&apos;ll get back to you within 24 hours.
                         In the meantime, feel free to book online.
                       </p>
                       <Link

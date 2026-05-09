@@ -148,7 +148,7 @@ export default async function SeoLandingPage({ params }: Props) {
                   <div className="flex gap-0.5 mb-3">
                     {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />)}
                   </div>
-                  <p className="text-zinc-300 text-sm leading-relaxed mb-3">"{r.text}"</p>
+                  <p className="text-zinc-300 text-sm leading-relaxed mb-3">&quot;{r.text}&quot;</p>
                   <p className="text-zinc-500 text-xs font-medium">— {r.name}</p>
                 </div>
               ))}

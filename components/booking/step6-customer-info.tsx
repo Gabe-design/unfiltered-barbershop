@@ -195,7 +195,7 @@ export function Step6CustomerInfo() {
           Your Information
         </h2>
         <p className="text-gray-400 text-sm">
-          We'll use these details to confirm your appointment and send reminders.
+          We&apos;ll use these details to confirm your appointment and send reminders.
         </p>
       </motion.div>
 

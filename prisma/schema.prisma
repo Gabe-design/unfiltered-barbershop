@@ -8,6 +8,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ─── Auth ─────────────────────────────────────────────────────────────────────
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -58,50 +60,55 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+// ─── Shop Core ────────────────────────────────────────────────────────────────
+
 model Barber {
-  id           String        @id @default(cuid())
-  name         String
-  slug         String        @unique
-  bio          String?       @db.Text
-  image        String?
-  instagram    String?
-  specialty    String?
-  rating       Float         @default(5.0)
-  reviewCount  Int           @default(0)
-  isActive     Boolean       @default(true)
-  offersHouseCall Boolean    @default(false)
-  displayOrder Int           @default(0)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  bookings     Booking[]
-  availability BarberAvailability[]
-  blockedDates BlockedDate[]
+  id              String               @id @default(cuid())
+  name            String
+  slug            String               @unique
+  bio             String?              @db.Text
+  image           String?
+  instagram       String?
+  specialty       String?
+  rating          Float                @default(5.0)
+  reviewCount     Int                  @default(0)
+  isActive        Boolean              @default(true)
+  offersHouseCall Boolean              @default(false)
+  displayOrder    Int                  @default(0)
+  rebookingWeeks  Int                  @default(4)
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  bookings        Booking[]
+  availability    BarberAvailability[]
+  blockedDates    BlockedDate[]
 }
 
 model Service {
-  id           String        @id @default(cuid())
-  name         String
-  slug         String        @unique
-  description  String?       @db.Text
-  price        Float
-  duration     Int           // in minutes
-  category     ServiceCategory @default(HAIRCUT)
-  isActive     Boolean       @default(true)
-  isHouseCall  Boolean       @default(false)
-  image        String?
-  displayOrder Int           @default(0)
-  afterHoursFee Float        @default(0)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  bookingItems BookingItem[]
-  addOns       AddOn[]       @relation("ServiceAddOns")
+  id             String          @id @default(cuid())
+  name           String
+  slug           String          @unique
+  description    String?         @db.Text
+  price          Float
+  duration       Int
+  category       ServiceCategory @default(HAIRCUT)
+  isActive       Boolean         @default(true)
+  isHouseCall    Boolean         @default(false)
+  image          String?
+  displayOrder   Int             @default(0)
+  afterHoursFee  Float           @default(0)
+  seoTitle       String?
+  seoDescription String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  bookingItems   BookingItem[]
+  addOns         AddOn[]         @relation("ServiceAddOns")
 }
 
 model AddOn {
   id           String        @id @default(cuid())
   name         String
   price        Float
-  duration     Int           @default(0) // extra minutes
+  duration     Int           @default(0)
   isActive     Boolean       @default(true)
   displayOrder Int           @default(0)
   createdAt    DateTime      @default(now())
@@ -111,31 +118,43 @@ model AddOn {
 }
 
 model Booking {
-  id              String        @id @default(cuid())
-  confirmationId  String        @unique @default(cuid())
-  status          BookingStatus @default(PENDING)
-  customerName    String
-  customerEmail   String
-  customerPhone   String
-  notes           String?       @db.Text
-  date            DateTime
-  startTime       String        // "09:00"
-  endTime         String        // "10:00"
-  totalPrice      Float
-  totalDuration   Int           // minutes
-  isHouseCall     Boolean       @default(false)
-  houseCallAddress String?
-  houseCallCity   String?
-  houseCallZip    String?
-  houseCallUnit   String?
-  smsReminder     Boolean       @default(false)
-  barberId        String?
-  userId          String?
-  barber          Barber?       @relation(fields: [barberId], references: [id])
-  user            User?         @relation(fields: [userId], references: [id])
-  items           BookingItem[]
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  id                   String            @id @default(cuid())
+  confirmationId       String            @unique @default(cuid())
+  status               BookingStatus     @default(PENDING)
+  customerName         String
+  customerEmail        String
+  customerPhone        String
+  notes                String?           @db.Text
+  date                 DateTime
+  startTime            String
+  endTime              String
+  totalPrice           Float
+  totalDuration        Int
+  discountAmount       Float             @default(0)
+  isHouseCall          Boolean           @default(false)
+  houseCallAddress     String?
+  houseCallCity        String?
+  houseCallZip         String?
+  houseCallUnit        String?
+  smsReminder          Boolean           @default(false)
+  source               BookingSourceType @default(WEBSITE)
+  reviewStatus         ReviewStatus      @default(NOT_REQUESTED)
+  rebookingReminderSent Boolean          @default(false)
+  usedReferralCode     String?
+  barberId             String?
+  userId               String?
+  customerId           String?
+  promoId              String?
+  barber               Barber?           @relation(fields: [barberId], references: [id])
+  user                 User?             @relation(fields: [userId], references: [id])
+  customer             Customer?         @relation(fields: [customerId], references: [id])
+  promo                PromoCampaign?    @relation(fields: [promoId], references: [id])
+  items                BookingItem[]
+  reviewRequest        ReviewRequest?
+  rebookingReminders   RebookingReminder[]
+  referralReceived     Referral?         @relation("ReferralBooking")
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
 }
 
 model BookingItem {
@@ -152,26 +171,28 @@ model BookingItem {
 }
 
 model BarberAvailability {
-  id         String    @id @default(cuid())
-  barberId   String
-  dayOfWeek  Int       // 0=Sunday, 1=Monday...6=Saturday
-  startTime  String    // "09:00"
-  endTime    String    // "19:00"
-  isActive   Boolean   @default(true)
-  slotInterval Int     @default(30) // minutes between slots
-  bufferTime Int       @default(0)  // buffer after each appointment
-  barber     Barber    @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  id           String  @id @default(cuid())
+  barberId     String
+  dayOfWeek    Int
+  startTime    String
+  endTime      String
+  isActive     Boolean @default(true)
+  slotInterval Int     @default(30)
+  bufferTime   Int     @default(0)
+  barber       Barber  @relation(fields: [barberId], references: [id], onDelete: Cascade)
 
   @@unique([barberId, dayOfWeek])
 }
 
 model BlockedDate {
-  id        String   @id @default(cuid())
-  barberId  String
-  date      DateTime
-  reason    String?
-  barber    Barber   @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  id       String   @id @default(cuid())
+  barberId String
+  date     DateTime
+  reason   String?
+  barber   Barber   @relation(fields: [barberId], references: [id], onDelete: Cascade)
 }
+
+// ─── Content ──────────────────────────────────────────────────────────────────
 
 model GalleryImage {
   id           String   @id @default(cuid())
@@ -184,14 +205,14 @@ model GalleryImage {
 }
 
 model Testimonial {
-  id          String   @id @default(cuid())
+  id           String   @id @default(cuid())
   customerName String
-  rating      Int      @default(5)
-  content     String   @db.Text
-  service     String?
-  isActive    Boolean  @default(true)
-  displayOrder Int     @default(0)
-  createdAt   DateTime @default(now())
+  rating       Int      @default(5)
+  content      String   @db.Text
+  service      String?
+  isActive     Boolean  @default(true)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
 }
 
 model FAQ {
@@ -206,16 +227,220 @@ model FAQ {
 }
 
 model ContactMessage {
-  id          String        @id @default(cuid())
-  name        String
-  email       String
-  phone       String?
-  service     String?
-  message     String        @db.Text
-  status      ContactStatus @default(NEW)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  service   String?
+  message   String        @db.Text
+  status    ContactStatus @default(NEW)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 }
+
+model SeoPage {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  metaTitle       String?
+  metaDescription String?
+  h1              String?
+  content         String?  @db.Text
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ─── CRM ──────────────────────────────────────────────────────────────────────
+
+model Customer {
+  id                String              @id @default(cuid())
+  name              String
+  email             String              @unique
+  phone             String?
+  favoriteBarber    String?
+  preferredService  String?
+  totalSpent        Float               @default(0)
+  visitCount        Int                 @default(0)
+  noShowCount       Int                 @default(0)
+  lastVisitDate     DateTime?
+  nextSuggestedDate DateTime?
+  notes             String?             @db.Text
+  tags              String[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  bookings          Booking[]
+  referralCode      ReferralCode?
+  loyaltyProfile    LoyaltyProfile?
+  reviewRequests    ReviewRequest[]
+  rebookingReminders RebookingReminder[]
+}
+
+// ─── Review System ────────────────────────────────────────────────────────────
+
+model ReviewRequest {
+  id         String       @id @default(cuid())
+  bookingId  String       @unique
+  customerId String?
+  email      String
+  sentAt     DateTime?
+  status     ReviewStatus @default(NOT_REQUESTED)
+  clickedAt  DateTime?
+  reviewedAt DateTime?
+  booking    Booking      @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  customer   Customer?    @relation(fields: [customerId], references: [id])
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+}
+
+// ─── Rebooking Reminder ───────────────────────────────────────────────────────
+
+model RebookingReminder {
+  id          String         @id @default(cuid())
+  bookingId   String
+  customerId  String?
+  email       String
+  scheduledAt DateTime
+  sentAt      DateTime?
+  status      ReminderStatus @default(PENDING)
+  clicked     Boolean        @default(false)
+  booking     Booking        @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  customer    Customer?      @relation(fields: [customerId], references: [id])
+  createdAt   DateTime       @default(now())
+}
+
+// ─── Referral ─────────────────────────────────────────────────────────────────
+
+model ReferralCode {
+  id          String     @id @default(cuid())
+  code        String     @unique
+  customerId  String?    @unique
+  rewardType  String?
+  rewardValue Float?
+  isActive    Boolean    @default(true)
+  usedCount   Int        @default(0)
+  createdAt   DateTime   @default(now())
+  customer    Customer?  @relation(fields: [customerId], references: [id])
+  referrals   Referral[]
+}
+
+model Referral {
+  id             String         @id @default(cuid())
+  referralCodeId String
+  referredEmail  String
+  bookingId      String?        @unique
+  status         ReferralStatus @default(PENDING)
+  rewardGiven    Boolean        @default(false)
+  createdAt      DateTime       @default(now())
+  referralCode   ReferralCode   @relation(fields: [referralCodeId], references: [id])
+  booking        Booking?       @relation("ReferralBooking", fields: [bookingId], references: [id])
+}
+
+// ─── Loyalty ──────────────────────────────────────────────────────────────────
+
+model LoyaltyProfile {
+  id            String    @id @default(cuid())
+  customerId    String    @unique
+  visitCount    Int       @default(0)
+  rewardsEarned Int       @default(0)
+  rewardsUsed   Int       @default(0)
+  vipStatus     VipStatus @default(NONE)
+  vipSince      DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  customer      Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+}
+
+// ─── Promotions ───────────────────────────────────────────────────────────────
+
+model PromoCampaign {
+  id                 String       @id @default(cuid())
+  title              String
+  description        String?      @db.Text
+  discountType       DiscountType @default(PERCENTAGE)
+  discountValue      Float
+  code               String?      @unique
+  startDate          DateTime
+  endDate            DateTime
+  isActive           Boolean      @default(true)
+  applicableServices String[]
+  usedCount          Int          @default(0)
+  maxUses            Int?
+  isFirstTimeOnly    Boolean      @default(false)
+  bannerText         String?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  bookings           Booking[]
+}
+
+// ─── Abandoned Bookings ───────────────────────────────────────────────────────
+
+model AbandonedBooking {
+  id                 String    @id @default(cuid())
+  email              String?
+  name               String?
+  phone              String?
+  stepReached        Int       @default(1)
+  serviceSlug        String?
+  barberSlug         String?
+  preferredDate      String?
+  preferredTime      String?
+  isHouseCall        Boolean   @default(false)
+  followUpSent       Boolean   @default(false)
+  followUpSentAt     DateTime?
+  recovered          Boolean   @default(false)
+  recoveredBookingId String?
+  sessionId          String?
+  source             String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+// ─── Email Templates ──────────────────────────────────────────────────────────
+
+model EmailTemplate {
+  id        String            @id @default(cuid())
+  type      EmailTemplateType @unique
+  name      String
+  subject   String
+  htmlBody  String            @db.Text
+  isActive  Boolean           @default(true)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
+
+// ─── Tracking ─────────────────────────────────────────────────────────────────
+
+model TrackingEvent {
+  id        String   @id @default(cuid())
+  eventType String
+  source    String?
+  page      String?
+  sessionId String?
+  bookingId String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+}
+
+// ─── App Settings ─────────────────────────────────────────────────────────────
+
+model AppSettings {
+  id                        String   @id @default("global")
+  googleReviewUrl           String?
+  reviewRequestEnabled      Boolean  @default(true)
+  reviewRequestDelayHours   Int      @default(2)
+  rebookingReminderEnabled  Boolean  @default(true)
+  defaultReminderWeeks      Int      @default(4)
+  loyaltyEnabled            Boolean  @default(true)
+  referralEnabled           Boolean  @default(true)
+  referralRewardDescription String?
+  smsEnabled                Boolean  @default(false)
+  shopPhone                 String?
+  instagramUrl              String?
+  updatedAt                 DateTime @updatedAt
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
 
 enum Role {
   CUSTOMER
@@ -246,4 +471,56 @@ enum ContactStatus {
   READ
   REPLIED
   ARCHIVED
+}
+
+enum ReviewStatus {
+  NOT_REQUESTED
+  REQUESTED
+  CLICKED
+  REVIEWED
+}
+
+enum ReferralStatus {
+  PENDING
+  CONVERTED
+  REWARDED
+}
+
+enum VipStatus {
+  NONE
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+enum EmailTemplateType {
+  BOOKING_CONFIRMATION
+  BOOKING_REMINDER
+  REVIEW_REQUEST
+  REBOOKING_REMINDER
+  ABANDONED_BOOKING
+  REFERRAL_INVITE
+  PROMO_CAMPAIGN
+}
+
+enum ReminderStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+enum BookingSourceType {
+  WEBSITE
+  INSTAGRAM
+  GOOGLE
+  REFERRAL
+  DIRECT
+  ADS
+  QR_CODE
 }

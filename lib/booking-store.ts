@@ -79,6 +79,13 @@ export interface BookingState {
   houseCallCity: string;
   houseCallZip: string;
 
+  // Growth features
+  source: string; // BookingSourceType
+  promoCode: string;
+  referralCode: string;
+  discountAmount: number;
+  abandonedId: string | null; // ID of AbandonedBooking record if captured
+
   // Confirmation
   confirmationId: string | null;
   isSubmitting: boolean;
@@ -102,6 +109,11 @@ interface BookingActions {
   setBarber: (barber: Barber) => void;
   setCustomerInfo: (info: Partial<Pick<BookingState, "customerName" | "customerEmail" | "customerPhone" | "notes" | "smsReminder">>) => void;
   setHouseCallInfo: (info: Partial<Pick<BookingState, "houseCallAddress" | "houseCallUnit" | "houseCallCity" | "houseCallZip">>) => void;
+  setSource: (source: string) => void;
+  setPromoCode: (code: string) => void;
+  setReferralCode: (code: string) => void;
+  setDiscountAmount: (amount: number) => void;
+  setAbandonedId: (id: string | null) => void;
   setConfirmationId: (id: string) => void;
   setIsSubmitting: (val: boolean) => void;
   setSubmitError: (err: string | null) => void;
@@ -231,6 +243,11 @@ const INITIAL_STATE: BookingState = {
   houseCallUnit: "",
   houseCallCity: "",
   houseCallZip: "",
+  source: "WEBSITE",
+  promoCode: "",
+  referralCode: "",
+  discountAmount: 0,
+  abandonedId: null,
   confirmationId: null,
   isSubmitting: false,
   submitError: null,
@@ -316,6 +333,16 @@ export const useBookingStore = create<BookingState & BookingActions>()(
       setCustomerInfo: (info) => set(info, false, "setCustomerInfo"),
 
       setHouseCallInfo: (info) => set(info, false, "setHouseCallInfo"),
+
+      setSource: (source) => set({ source }, false, "setSource"),
+
+      setPromoCode: (promoCode) => set({ promoCode }, false, "setPromoCode"),
+
+      setReferralCode: (referralCode) => set({ referralCode }, false, "setReferralCode"),
+
+      setDiscountAmount: (discountAmount) => set({ discountAmount }, false, "setDiscountAmount"),
+
+      setAbandonedId: (abandonedId) => set({ abandonedId }, false, "setAbandonedId"),
 
       setConfirmationId: (id) => set({ confirmationId: id }, false, "setConfirmationId"),
 

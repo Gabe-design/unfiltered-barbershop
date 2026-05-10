@@ -93,13 +93,13 @@ export function GalleryPreview() {
           className="text-center mt-10"
         >
           <a
-            href="https://instagram.com/unfilteredbarbershop"
+            href="https://www.instagram.com/unfltrdbarbershop/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 bg-[#111111] border border-[#262626] hover:border-pink-500/40 text-white font-semibold px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10"
           >
             <InstagramIcon className="w-5 h-5 text-pink-400" />
-            Follow @unfilteredbarbershop
+            Follow @unfltrdbarbershop
           </a>
         </motion.div>
       </div>

@@ -19,36 +19,40 @@ async function main() {
     },
   });
 
+  // Clear old barbers and re-seed with correct team
+  await prisma.barberAvailability.deleteMany({});
+  await prisma.barber.deleteMany({});
+
   // Barbers
   const barbers = [
     {
-      name: "Alex Reyes",
-      slug: "alex-reyes",
-      bio: "Master barber with 8+ years of experience specializing in precision fades and creative designs. Alex brings a cinematic eye to every cut.",
+      name: "Roman Morales",
+      slug: "roman-morales",
+      bio: "Roman has been behind the chair for over 8 years, honing his craft from the streets of LA to the luxury shops of the Valley. Known for his unmatched precision in skin fades and razor-sharp design work, Roman approaches every cut as a blank canvas.",
       specialty: "Precision Fades & Designs",
-      instagram: "alexreyes_cuts",
+      instagram: "rmblends",
       rating: 5.0,
       reviewCount: 234,
       offersHouseCall: true,
       displayOrder: 1,
     },
     {
-      name: "Marcus Williams",
-      slug: "marcus-williams",
-      bio: "Beard specialist and hair artisan. Marcus transforms every client with his meticulous attention to detail and passion for the craft.",
+      name: "Erick Mendoza",
+      slug: "erick-mendoza",
+      bio: "Erick is the go-to barber for clients who take their beard as seriously as their cut. With 6 years of experience and a meticulous eye for symmetry, he transforms every beard into a statement.",
       specialty: "Beard Grooming & Styling",
-      instagram: "marcuswilliams_barber",
+      instagram: "erickm_barber",
       rating: 5.0,
       reviewCount: 198,
       offersHouseCall: true,
       displayOrder: 2,
     },
     {
-      name: "Jordan Cruz",
-      slug: "jordan-cruz",
-      bio: "Fresh cuts with a modern twist. Jordan is known for his creative line work and his ability to bring any vision to life with a razor.",
+      name: "Fitted",
+      slug: "fitted",
+      bio: "Fitted brings a creative edge to every appointment. Known for his bold hair designs and seamless enhancement work, he turns heads and starts conversations. Five years deep in the craft, every line intentional, every cut a reflection of the client's identity.",
       specialty: "Hair Enhancements & Line Art",
-      instagram: "jordancruz_fresh",
+      instagram: "fitted_cuts",
       rating: 5.0,
       reviewCount: 153,
       offersHouseCall: false,

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   LayoutDashboard,
   Calendar,
@@ -137,11 +138,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         `}
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-800 flex-shrink-0">
-          <Link href="/admin" className="flex items-center gap-2">
-            <Scissors className="w-4 h-4 text-blue-500" />
-            <span className="font-bold text-white tracking-tight text-xs uppercase">
-              Unfiltered
-            </span>
+          <Link href="/admin" className="flex items-center">
+            <Image
+              src="/un.PNG"
+              alt="Unfiltered Barbershop"
+              width={120}
+              height={48}
+              className="h-10 w-auto object-contain"
+              style={{ filter: "drop-shadow(0 0 4px rgba(255,255,255,0.6))" }}
+            />
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}

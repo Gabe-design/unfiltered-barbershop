@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Star, Phone, Scissors } from "lucide-react";
 
@@ -63,20 +64,23 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Headline */}
-        <motion.h1
+        <motion.div
           custom={0.15}
           variants={slideUp}
           initial="hidden"
           animate="visible"
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.0] tracking-tight mb-6"
+          className="mb-6"
         >
-          Premium Cuts.
-          <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-            Unmatched
-          </span>{" "}
-          Experience.
-        </motion.h1>
+          <Image
+            src="/un.PNG"
+            alt="Unfiltered Barbershop"
+            width={500}
+            height={200}
+            className="w-auto mx-auto"
+            style={{ filter: "drop-shadow(0 0 20px rgba(255,255,255,0.5)) drop-shadow(0 0 40px rgba(255,255,255,0.25))" }}
+            priority
+          />
+        </motion.div>
 
         {/* Subheadline */}
         <motion.p

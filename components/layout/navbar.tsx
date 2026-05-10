@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Scissors } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -44,18 +45,15 @@ export function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
-              <Scissors className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-white font-black text-lg leading-none tracking-widest uppercase">
-                Unfiltered
-              </p>
-              <p className="text-blue-400 text-[9px] tracking-[0.35em] uppercase font-medium">
-                Barbershop
-              </p>
-            </div>
+          <Link href="/" className="flex items-center group">
+            <Image
+              src="/un.PNG"
+              alt="Unfiltered Barbershop"
+              width={140}
+              height={56}
+              className="h-14 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}

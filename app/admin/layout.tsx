@@ -11,7 +11,7 @@ import {
   Users,
   Scissors,
   MessageSquare,
-  Image,
+  Image as ImageIcon,
   Settings,
   LogOut,
   Menu,
@@ -64,7 +64,7 @@ const sidebarGroups = [
       { href: "/admin/barbers", label: "Barbers", icon: Scissors },
       { href: "/admin/services", label: "Services", icon: TrendingUp },
       { href: "/admin/messages", label: "Messages", icon: MessageSquare },
-      { href: "/admin/gallery", label: "Gallery", icon: Image },
+      { href: "/admin/gallery", label: "Gallery", icon: ImageIcon },
     ],
   },
   {

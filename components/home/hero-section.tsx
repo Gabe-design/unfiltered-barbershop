@@ -29,22 +29,23 @@ const stats = [
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0A0A]">
-      {/* Cinematic background gradient simulating a dark barbershop */}
+      {/* Background image */}
       <motion.div
         className="absolute inset-0 z-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#111111] to-[#0A0A0A]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(59,130,246,0.08),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_80%_60%,rgba(59,130,246,0.05),transparent)]" />
-        {/* Simulated light rays */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-2/3 bg-gradient-to-b from-blue-500/20 to-transparent" />
-        <div className="absolute top-0 left-1/3 w-px h-1/2 bg-gradient-to-b from-blue-500/10 to-transparent rotate-6 origin-top" />
-        <div className="absolute top-0 left-2/3 w-px h-1/2 bg-gradient-to-b from-blue-500/10 to-transparent -rotate-6 origin-top" />
-        {/* Noise texture overlay */}
-        <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==')]" />
+        <Image
+          src="/landing-page.png"
+          alt="Unfiltered Barbershop interior"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        {/* Dark overlay so text stays readable */}
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
       </motion.div>
 
       {/* Content */}

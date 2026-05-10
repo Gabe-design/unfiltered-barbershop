@@ -172,20 +172,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                       onClick={() => setSidebarOpen(false)}
                       className={`
                         flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium
-                        transition-all duration-150 group relative
-                        ${
-                          active
-                            ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
-                            : "text-zinc-400 hover:text-white hover:bg-zinc-800/60 border border-transparent"
-                        }
+                        transition-all duration-150 group relative border
+                        ${active ? "text-white border-white/20" : "text-zinc-400 hover:text-white hover:bg-zinc-800/60 border-transparent"}
                       `}
+                      style={active ? { background: "linear-gradient(to right, rgba(185,28,28,0.4), rgba(255,255,255,0.08), rgba(29,78,216,0.4))" } : undefined}
                     >
                       <Icon
-                        className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-blue-400" : "text-zinc-500 group-hover:text-zinc-300"}`}
+                        className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-white" : "text-zinc-500 group-hover:text-zinc-300"}`}
                       />
                       {label}
                       {active && (
-                        <ChevronRight className="w-3 h-3 ml-auto text-blue-500" />
+                        <ChevronRight className="w-3 h-3 ml-auto text-white/70" />
                       )}
                     </Link>
                   );

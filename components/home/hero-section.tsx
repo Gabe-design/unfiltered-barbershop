@@ -56,10 +56,11 @@ export default function HeroSection() {
           variants={slideUp}
           initial="hidden"
           animate="visible"
-          className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm"
+          className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20"
+          style={{ background: "linear-gradient(to right, rgba(185,28,28,0.5), rgba(255,255,255,0.15), rgba(29,78,216,0.5))" }}
         >
-          <Scissors className="w-3.5 h-3.5 text-blue-400" strokeWidth={2} />
-          <span className="text-blue-400 text-xs font-semibold tracking-widest uppercase">
+          <Scissors className="w-3.5 h-3.5 text-white" strokeWidth={2} />
+          <span className="text-white text-xs font-semibold tracking-widest uppercase">
             Simi Valley&apos;s Premier Barbershop
           </span>
         </motion.div>

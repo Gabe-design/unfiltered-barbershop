@@ -7,31 +7,31 @@ import { Star, ArrowRight } from "lucide-react";
 
 const barbers = [
   {
-    name: "Alex Reyes",
-    initials: "AR",
+    name: "Roman Morales",
+    initials: "RM",
     color: "#3B82F6",
     specialty: "Precision Fades & Designs",
     rating: 5.0,
     bio: "Master barber with 8+ years specializing in precision fades and creative designs.",
-    instagram: "https://instagram.com/alexreyes_cuts",
+    instagram: "https://www.instagram.com/rmblends/",
   },
   {
-    name: "Marcus Williams",
-    initials: "MW",
+    name: "Erick Mendoza",
+    initials: "EM",
     color: "#6366F1",
     specialty: "Beard Grooming & Styling",
     rating: 5.0,
-    bio: "Beard specialist and hair artisan with meticulous attention to detail.",
-    instagram: "https://instagram.com/marcuswilliams_barber",
+    bio: "Senior barber with 6+ years specializing in beard sculpting, razor-sharp line-ups, and hot towel treatments.",
+    instagram: "https://www.instagram.com/erickm_barber/",
   },
   {
-    name: "Jordan Cruz",
-    initials: "JC",
+    name: "Fitted",
+    initials: "FT",
     color: "#8B5CF6",
     specialty: "Hair Enhancements & Line Art",
     rating: 5.0,
-    bio: "Fresh cuts with a modern twist, known for creative line work.",
-    instagram: "https://instagram.com/jordancruz_fresh",
+    bio: "Barber and artist with 5+ years creating bold hair designs, seamless enhancements, and precision line art.",
+    instagram: "https://www.instagram.com/fitted_cuts/",
   },
 ];
 

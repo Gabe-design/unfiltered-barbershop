@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Scissors } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -49,9 +49,10 @@ export function Navbar() {
             <Image
               src="/un.PNG"
               alt="Unfiltered Barbershop"
-              width={140}
-              height={56}
-              className="h-14 w-auto object-contain"
+              width={180}
+              height={72}
+              className="h-16 w-auto object-contain"
+              style={{ filter: "drop-shadow(0 0 6px rgba(255,255,255,0.7)) drop-shadow(0 0 12px rgba(255,255,255,0.4))" }}
               priority
             />
           </Link>

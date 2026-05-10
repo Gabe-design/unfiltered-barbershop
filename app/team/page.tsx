@@ -1,6 +1,7 @@
 ﻿"use client";
 import { InstagramIcon } from '@/components/ui/instagram-icon';
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Star, ArrowRight, Scissors, Mail, Award } from "lucide-react";
@@ -20,50 +21,52 @@ interface Barber {
   gradientFrom: string;
   gradientTo: string;
   skills: string[];
+  image?: string;
 }
 
 const barbers: Barber[] = [
   {
-    name: "Alex Reyes",
+    name: "Roman Morales",
     role: "Master Barber",
     experience: "8+ Years",
     specialty: "Precision Fades & Designs",
-    bio: "Alex has been behind the chair for over 8 years, honing his craft from the streets of LA to the luxury shops of the Valley. Known for his unmatched precision in skin fades and razor-sharp design work, Alex approaches every cut as a blank canvas. His technical mastery and attention to detail have earned him a loyal following of clients who won't sit in anyone else's chair.",
+    bio: "Roman has been behind the chair for over 8 years, honing his craft from the streets of LA to the luxury shops of the Valley. Known for his unmatched precision in skin fades and razor-sharp design work, Roman approaches every cut as a blank canvas. His technical mastery and attention to detail have earned him a loyal following of clients who won't sit in anyone else's chair.",
     rating: 5.0,
     reviewCount: 234,
-    instagram: "@alexreyes.cuts",
-    initials: "AR",
+    instagram: "@rmblends",
+    initials: "RM",
     gradientFrom: "#1e3a5f",
     gradientTo: "#0f2040",
     skills: ["Skin Fades", "Hair Designs", "Texturizing", "Classic Cuts", "Enhancements"],
+    image: "/barbers/roman-morales.jpeg",
   },
   {
-    name: "Marcus Williams",
-    role: "Senior Barber",
-    experience: "6+ Years",
-    specialty: "Beard Grooming & Styling",
-    bio: "Marcus is the resident beard authority at Unfiltered. With six years of experience and a deep passion for facial hair artistry, he transforms beards from rough to refined with surgical precision. Whether you're growing out a full beard or maintaining a clean corporate look, Marcus understands the nuances of beard structure and works with your natural growth patterns to deliver a result you'll be proud of every morning.",
+    name: "[Barber Name]",
+    role: "[Barber Role]",
+    experience: "[Barber Experience]",
+    specialty: "[Barber Specialty]",
+    bio: "[Barber Bio]",
     rating: 5.0,
     reviewCount: 198,
-    instagram: "@marcus.thebarbershop",
-    initials: "MW",
+    instagram: "[Barber Instagram URL]",
+    initials: "[Barber Initials]",
     gradientFrom: "#1a2f4a",
     gradientTo: "#0d1f35",
-    skills: ["Beard Sculpting", "Hot Towel Treatment", "Line-Ups", "Full Cuts", "Skin Care"],
+    skills: ["[Barber Skill 1]", "[Barber Skill 2]", "[Barber Skill 3]", "[Barber Skill 4]", "[Barber Skill 5]"],
   },
   {
-    name: "Jordan Cruz",
+    name: "[Barber Name]",
     role: "Barber & Artist",
     experience: "5+ Years",
-    specialty: "Hair Enhancements & Line Art",
-    bio: "Jordan brings a fine-art sensibility to barbering that's hard to find anywhere else. Specializing in hair enhancements and intricate line art, he's the barber you call when you want your cut to say something. Over five years, Jordan has developed a signature style that blends bold geometric patterns with clean, precise fades. His work routinely goes viral — and his chairs fill up fast.",
+    specialty: "[Barber Specialty]",
+    bio: "[Barber Bio]",
     rating: 5.0,
     reviewCount: 153,
-    instagram: "@jordancruz.art",
-    initials: "JC",
+    instagram: "[Barber Instagram URL]",
+    initials: "[Barber Initials]",
     gradientFrom: "#1c2f4a",
     gradientTo: "#0e1e35",
-    skills: ["Line Art", "Enhancements", "Creative Designs", "Mid Fades", "Textured Cuts"],
+    skills: ["[Barber Skill 1]", "[Barber Skill 2]", "[Barber Skill 3]", "[Barber Skill 4]", "[Barber Skill 5]"],
   },
 ];
 
@@ -108,10 +111,20 @@ function BarberCard({ barber }: { barber: Barber }) {
 
         {/* Avatar */}
         <div className="relative -mb-10 z-10">
-          <div className="w-20 h-20 rounded-2xl border-4 border-[#111111] bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-2xl">
-            <span className="text-white font-black text-xl tracking-wider">
-              {barber.initials}
-            </span>
+          <div className="w-20 h-20 rounded-2xl border-4 border-[#111111] shadow-2xl overflow-hidden">
+            {barber.image ? (
+              <Image
+                src={barber.image}
+                alt={barber.name}
+                width={80}
+                height={80}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+                <span className="text-white font-black text-xl tracking-wider">{barber.initials}</span>
+              </div>
+            )}
           </div>
         </div>
 

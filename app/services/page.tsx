@@ -209,7 +209,7 @@ function ServiceCard({ service }: { service: Service }) {
       {/* CTA */}
       <Link
         href="/booking"
-        className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl bg-white/5 hover:bg-red-700 border border-white/10 hover:border-red-700 text-white/70 hover:text-white text-sm font-semibold transition-all duration-300 group/btn"
+        className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl bg-white/5 hover:[background:linear-gradient(135deg,#B91C1C_0%,#1D4ED8_100%)] border border-white/10 hover:border-transparent text-white/70 hover:text-white text-sm font-semibold transition-all duration-300 group/btn"
       >
         Book This Service
         <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-200" />
@@ -389,8 +389,7 @@ export default function ServicesPage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     href="/booking"
-                    className="inline-flex items-center justify-center gap-2 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-200 hover:brightness-110 active:scale-95"
-                    style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
+                    className="inline-flex items-center justify-center gap-2 bg-white/5 hover:[background:linear-gradient(135deg,#B91C1C_0%,#1D4ED8_100%)] border border-white/10 hover:border-transparent text-white/80 hover:text-white font-bold px-8 py-4 rounded-2xl transition-all duration-200 active:scale-95"
                   >
                     <Scissors className="w-5 h-5" />
                     Book Now

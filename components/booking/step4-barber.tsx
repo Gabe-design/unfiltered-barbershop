@@ -153,7 +153,7 @@ export function Step4Barber() {
                   <p className="text-white font-semibold text-sm leading-tight">
                     {barber.name}
                   </p>
-                  <p className="text-red-400 text-xs mt-0.5 font-medium">
+                  <p className="text-indigo-400 text-xs mt-0.5 font-medium">
                     {barber.specialty}
                   </p>
                 </div>

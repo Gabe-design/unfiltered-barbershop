@@ -78,8 +78,8 @@ export function Step1Service() {
                 "group relative text-left rounded-2xl border p-5 transition-all duration-300 cursor-pointer",
                 "bg-[#111111] hover:bg-[#141414]",
                 isSelected
-                  ? "border-red-500 shadow-lg shadow-red-500/20 ring-1 ring-red-500/50"
-                  : "border-[#262626] hover:border-red-500/40",
+                  ? "border-indigo-500/50 shadow-lg shadow-indigo-500/20 ring-1 ring-indigo-500/30"
+                  : "border-[#262626] hover:border-indigo-500/30",
                 isHouseCall && "sm:col-span-2"
               )}
             >
@@ -88,7 +88,7 @@ export function Step1Service() {
 
               {/* House call badge */}
               {isHouseCall && (
-                <span className="absolute top-4 right-4 flex items-center gap-1.5 bg-red-700/20 border border-red-600/30 text-red-400 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full">
+                <span className="absolute top-4 right-4 flex items-center gap-1.5 bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full">
                   <Home className="w-3 h-3" />
                   At Your Location
                 </span>
@@ -97,24 +97,23 @@ export function Step1Service() {
               {/* Icon */}
               <div
                 className={cn(
-                  "w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300",
-                  isSelected
-                    ? "bg-red-700"
-                    : "bg-white/5 group-hover:bg-red-700/20"
+                  "w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-300",
+                  !isSelected && "bg-white/5 group-hover:bg-indigo-500/10"
                 )}
+                style={isSelected ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
               >
                 {isHouseCall ? (
                   <Home
                     className={cn(
                       "w-5 h-5 transition-colors",
-                      isSelected ? "text-white" : "text-gray-400 group-hover:text-red-400"
+                      isSelected ? "text-white" : "text-gray-400 group-hover:text-indigo-400"
                     )}
                   />
                 ) : (
                   <Scissors
                     className={cn(
                       "w-5 h-5 transition-colors",
-                      isSelected ? "text-white" : "text-gray-400 group-hover:text-red-400"
+                      isSelected ? "text-white" : "text-gray-400 group-hover:text-indigo-400"
                     )}
                   />
                 )}
@@ -134,10 +133,8 @@ export function Step1Service() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span
-                    className={cn(
-                      "text-xl font-bold transition-colors",
-                      isSelected ? "text-red-400" : "text-white"
-                    )}
+                    className={cn("text-xl font-bold transition-colors", !isSelected && "text-white")}
+                    style={isSelected ? { backgroundImage: "linear-gradient(135deg, #B91C1C, #1D4ED8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" } : undefined}
                   >
                     {formatCurrency(s.price)}
                   </span>
@@ -149,11 +146,12 @@ export function Step1Service() {
 
                 <span
                   className={cn(
-                    "text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all duration-300",
+                    "text-xs font-semibold px-3 py-1.5 rounded-lg transition-all duration-300",
                     isSelected
-                      ? "bg-red-700 border-red-600 text-white"
-                      : "border-[#333] text-gray-500 group-hover:border-red-500/50 group-hover:text-red-400"
+                      ? "text-white border-0"
+                      : "border border-[#333] text-gray-500 group-hover:border-indigo-500/30 group-hover:text-indigo-400"
                   )}
+                  style={isSelected ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
                 >
                   {isSelected ? "Selected" : "Select"}
                 </span>
@@ -184,7 +182,8 @@ function AnimatedCheck({ visible }: { visible: boolean }) {
       initial={false}
       animate={visible ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      className="absolute top-4 right-4 w-6 h-6 rounded-full bg-red-700 flex items-center justify-center"
+      className="absolute top-4 right-4 w-6 h-6 rounded-full flex items-center justify-center"
+      style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
     >
       <Check className="w-3.5 h-3.5 text-white" />
     </motion.div>

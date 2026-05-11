@@ -62,7 +62,7 @@ export function Step2AddOns() {
               className={cn(
                 "flex items-center justify-between p-5 rounded-2xl border transition-all duration-300",
                 isActive
-                  ? "bg-red-700/10 border-red-600/50 shadow-sm shadow-red-600/10"
+                  ? "bg-indigo-500/10 border-indigo-500/30 shadow-sm shadow-indigo-500/10"
                   : "bg-[#111111] border-[#262626] hover:border-[#333]"
               )}
             >
@@ -70,9 +70,10 @@ export function Step2AddOns() {
               <div className="flex items-center gap-4">
                 <div
                   className={cn(
-                    "w-10 h-10 rounded-xl flex items-center justify-center transition-colors duration-300 shrink-0",
-                    isActive ? "bg-red-700" : "bg-white/5"
+                    "w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0",
+                    !isActive && "bg-white/5"
                   )}
+                  style={isActive ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
                 >
                   <Sparkles
                     className={cn(
@@ -93,7 +94,7 @@ export function Step2AddOns() {
                   <p
                     className={cn(
                       "text-xs mt-0.5 font-medium",
-                      isActive ? "text-red-400" : "text-gray-500"
+                      isActive ? "text-indigo-400" : "text-gray-500"
                     )}
                   >
                     +{formatCurrency(addOn.price)} each
@@ -110,7 +111,7 @@ export function Step2AddOns() {
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
-                      className="text-red-400 font-semibold text-sm tabular-nums"
+                      className="text-indigo-400 font-semibold text-sm tabular-nums"
                     >
                       {formatCurrency(addOn.price * qty)}
                     </motion.span>
@@ -125,7 +126,7 @@ export function Step2AddOns() {
                       "w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200",
                       qty === 0
                         ? "bg-white/5 text-gray-700 cursor-not-allowed"
-                        : "bg-white/10 text-gray-300 hover:bg-red-500/20 hover:text-red-400 active:scale-90"
+                        : "bg-white/10 text-gray-300 hover:bg-indigo-500/20 hover:text-indigo-400 active:scale-90"
                     )}
                     aria-label={`Remove ${addOn.name}`}
                   >
@@ -147,7 +148,8 @@ export function Step2AddOns() {
 
                   <button
                     onClick={() => toggleAddOn(addOn.id, 1)}
-                    className="w-8 h-8 rounded-lg bg-red-700/20 hover:bg-red-700 text-red-400 hover:text-white flex items-center justify-center transition-all duration-200 active:scale-90"
+                    className="w-8 h-8 rounded-lg text-white flex items-center justify-center transition-all duration-200 active:scale-90 hover:brightness-110"
+                    style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
                     aria-label={`Add ${addOn.name}`}
                   >
                     <Plus className="w-3.5 h-3.5" />
@@ -166,7 +168,7 @@ export function Step2AddOns() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className="mt-5 p-4 rounded-xl bg-red-700/10 border border-red-600/20 flex items-center justify-between"
+            className="mt-5 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-between"
           >
             <div>
               <p className="text-gray-400 text-xs">Service + {activeCount} add-on{activeCount !== 1 ? "s" : ""}</p>

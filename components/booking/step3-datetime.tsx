@@ -146,15 +146,16 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                 "aspect-square flex items-center justify-center rounded-xl text-xs font-medium transition-all duration-200",
                 disabled
                   ? "text-gray-700 cursor-not-allowed"
-                  : "hover:bg-red-700/20 hover:text-red-400 cursor-pointer",
+                  : "hover:bg-indigo-500/10 hover:text-indigo-400 cursor-pointer",
                 isSelected
-                  ? "bg-red-700 text-white shadow-lg shadow-red-600/30 ring-2 ring-red-600/50"
+                  ? "text-white shadow-lg ring-2 ring-indigo-500/40"
                   : disabled
                   ? "text-gray-700"
                   : todayFlag
-                  ? "text-red-400 font-bold"
+                  ? "text-indigo-400 font-bold"
                   : "text-gray-200"
               )}
+              style={isSelected ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
               aria-label={format(day, "MMMM d, yyyy")}
               aria-pressed={isSelected}
             >
@@ -222,9 +223,10 @@ function SlotGroup({ label, Icon, slots, selected, dateStr, onSelect }: SlotGrou
                     ? "bg-amber-500 text-white shadow-lg shadow-amber-500/25"
                     : "bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20"
                   : isSelected
-                  ? "bg-red-700 text-white shadow-lg shadow-red-600/25"
-                  : "bg-white/5 border border-white/10 text-gray-200 hover:bg-red-700/20 hover:border-red-600/40 hover:text-red-400"
+                  ? "text-white shadow-lg"
+                  : "bg-white/5 border border-white/10 text-gray-200 hover:bg-indigo-500/10 hover:border-indigo-500/30 hover:text-indigo-400"
               )}
+              style={status === "available" && isSelected ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
               aria-label={`Select ${formatTime(slot)}`}
               aria-pressed={isSelected}
             >
@@ -368,7 +370,7 @@ export function Step3DateTime() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className="mt-5 p-4 rounded-xl bg-red-700/10 border border-red-600/20 flex items-center justify-between flex-wrap gap-3"
+            className="mt-5 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-between flex-wrap gap-3"
           >
             <div>
               <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-0.5">Selected</p>
@@ -377,7 +379,7 @@ export function Step3DateTime() {
                 {startTime && ` at ${formatTime(startTime)}`}
               </p>
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-red-400">
+            <div className="flex items-center gap-1.5 text-xs text-indigo-400">
               <Clock className="w-3.5 h-3.5" />
               {durationMinutes} min session
             </div>

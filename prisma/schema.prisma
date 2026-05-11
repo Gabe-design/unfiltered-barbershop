@@ -137,6 +137,7 @@ model Booking {
   houseCallZip         String?
   houseCallUnit        String?
   smsReminder          Boolean           @default(false)
+  smsReminderSent      Boolean           @default(false)
   source               BookingSourceType @default(WEBSITE)
   reviewStatus         ReviewStatus      @default(NOT_REQUESTED)
   rebookingReminderSent Boolean          @default(false)

@@ -1,8 +1,9 @@
-﻿"use client";
+"use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Star, Check, ArrowRight, UserCheck } from "lucide-react";
-import { useBookingStore, BARBERS, type Barber } from "@/lib/booking-store";
+import { useBookingStore, type Barber } from "@/lib/booking-store";
 import { cn } from "@/lib/utils";
 
 const NO_PREFERENCE_BARBER: Barber = {
@@ -13,8 +14,6 @@ const NO_PREFERENCE_BARBER: Barber = {
   rating: 5.0,
   reviewCount: 585,
   offersHouseCall: true,
-  initial: "?",
-  color: "bg-gray-700",
 };
 
 function StarRating({ rating }: { rating: number }) {
@@ -35,6 +34,31 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
+function BarberAvatar({ barber, isNoPref, isSelected }: { barber: Barber; isNoPref: boolean; isSelected: boolean }) {
+  if (barber.image) {
+    return (
+      <div className={cn("w-12 h-12 rounded-2xl overflow-hidden shrink-0 transition-all duration-300", isSelected ? "shadow-lg" : "opacity-80 group-hover:opacity-100")}>
+        <Image src={barber.image} alt={barber.name} width={48} height={48} className="w-full h-full object-cover" />
+      </div>
+    );
+  }
+  return (
+    <div
+      className={cn(
+        "w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-300",
+        isSelected ? "shadow-lg opacity-100" : "opacity-80 group-hover:opacity-100",
+        "bg-zinc-700"
+      )}
+    >
+      {isNoPref ? (
+        <UserCheck className="w-6 h-6 text-white" />
+      ) : (
+        <span className="text-white font-bold text-lg">{barber.name.charAt(0)}</span>
+      )}
+    </div>
+  );
+}
+
 export function Step4Barber() {
   const {
     barber: selectedBarber,
@@ -42,11 +66,12 @@ export function Step4Barber() {
     setBarber,
     nextStep,
     prevStep,
+    catalogBarbers,
   } = useBookingStore();
 
   const eligibleBarbers = isHouseCall
-    ? BARBERS.filter((b) => b.offersHouseCall)
-    : BARBERS;
+    ? catalogBarbers.filter((b) => b.offersHouseCall)
+    : catalogBarbers;
 
   const allOptions: Barber[] = [...eligibleBarbers, NO_PREFERENCE_BARBER];
 
@@ -123,19 +148,7 @@ export function Step4Barber() {
 
               {/* Avatar + Name Row */}
               <div className="flex items-center gap-3.5 mb-4">
-                <div
-                  className={cn(
-                    "w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-lg shrink-0 transition-all duration-300",
-                    barber.color,
-                    isSelected ? "shadow-lg" : "opacity-80 group-hover:opacity-100"
-                  )}
-                >
-                  {isNoPref ? (
-                    <UserCheck className="w-6 h-6" />
-                  ) : (
-                    barber.initial
-                  )}
-                </div>
+                <BarberAvatar barber={barber} isNoPref={isNoPref} isSelected={isSelected} />
                 <div>
                   <p className="text-white font-semibold text-sm leading-tight">
                     {barber.name}
@@ -204,4 +217,3 @@ export function Step4Barber() {
     </div>
   );
 }
-

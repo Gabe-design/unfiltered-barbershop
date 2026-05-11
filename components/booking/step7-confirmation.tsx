@@ -17,7 +17,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import Link from "next/link";
-import { useBookingStore, ADD_ONS } from "@/lib/booking-store";
+import { useBookingStore } from "@/lib/booking-store";
 import { cn, formatCurrency, formatDuration, formatTime, SHOP_ADDRESS } from "@/lib/utils";
 
 // ─── Confetti ─────────────────────────────────────────────────────────────────
@@ -169,9 +169,10 @@ export function Step7Confirmation() {
     customerName,
     customerEmail,
     reset,
+    catalogAddOns,
   } = useBookingStore();
 
-  const activeAddOns = ADD_ONS.filter((a) => (selectedAddOns[a.id] ?? 0) > 0);
+  const activeAddOns = catalogAddOns.filter((a) => (selectedAddOns[a.id] ?? 0) > 0);
   const [showConfetti, setShowConfetti] = useState(true);
 
   useEffect(() => {

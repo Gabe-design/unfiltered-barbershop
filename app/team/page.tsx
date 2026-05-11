@@ -1,81 +1,37 @@
-﻿"use client";
-import { InstagramIcon } from '@/components/ui/instagram-icon';
+"use client";
 
+import { useEffect, useState } from "react";
+import { InstagramIcon } from '@/components/ui/instagram-icon';
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Star, ArrowRight, Scissors, Mail, Award } from "lucide-react";
+import { Star, ArrowRight, Scissors, Mail } from "lucide-react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 
-interface Barber {
+interface BarberData {
+  slug: string;
   name: string;
-  role: string;
-  experience: string;
-  specialty: string;
-  bio: string;
+  specialty: string | null;
+  bio: string | null;
+  instagram: string | null;
+  image: string | null;
   rating: number;
   reviewCount: number;
-  instagram: string;
-  initials: string;
-  gradientFrom: string;
-  gradientTo: string;
-  skills: string[];
-  image?: string;
 }
 
-const barbers: Barber[] = [
-  {
-    name: "Roman Morales",
-    role: "Master Barber",
-    experience: "8+ Years",
-    specialty: "Precision Fades & Designs",
-    bio: "Roman has been behind the chair for over 8 years, honing his craft from the streets of LA to the luxury shops of the Valley. Known for his unmatched precision in skin fades and razor-sharp design work, Roman approaches every cut as a blank canvas. His technical mastery and attention to detail have earned him a loyal following of clients who won't sit in anyone else's chair.",
-    rating: 5.0,
-    reviewCount: 234,
-    instagram: "@rmblends",
-    initials: "RM",
-    gradientFrom: "#1e3a5f",
-    gradientTo: "#0f2040",
-    skills: ["Skin Fades", "Hair Designs", "Texturizing", "Classic Cuts", "Enhancements"],
-    image: "/barbers/roman-morales.jpeg",
-  },
-  {
-    name: "Erick Mendoza",
-    role: "Senior Barber",
-    experience: "6+ Years",
-    specialty: "Beard Grooming & Styling",
-    bio: "Erick is the go-to barber for clients who take their beard as seriously as their cut. With 6 years of experience and a meticulous eye for symmetry, he transforms every beard into a statement. His hot towel treatments and razor-sharp line-ups have built him a reputation as one of the most trusted names in the Valley.",
-    rating: 5.0,
-    reviewCount: 198,
-    instagram: "@erickm_barber",
-    initials: "EM",
-    gradientFrom: "#1a2f4a",
-    gradientTo: "#0d1f35",
-    skills: ["Beard Sculpting", "Skin Fades", "Line Ups", "Hot Towel", "Classic Cuts"],
-  },
-  {
-    name: "Fitted",
-    role: "Barber & Artist",
-    experience: "5+ Years",
-    specialty: "Hair Enhancements & Line Art",
-    bio: "Fitted brings a creative edge to every appointment. Known for his bold hair designs and seamless enhancement work, he turns heads and starts conversations. Five years deep in the craft, Fitted operates at the intersection of precision and artistry - every line intentional, every cut a reflection of the client's identity.",
-    rating: 5.0,
-    reviewCount: 153,
-    instagram: "@fitted_cuts",
-    initials: "FT",
-    gradientFrom: "#1c2f4a",
-    gradientTo: "#0e1e35",
-    skills: ["Line Art", "Enhancements", "Creative Designs", "Fades", "Shape Ups"],
-  },
-];
+function instagramHandle(raw: string | null): string {
+  if (!raw) return "";
+  return raw
+    .replace(/^https?:\/\/(www\.)?instagram\.com\//, "")
+    .replace(/\/$/, "")
+    .replace(/^@/, "");
+}
 
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
+    transition: { staggerChildren: 0.12 },
   },
 };
 
@@ -84,24 +40,23 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] as [number,number,number,number] },
+    transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] },
   },
 };
 
-function BarberCard({ barber }: { barber: Barber }) {
+function BarberCard({ barber }: { barber: BarberData }) {
+  const handle = instagramHandle(barber.instagram);
+
   return (
     <motion.div
       variants={cardVariants}
       className="bg-[#111111] border border-[#262626] hover:border-red-500/30 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-[0_16px_60px_rgba(220,38,38,0.09)] group"
     >
-      {/* Top visual: avatar + gradient header */}
+      {/* Card header with avatar */}
       <div
         className="relative h-52 flex items-end px-8 pb-0"
-        style={{
-          background: `linear-gradient(135deg, ${barber.gradientFrom} 0%, ${barber.gradientTo} 100%)`,
-        }}
+        style={{ background: "linear-gradient(135deg, #1e3a5f 0%, #0f2040 100%)" }}
       >
-        {/* Subtle pattern overlay */}
         <div className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: "radial-gradient(circle at 2px 2px, rgba(220,38,38,0.4) 1px, transparent 0)",
@@ -109,9 +64,8 @@ function BarberCard({ barber }: { barber: Barber }) {
           }}
         />
 
-        {/* Avatar */}
         <div className="relative -mb-10 z-10">
-          <div className="w-20 h-20 rounded-2xl border-4 border-[#111111] shadow-2xl overflow-hidden">
+          <div className="w-20 h-20 rounded-2xl border-4 border-[#111111] shadow-2xl overflow-hidden bg-zinc-700 flex items-center justify-center">
             {barber.image ? (
               <Image
                 src={barber.image}
@@ -122,27 +76,27 @@ function BarberCard({ barber }: { barber: Barber }) {
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
-                <span className="text-white font-black text-xl tracking-wider">{barber.initials}</span>
+                <span className="text-white font-black text-xl tracking-wider">
+                  {barber.name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
+                </span>
               </div>
             )}
           </div>
-        </div>
-
-        {/* Experience badge */}
-        <div className="absolute top-5 right-6 bg-black/40 backdrop-blur-sm border border-white/15 rounded-xl px-3 py-1.5">
-          <span className="text-white/80 text-xs font-bold tracking-wide">{barber.experience}</span>
         </div>
       </div>
 
       {/* Content */}
       <div className="pt-14 px-8 pb-8">
-        {/* Name + rating */}
         <div className="flex items-start justify-between gap-3 mb-2">
           <div>
             <h3 className="text-white font-black text-2xl leading-none mb-1">
               {barber.name}
             </h3>
-            <p className="text-sm font-semibold text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>{barber.role}</p>
+            {barber.specialty && (
+              <p className="text-sm font-semibold text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
+                {barber.specialty}
+              </p>
+            )}
           </div>
           <div className="text-right shrink-0">
             <div className="flex items-center gap-1 justify-end mb-0.5">
@@ -156,26 +110,9 @@ function BarberCard({ barber }: { barber: Barber }) {
           </div>
         </div>
 
-        {/* Specialty badge */}
-        <div className="inline-flex items-center gap-1.5 bg-red-700/12 border border-red-500/20 rounded-full px-3.5 py-1.5 mb-5 mt-3">
-          <Award className="w-3.5 h-3.5 text-white/60" />
-          <span className="text-xs font-semibold text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>{barber.specialty}</span>
-        </div>
-
-        {/* Bio */}
-        <p className="text-white/55 text-sm leading-relaxed mb-6">{barber.bio}</p>
-
-        {/* Skills */}
-        <div className="flex flex-wrap gap-2 mb-7">
-          {barber.skills.map((skill) => (
-            <span
-              key={skill}
-              className="bg-white/5 border border-white/10 text-white/50 text-xs font-medium px-3 py-1 rounded-full"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
+        {barber.bio && (
+          <p className="text-white/55 text-sm leading-relaxed mt-4 mb-6">{barber.bio}</p>
+        )}
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-3">
@@ -188,15 +125,17 @@ function BarberCard({ barber }: { barber: Barber }) {
             Book With {barber.name.split(" ")[0]}
             <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-200" />
           </Link>
-          <a
-            href={`https://instagram.com/${barber.instagram.replace("@", "")}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white/60 hover:text-white text-sm font-semibold py-3.5 px-5 rounded-xl transition-all duration-200"
-          >
-            <InstagramIcon className="w-4 h-4" />
-            {barber.instagram}
-          </a>
+          {handle && (
+            <a
+              href={`https://instagram.com/${handle}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white/60 hover:text-white text-sm font-semibold py-3.5 px-5 rounded-xl transition-all duration-200"
+            >
+              <InstagramIcon className="w-4 h-4" />
+              @{handle}
+            </a>
+          )}
         </div>
       </div>
     </motion.div>
@@ -204,6 +143,17 @@ function BarberCard({ barber }: { barber: Barber }) {
 }
 
 export default function TeamPage() {
+  const [barbers, setBarbers] = useState<BarberData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/barbers")
+      .then((r) => r.json())
+      .then((data) => setBarbers(Array.isArray(data) ? data : []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -235,7 +185,6 @@ export default function TeamPage() {
               </p>
             </motion.div>
 
-            {/* Stats row */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -244,7 +193,7 @@ export default function TeamPage() {
             >
               {[
                 { value: "585+", label: "5-Star Reviews" },
-                { value: "3", label: "Expert Barbers" },
+                { value: String(barbers.length || "3"), label: "Expert Barbers" },
                 { value: "5.0", label: "Avg Rating" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
@@ -259,17 +208,23 @@ export default function TeamPage() {
         {/* Team Cards */}
         <section className="py-8 pb-24 px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-              className="grid grid-cols-1 lg:grid-cols-3 gap-7"
-            >
-              {barbers.map((barber) => (
-                <BarberCard key={barber.name} barber={barber} />
-              ))}
-            </motion.div>
+            {loading ? (
+              <div className="flex justify-center py-16">
+                <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+              </div>
+            ) : (
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+                className="grid grid-cols-1 lg:grid-cols-3 gap-7"
+              >
+                {barbers.map((barber) => (
+                  <BarberCard key={barber.slug} barber={barber} />
+                ))}
+              </motion.div>
+            )}
           </div>
         </section>
 
@@ -288,8 +243,8 @@ export default function TeamPage() {
               </div>
 
               <div className="relative">
-                <div className="w-14 h-14 rounded-2xl bg-red-700/15 border border-red-500/20 flex items-center justify-center mx-auto mb-6">
-                  <Scissors className="w-6 h-6 text-amber-400" />
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-6" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                  <Scissors className="w-6 h-6 text-white" />
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 tracking-tight">
                   Join Our Team
@@ -316,5 +271,3 @@ export default function TeamPage() {
     </>
   );
 }
-
-

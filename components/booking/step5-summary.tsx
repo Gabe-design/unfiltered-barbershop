@@ -10,7 +10,7 @@ import {
   CheckCircle,
   DollarSign,
 } from "lucide-react";
-import { useBookingStore, ADD_ONS } from "@/lib/booking-store";
+import { useBookingStore } from "@/lib/booking-store";
 import { formatCurrency, formatDuration, formatTime } from "@/lib/utils";
 
 interface SummaryRowProps {
@@ -66,9 +66,10 @@ export function Step5Summary() {
     nextStep,
     prevStep,
     setStep,
+    catalogAddOns,
   } = useBookingStore();
 
-  const activeAddOns = ADD_ONS.filter((a) => (selectedAddOns[a.id] ?? 0) > 0);
+  const activeAddOns = catalogAddOns.filter((a) => (selectedAddOns[a.id] ?? 0) > 0);
   const addOnTotal = activeAddOns.reduce(
     (sum, a) => sum + a.price * (selectedAddOns[a.id] ?? 0),
     0

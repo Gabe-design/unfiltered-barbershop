@@ -40,22 +40,22 @@ const serviceOptions = [
 
 const testimonials = [
   {
-    name: "Darius M.",
+    name: "Deandre Wright",
     review:
-      "Alex gave me the cleanest fade I've ever had. The atmosphere is elite - feels like a luxury lounge, not a typical barbershop.",
+      "If you want an amazing, clean, high end location — incredible work, attention to detail, a friendly and knowledgeable barber. One of the best barber experiences you will ever have. You've found the right place!",
     service: "Haircut",
   },
   {
-    name: "Kevin T.",
+    name: "John Guzman",
     review:
-      "Walked in for a beard trim and left feeling like a new man. Marcus is an absolute artist with a straight razor.",
-    service: "Beard Trim",
+      "Ya just don't come for a haircut. Ya come to get the best experience. Every one of these guys are amazing, professional and welcome you like you're part of a tight knit group. Money well spent.",
+    service: "Haircut",
   },
   {
-    name: "Marcus L.",
+    name: "chad griebel",
     review:
-      "Best barbershop in the valley, period. The design on my fade was so crisp I got compliments all week long.",
-    service: "Haircut & Design",
+      "It was our first time coming here. I brought my 8 year old son for a standard cut and it looks great! The service was amazing. Everyone there was so nice and accommodating. Very happy with our experience!",
+    service: "Haircut",
   },
 ];
 
@@ -442,7 +442,7 @@ export default function ContactPage() {
               className="text-center mb-12"
             >
               <span className="inline-block text-xs font-bold tracking-[0.3em] uppercase mb-4 text-yellow-400">
-                Google Reviews
+                Reviews
               </span>
               <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 tracking-tight">
                 585+ Five-Star Reviews
@@ -452,7 +452,7 @@ export default function ContactPage() {
                   <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="text-white/40 text-sm">Rated 5.0 on Google Business</p>
+              <p className="text-white/40 text-sm">Rated 5.0 · Google & Booksy</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
@@ -488,16 +488,26 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-center"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3"
             >
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Unfiltered+Barbershop+Simi+Valley"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 bg-[#111111] hover:bg-[#161616] border border-[#262626] hover:border-red-500/30 text-white font-semibold px-7 py-4 rounded-2xl transition-all duration-200 group"
+                className="inline-flex items-center gap-2.5 bg-[#111111] hover:bg-[#161616] border border-[#262626] hover:border-yellow-500/30 text-white font-semibold px-7 py-4 rounded-2xl transition-all duration-200 group"
               >
                 <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                 Read All Reviews on Google
+                <ExternalLink className="w-4 h-4 text-white/40 group-hover:text-white/70 transition-colors" />
+              </a>
+              <a
+                href="https://booksy.com/en-us/436530_unfiltered-barbershop_barber-shop_134644_simi-valley#reviews-section"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 bg-[#111111] hover:bg-[#161616] border border-[#262626] hover:border-indigo-500/30 text-white font-semibold px-7 py-4 rounded-2xl transition-all duration-200 group"
+              >
+                <Star className="w-4 h-4 fill-indigo-400 text-indigo-400" />
+                See 585+ Reviews on Booksy
                 <ExternalLink className="w-4 h-4 text-white/40 group-hover:text-white/70 transition-colors" />
               </a>
             </motion.div>

@@ -8,40 +8,82 @@ import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Darius M.",
+    name: "Jonathan Contreras",
     review:
-      "Alex gave me the cleanest fade I've ever had. The atmosphere is elite - feels like a luxury lounge.",
+      "I can confidently say this is hands down the best barbershop experience I've ever had. From the moment I walked in, I was greeted with a warm welcome. Absolutely coming back.",
     service: "Haircut",
   },
   {
-    name: "Kevin T.",
+    name: "John Guzman",
     review:
-      "Walked in for a beard trim and left feeling like a new man. Marcus is an artist.",
-    service: "Beard Trim",
+      "Ya just don't come for a haircut. Ya come to get the best experience. Every one of these guys are amazing, professional and welcome you like you're part of a tight knit group. Money well spent.",
+    service: "Haircut",
   },
   {
-    name: "Jordan P.",
+    name: "Deandre Wright",
     review:
-      "Booked a house call for a special event and they absolutely delivered. Professional, on time.",
-    service: "House Call",
+      "If you want an amazing, clean, high end location — incredible work, attention to detail, a friendly and knowledgeable barber. One of the best barber experiences you will ever have.",
+    service: "Haircut",
   },
   {
-    name: "Marcus L.",
+    name: "Alex Dominguez",
     review:
-      "Best barbershop in the valley, period. The design on my fade was so crisp I got compliments all week.",
+      "I was genuinely surprised at the quality of my haircut and the accuracy of what I asked for. EM hooked it up for sure. I'll be back soon!",
+    service: "Haircut",
+  },
+  {
+    name: "chad griebel",
+    review:
+      "First time here with my 8 year old son — the cut looks great! Everyone was so nice and accommodating. Very happy with our experience!",
+    service: "Haircut",
+  },
+  {
+    name: "Pedro Rangel",
+    review:
+      "Cut came out legit. Great conversation too. Will definitely be back.",
+    service: "Haircut",
+  },
+  {
+    name: "Sue",
+    review:
+      "Sal is great!! Loved the haircut and will definitely be back!!",
     service: "Haircut & Design",
   },
   {
-    name: "Chris V.",
+    name: "Ace",
     review:
-      "I've been to shops in LA and Miami - Unfiltered matches that energy right here in Simi Valley.",
+      "Cory is the GOAT. It was quick and easy to schedule with him and he did a great job helping me figure out what exactly I wanted.",
     service: "Haircut",
   },
   {
-    name: "Anthony R.",
+    name: "Kelli",
     review:
-      "The haircut + beard combo is a total package. Jordan had me looking fresh for my interview.",
-    service: "Haircut & Beard",
+      "Juan was amazing! My son is super happy with his haircut!",
+    service: "Haircut",
+  },
+  {
+    name: "RAD",
+    review:
+      "Roman definitely deserves 5-Stars! Stayed super late to take an impromptu appointment for me. Sweet haircut, great atmosphere with cool fishtank & definitely the best Barbershop in Simi. A+",
+    service: "Haircut",
+  },
+  {
+    name: "Anthony Salcido",
+    review:
+      "When I showed up I was impressed by how clean the barbershop was! Everything spotless! Hospitable and professional! They offered my young sons snacks and me a cold beverage. Leylo took his time and left me with a clean cut.",
+    service: "Haircut",
+  },
+  {
+    name: "Saul Leyva",
+    review:
+      "Great service, everyone is super friendly and it seems like an awesome place to regularly get your haircuts. 10/10",
+    service: "Haircut",
+  },
+  {
+    name: "Raymond Avalos",
+    review:
+      "Awesome possum. Great haircut. Great vibes. They turned me from a solid 3 to a flaky 7.8 best they could do bcuz I'm ugly.",
+    service: "Haircut",
   },
 ];
 

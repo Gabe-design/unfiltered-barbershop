@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
 import { Navbar } from "@/components/layout/navbar";
@@ -12,7 +13,7 @@ import { Step5Summary } from "@/components/booking/step5-summary";
 import { Step6CustomerInfo } from "@/components/booking/step6-customer-info";
 import { Step7Confirmation } from "@/components/booking/step7-confirmation";
 import { OrderSidebar } from "@/components/booking/order-sidebar";
-import { useBookingStore } from "@/lib/booking-store";
+import { useBookingStore, type Service, type AddOn, type Barber } from "@/lib/booking-store";
 import { cn } from "@/lib/utils";
 
 // ─── Step Definitions ─────────────────────────────────────────────────────────
@@ -140,8 +141,63 @@ function StepContent({ step }: { step: number }) {
 
 // ─── Booking Page ─────────────────────────────────────────────────────────────
 
+function nameToSlug(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
 export default function BookingPage() {
-  const { step, isHouseCall } = useBookingStore();
+  const { step, isHouseCall, setCatalog, setCatalogLoading } = useBookingStore();
+
+  useEffect(() => {
+    const loadCatalog = async () => {
+      try {
+        const [servicesRes, barbersRes] = await Promise.all([
+          fetch("/api/services"),
+          fetch("/api/barbers"),
+        ]);
+        const rawServices = await servicesRes.json();
+        const rawBarbers = await barbersRes.json();
+
+        const services: Service[] = rawServices.map((s: Record<string, unknown>) => ({
+          id: s.slug as string,
+          name: s.name as string,
+          price: s.price as number,
+          duration: s.duration as number,
+          description: (s.description as string) ?? "",
+          isHouseCall: s.isHouseCall as boolean,
+        }));
+
+        // Collect unique add-ons across all services, deduped by slug
+        const addOnMap = new Map<string, AddOn>();
+        for (const s of rawServices) {
+          for (const a of (s.addOns as Array<Record<string, unknown>>) ?? []) {
+            const slug = nameToSlug(a.name as string);
+            if (!addOnMap.has(slug)) {
+              addOnMap.set(slug, { id: slug, name: a.name as string, price: a.price as number, quantity: 0 });
+            }
+          }
+        }
+        const addOns = Array.from(addOnMap.values());
+
+        const barbers: Barber[] = rawBarbers.map((b: Record<string, unknown>) => ({
+          id: b.slug as string,
+          name: b.name as string,
+          specialty: (b.specialty as string) ?? "",
+          bio: (b.bio as string) ?? "",
+          rating: (b.rating as number) ?? 5.0,
+          reviewCount: (b.reviewCount as number) ?? 0,
+          offersHouseCall: b.offersHouseCall as boolean,
+          image: b.image as string | null,
+        }));
+
+        setCatalog(services, addOns, barbers);
+      } catch {
+        setCatalogLoading(false);
+      }
+    };
+    loadCatalog();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const showSidebar = step >= 3 && step < 7;
   const isConfirmation = step === 7;

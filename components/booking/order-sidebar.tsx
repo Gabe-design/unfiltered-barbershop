@@ -1,13 +1,10 @@
 ﻿"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { X, Clock, DollarSign, Calendar, Scissors } from "lucide-react";
 import { format } from "date-fns";
-import {
-  useBookingStore,
-  ADD_ONS,
-  type AddOnId,
-} from "@/lib/booking-store";
+import { useBookingStore } from "@/lib/booking-store";
 import { cn, formatCurrency, formatDuration, formatTime } from "@/lib/utils";
 
 export function OrderSidebar() {
@@ -23,9 +20,10 @@ export function OrderSidebar() {
     isHouseCall,
     toggleAddOn,
     setStep,
+    catalogAddOns,
   } = useBookingStore();
 
-  const activeAddOns = ADD_ONS.filter((a) => (selectedAddOns[a.id] ?? 0) > 0);
+  const activeAddOns = catalogAddOns.filter((a) => (selectedAddOns[a.id] ?? 0) > 0);
   const hasContent = !!service;
 
   if (!hasContent || step < 3) return null;
@@ -113,7 +111,7 @@ export function OrderSidebar() {
                     >
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() => toggleAddOn(addOn.id as AddOnId, -1)}
+                          onClick={() => toggleAddOn(addOn.id, -1)}
                           className="w-4 h-4 rounded-full bg-white/10 hover:bg-red-500/30 flex items-center justify-center transition-colors"
                           aria-label={`Remove ${addOn.name}`}
                         >
@@ -142,20 +140,19 @@ export function OrderSidebar() {
           {/* Barber */}
           {barber && (
             <div className="flex items-center gap-3">
-              <div
-                className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0",
-                  barber.color
+              <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-zinc-700 flex items-center justify-center text-white text-xs font-bold">
+                {barber.image ? (
+                  <Image src={barber.image} alt={barber.name} width={32} height={32} className="w-full h-full object-cover" />
+                ) : (
+                  barber.name.charAt(0)
                 )}
-              >
-                {barber.initial}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-[10px] text-gray-500 uppercase tracking-widest font-medium leading-none mb-0.5">
                   Barber
                 </p>
                 <p className="text-white text-sm font-medium truncate">
-                  {barber.name === "no-preference" ? "No Preference" : barber.name}
+                  {barber.id === "no-preference" ? "No Preference" : barber.name}
                 </p>
               </div>
               <button

@@ -2,6 +2,7 @@
 import { InstagramIcon } from '@/components/ui/instagram-icon';
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   Plus,
   Pencil,
@@ -41,6 +42,7 @@ interface Barber {
   bio?: string | null;
   specialty?: string | null;
   instagram?: string | null;
+  image?: string | null;
   isActive: boolean;
   offersHouseCall: boolean;
   displayOrder: number;
@@ -54,6 +56,7 @@ interface BarberForm {
   bio: string;
   specialty: string;
   instagram: string;
+  image: string;
   isActive: boolean;
   offersHouseCall: boolean;
   displayOrder: number;
@@ -66,6 +69,7 @@ const DEFAULT_FORM: BarberForm = {
   bio: "",
   specialty: "",
   instagram: "",
+  image: "",
   isActive: true,
   offersHouseCall: false,
   displayOrder: 0,
@@ -126,8 +130,12 @@ function BarberCard({
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center flex-shrink-0">
-            <User className="w-5 h-5 text-indigo-400" />
+          <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+            {barber.image ? (
+              <Image src={barber.image} alt={barber.name} width={40} height={40} className="w-full h-full object-cover" />
+            ) : (
+              <User className="w-5 h-5 text-indigo-400" />
+            )}
           </div>
           <div>
             <h3 className="text-white font-semibold">{barber.name}</h3>
@@ -163,13 +171,13 @@ function BarberCard({
         <span>{barber._count?.bookings ?? 0} bookings</span>
         {barber.instagram && (
           <a
-            href={`https://instagram.com/${barber.instagram.replace("@", "")}`}
+            href={`https://instagram.com/${barber.instagram.replace(/^https?:\/\/(www\.)?instagram\.com\//, "").replace(/\/$/, "").replace("@", "")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-pink-400 hover:text-pink-300"
           >
             <InstagramIcon className="w-3 h-3" />
-            {barber.instagram}
+            {barber.instagram.replace(/^https?:\/\/(www\.)?instagram\.com\//, "").replace(/\/$/, "").replace("@", "")}
           </a>
         )}
       </div>
@@ -256,6 +264,7 @@ function BarberModal({
           bio: barber.bio ?? "",
           specialty: barber.specialty ?? "",
           instagram: barber.instagram ?? "",
+          image: barber.image ?? "",
           isActive: barber.isActive,
           offersHouseCall: barber.offersHouseCall,
           displayOrder: barber.displayOrder,
@@ -264,8 +273,28 @@ function BarberModal({
       : DEFAULT_FORM
   );
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const overlayRef = useRef<HTMLDivElement>(null);
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("folder", "barbers");
+      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      if (data.url) setForm((f) => ({ ...f, image: data.url }));
+    } catch {
+      // upload failed silently
+    } finally {
+      setUploading(false);
+    }
+  };
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -316,6 +345,49 @@ function BarberModal({
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
+          {/* Profile photo */}
+          <div>
+            <label className="text-zinc-400 text-xs font-medium uppercase tracking-wide block mb-2">
+              Profile Photo
+            </label>
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 bg-zinc-800 border border-zinc-700 flex items-center justify-center">
+                {form.image ? (
+                  <Image src={form.image} alt="Profile" width={80} height={80} className="w-full h-full object-cover" />
+                ) : (
+                  <User className="w-8 h-8 text-zinc-600" />
+                )}
+              </div>
+              <div className="space-y-2">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 disabled:opacity-50 transition-all"
+                >
+                  {uploading ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Plus className="w-3 h-3" />}
+                  {uploading ? "Uploading…" : form.image ? "Change Photo" : "Upload Photo"}
+                </button>
+                {form.image && (
+                  <button
+                    type="button"
+                    onClick={() => setForm((f) => ({ ...f, image: "" }))}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-zinc-500 hover:text-red-400 transition-colors"
+                  >
+                    <X className="w-3 h-3" /> Remove
+                  </button>
+                )}
+              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handlePhotoUpload}
+              />
+            </div>
+          </div>
+
           {/* Basic info */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -329,19 +401,6 @@ function BarberModal({
                 placeholder="e.g. Marco Rodriguez"
                 className="w-full bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
                   px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-zinc-600 transition-colors"
-              />
-            </div>
-            <div>
-              <label className="text-zinc-400 text-xs font-medium uppercase tracking-wide block mb-1.5">
-                Slug *
-              </label>
-              <input
-                required
-                value={form.slug}
-                onChange={(e) => setForm((f) => ({ ...f, slug: slugify(e.target.value) }))}
-                placeholder="e.g. marco-rodriguez"
-                className="w-full bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
-                  px-3 py-2 focus:outline-none focus:border-blue-500 placeholder:text-zinc-600 transition-colors font-mono"
               />
             </div>
             <div>

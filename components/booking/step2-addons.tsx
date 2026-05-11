@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, ArrowRight, Sparkles } from "lucide-react";
-import { useBookingStore, ADD_ONS, type AddOnId } from "@/lib/booking-store";
+import { useBookingStore } from "@/lib/booking-store";
 import { cn, formatCurrency } from "@/lib/utils";
 
 export function Step2AddOns() {
@@ -13,6 +13,7 @@ export function Step2AddOns() {
     totalPrice,
     nextStep,
     prevStep,
+    catalogAddOns,
   } = useBookingStore();
 
   const activeCount = Object.values(selectedAddOns).filter((q) => q > 0).length;
@@ -47,8 +48,8 @@ export function Step2AddOns() {
         }}
         className="space-y-3"
       >
-        {ADD_ONS.map((addOn) => {
-          const qty = selectedAddOns[addOn.id as AddOnId] ?? 0;
+        {catalogAddOns.map((addOn) => {
+          const qty = selectedAddOns[addOn.id] ?? 0;
           const isActive = qty > 0;
 
           return (
@@ -118,7 +119,7 @@ export function Step2AddOns() {
 
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => toggleAddOn(addOn.id as AddOnId, -1)}
+                    onClick={() => toggleAddOn(addOn.id, -1)}
                     disabled={qty === 0}
                     className={cn(
                       "w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200",
@@ -145,7 +146,7 @@ export function Step2AddOns() {
                   </AnimatePresence>
 
                   <button
-                    onClick={() => toggleAddOn(addOn.id as AddOnId, 1)}
+                    onClick={() => toggleAddOn(addOn.id, 1)}
                     className="w-8 h-8 rounded-lg bg-red-700/20 hover:bg-red-700 text-red-400 hover:text-white flex items-center justify-center transition-all duration-200 active:scale-90"
                     aria-label={`Add ${addOn.name}`}
                   >

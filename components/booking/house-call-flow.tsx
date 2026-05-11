@@ -1,10 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-
 
 import { format } from "date-fns";
 import {
@@ -19,7 +19,7 @@ import {
   ArrowRight,
   Info,
 } from "lucide-react";
-import { useBookingStore, BARBERS } from "@/lib/booking-store";
+import { useBookingStore } from "@/lib/booking-store";
 import { cn, generateConfirmationId } from "@/lib/utils";
 
 // ─── Schema ───────────────────────────────────────────────────────────────────
@@ -85,27 +85,6 @@ function Field({
   );
 }
 
-// ─── House Call Barbers ───────────────────────────────────────────────────────
-
-type BarberOption = { id: string; name: string; specialty: string; initial: string; color: string };
-const houseCallBarbers = BARBERS.filter((b) => b.offersHouseCall);
-const barberOptions: BarberOption[] = [
-  ...houseCallBarbers.map((b) => ({
-    id: b.id,
-    name: b.name,
-    specialty: b.specialty,
-    initial: b.initial,
-    color: b.color,
-  })),
-  {
-    id: "no-preference",
-    name: "No Preference",
-    specialty: "Next Available",
-    initial: "?",
-    color: "bg-gray-700",
-  },
-];
-
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function HouseCallFlow() {
@@ -130,7 +109,24 @@ export function HouseCallFlow() {
     nextStep,
     service,
     totalPrice,
+    catalogBarbers,
   } = useBookingStore();
+
+  const houseCallBarbers = catalogBarbers.filter((b) => b.offersHouseCall);
+  const barberOptions = [
+    ...houseCallBarbers.map((b) => ({
+      id: b.id,
+      name: b.name,
+      specialty: b.specialty,
+      image: b.image,
+    })),
+    {
+      id: "no-preference",
+      name: "No Preference",
+      specialty: "Next Available",
+      image: null as string | null | undefined,
+    },
+  ];
 
   const {
     register,
@@ -156,7 +152,6 @@ export function HouseCallFlow() {
   const specialInstructions = watch("specialInstructions") ?? "";
 
   const onSubmit = async (data: HouseCallFormData) => {
-    // Persist to store
     setHouseCallInfo({
       houseCallAddress: data.houseCallAddress,
       houseCallUnit: data.houseCallUnit ?? "",
@@ -170,8 +165,20 @@ export function HouseCallFlow() {
       notes: data.specialInstructions,
     });
 
-    const chosenBarber = BARBERS.find((b) => b.id === data.barberId);
-    if (chosenBarber) setBarber(chosenBarber);
+    const chosenBarber = catalogBarbers.find((b) => b.id === data.barberId);
+    if (chosenBarber) {
+      setBarber(chosenBarber);
+    } else if (data.barberId === "no-preference") {
+      setBarber({
+        id: "no-preference",
+        name: "No Preference",
+        specialty: "Any Available Barber",
+        bio: "",
+        rating: 5.0,
+        reviewCount: 0,
+        offersHouseCall: true,
+      });
+    }
 
     setIsSubmitting(true);
     setSubmitError(null);
@@ -328,8 +335,12 @@ export function HouseCallFlow() {
                   )}
                 >
                   <input {...register("barberId")} type="radio" value={b.id} className="sr-only" />
-                  <div className={cn("w-8 h-8 rounded-xl flex items-center justify-center text-white text-xs font-bold shrink-0", b.color)}>
-                    {b.initial}
+                  <div className="w-8 h-8 rounded-xl overflow-hidden flex items-center justify-center bg-zinc-700 shrink-0">
+                    {b.image ? (
+                      <Image src={b.image} alt={b.name} width={32} height={32} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-white text-xs font-bold">{b.name.charAt(0)}</span>
+                    )}
                   </div>
                   <div>
                     <p className={cn("text-sm font-medium leading-tight", isSelected ? "text-white" : "text-gray-300")}>

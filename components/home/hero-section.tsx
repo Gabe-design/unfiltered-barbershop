@@ -138,9 +138,9 @@ export default function HeroSection() {
               ))}
             </div>
             <p className="text-white/90 text-sm leading-relaxed italic mb-3">
-              &ldquo;Alex gave me the cleanest fade I&apos;ve ever had. I won&apos;t go anywhere else.&rdquo;
+              &ldquo;Fantastic cut, as always. My boy loved the cut RM Blends gave him.&rdquo;
             </p>
-            <p className="text-white/70 text-sm font-semibold">- Darius M.</p>
+            <p className="text-white/70 text-sm font-semibold">- Jeff</p>
             {/* Verified badge */}
             <div className="absolute -top-3 -right-3 rounded-full px-2.5 py-1 text-[10px] font-bold text-white tracking-wide shadow-lg" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
               VERIFIED

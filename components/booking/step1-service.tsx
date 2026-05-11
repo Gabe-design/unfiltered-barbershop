@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Clock, Check, Home, Scissors, Star } from "lucide-react";
-import { useBookingStore, SERVICES, type Service } from "@/lib/booking-store";
+import { useBookingStore, type Service } from "@/lib/booking-store";
 import { cn, formatCurrency, formatDuration } from "@/lib/utils";
 
 const containerVariants = {
@@ -20,7 +20,7 @@ const cardVariants = {
 };
 
 export function Step1Service() {
-  const { service: selectedService, setService, nextStep, setStep } = useBookingStore();
+  const { service: selectedService, setService, nextStep, setStep, catalogServices, catalogLoading } = useBookingStore();
 
   const handleSelect = (s: Service) => {
     setService(s);
@@ -53,13 +53,18 @@ export function Step1Service() {
       </motion.div>
 
       {/* Service Cards Grid */}
+      {catalogLoading ? (
+        <div className="flex justify-center py-16">
+          <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+        </div>
+      ) : (
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         className="grid grid-cols-1 sm:grid-cols-2 gap-4"
       >
-        {SERVICES.map((s) => {
+        {catalogServices.map((s) => {
           const isSelected = selectedService?.id === s.id;
           const isHouseCall = s.isHouseCall;
 
@@ -157,6 +162,7 @@ export function Step1Service() {
           );
         })}
       </motion.div>
+      )}
 
       {/* Note */}
       <motion.p

@@ -133,7 +133,7 @@ function StatusBarChart({ bookings }: { bookings: Booking[] }) {
   );
   const total = bookings.length || 1;
   const items = [
-    { key: "CONFIRMED", label: "Confirmed", color: "bg-red-600" },
+    { key: "CONFIRMED", label: "Confirmed", color: "bg-indigo-500" },
     { key: "PENDING", label: "Pending", color: "bg-amber-500" },
     { key: "COMPLETED", label: "Completed", color: "bg-green-500" },
     { key: "CANCELLED", label: "Cancelled", color: "bg-red-500" },
@@ -233,7 +233,7 @@ export default function AdminDashboard() {
           label="Total Bookings"
           value={total}
           sub="All time"
-          color="bg-red-500/10 text-red-400"
+          color="bg-indigo-500/10 text-indigo-400"
         />
         <StatCard
           icon={DollarSign}
@@ -264,12 +264,12 @@ export default function AdminDashboard() {
         <div className="xl:col-span-2 bg-[#111111] border border-zinc-800 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-800">
             <div className="flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-red-400" />
+              <TrendingUp className="w-4 h-4 text-indigo-400" />
               <h2 className="text-white font-semibold text-sm">Recent Bookings</h2>
             </div>
             <a
               href="/admin/bookings"
-              className="flex items-center gap-1 text-xs text-red-400 hover:text-red-300 transition-colors"
+              className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors"
             >
               View all
               <ArrowUpRight className="w-3 h-3" />
@@ -278,7 +278,7 @@ export default function AdminDashboard() {
 
           {loading ? (
             <div className="p-8 text-center">
-              <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mx-auto" />
+              <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto" />
             </div>
           ) : recent.length === 0 ? (
             <div className="p-8 text-center text-zinc-500 text-sm">No bookings yet.</div>
@@ -358,12 +358,12 @@ export default function AdminDashboard() {
         {/* Status breakdown chart */}
         <div className="bg-[#111111] border border-zinc-800 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-5">
-            <TrendingUp className="w-4 h-4 text-red-400" />
+            <TrendingUp className="w-4 h-4 text-indigo-400" />
             <h2 className="text-white font-semibold text-sm">Status Breakdown</h2>
           </div>
           {loading ? (
             <div className="flex justify-center py-6">
-              <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
+              <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
             </div>
           ) : (
             <StatusBarChart bookings={bookings} />
@@ -393,7 +393,7 @@ export default function AdminDashboard() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-zinc-400 text-xs">Confirmed</span>
-                <span className="text-red-400 text-xs font-medium">{confirmedCount}</span>
+                <span className="text-xs font-medium text-indigo-400">{confirmedCount}</span>
               </div>
             </div>
           </div>

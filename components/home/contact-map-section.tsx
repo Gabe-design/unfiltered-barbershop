@@ -32,7 +32,7 @@ export function ContactMapSection() {
             className="rounded-2xl overflow-hidden border border-[#1a1a1a] h-[400px]"
           >
             <iframe
-              src="https://www.google.com/maps?q=1706+Erringer+Rd+Suite+%234,+Simi+Valley,+CA+93065&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3293.7!2d-118.7609303!3d34.2687571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80e829779b44ec43:0x80169315315984ae!2sUnfiltered+Barbershop!5e0!3m2!1sen!2sus!4v1"
               width="100%"
               height="100%"
               style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}

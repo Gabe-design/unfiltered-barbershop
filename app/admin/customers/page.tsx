@@ -40,7 +40,7 @@ const VIP_COLORS: Record<string, string> = {
   BRONZE: "bg-amber-900/40 text-amber-400",
   SILVER: "bg-zinc-600/40 text-zinc-300",
   GOLD: "bg-yellow-900/40 text-yellow-400",
-  PLATINUM: "bg-red-900/40 text-red-400",
+  PLATINUM: "bg-purple-900/40 text-purple-400",
 };
 
 export default function CustomersPage() {
@@ -75,8 +75,8 @@ export default function CustomersPage() {
     <div className="p-6 space-y-5 max-w-7xl mx-auto">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-red-500/10 rounded-lg">
-            <Users className="w-4 h-4 text-red-400" />
+          <div className="p-2 bg-indigo-500/10 rounded-lg">
+            <Users className="w-4 h-4 text-indigo-400" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-white">CRM</h1>
@@ -91,7 +91,7 @@ export default function CustomersPage() {
               onChange={(e) => { setSearch(e.target.value); setPage(1); }}
               placeholder="Search name, email, phone…"
               className="pl-9 pr-4 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-white text-xs
-                placeholder-zinc-600 focus:outline-none focus:border-red-500 w-56 transition-colors"
+                placeholder-zinc-600 focus:outline-none focus:border-indigo-500 w-56 transition-colors"
             />
           </div>
           <button
@@ -106,7 +106,7 @@ export default function CustomersPage() {
       <div className="bg-[#111111] border border-zinc-800 rounded-xl overflow-hidden">
         {loading ? (
           <div className="flex justify-center py-12">
-            <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : customers.length === 0 ? (
           <div className="py-12 text-center text-zinc-500 text-sm">No customers found.</div>
@@ -155,7 +155,7 @@ export default function CustomersPage() {
                     </td>
                     <td className="px-4 py-3">
                       {c.referralCode ? (
-                        <span className="text-red-400 text-xs font-mono">
+                        <span className="text-indigo-400 text-xs font-mono">
                           {c.referralCode.code} <span className="text-zinc-600">({c.referralCode.usedCount})</span>
                         </span>
                       ) : (
@@ -226,7 +226,7 @@ export default function CustomersPage() {
                 { label: "Total Visits", value: selected.visitCount, color: "text-white" },
                 { label: "Total Spent", value: `$${selected.totalSpent.toFixed(0)}`, color: "text-green-400" },
                 { label: "No-Shows", value: selected.noShowCount, color: "text-red-400" },
-                { label: "VIP Status", value: selected.loyaltyProfile?.vipStatus ?? "None", color: "text-red-400" },
+                { label: "VIP Status", value: selected.loyaltyProfile?.vipStatus ?? "None", color: "text-indigo-400" },
               ].map((s) => (
                 <div key={s.label} className="bg-zinc-900 rounded-lg p-3">
                   <p className="text-zinc-500 text-xs">{s.label}</p>
@@ -266,14 +266,14 @@ export default function CustomersPage() {
             {selected.nextSuggestedDate && (
               <div>
                 <p className="text-zinc-500 text-xs mb-1">Next Suggested Visit</p>
-                <p className="text-red-400 text-sm">{format(new Date(selected.nextSuggestedDate), "MMMM d, yyyy")}</p>
+                <p className="text-indigo-400 text-sm">{format(new Date(selected.nextSuggestedDate), "MMMM d, yyyy")}</p>
               </div>
             )}
 
             {selected.referralCode && (
               <div className="bg-zinc-900 rounded-lg p-3">
                 <p className="text-zinc-500 text-xs mb-1">Referral Code</p>
-                <p className="text-red-400 font-mono text-sm font-bold">{selected.referralCode.code}</p>
+                <p className="text-indigo-400 font-mono text-sm font-bold">{selected.referralCode.code}</p>
                 <p className="text-zinc-600 text-xs mt-0.5">{selected.referralCode.usedCount} uses</p>
               </div>
             )}

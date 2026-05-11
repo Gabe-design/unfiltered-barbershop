@@ -7,7 +7,8 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mail, Lock, Loader2, Scissors, AlertCircle } from "lucide-react";
+import Image from "next/image";
+import { Mail, Lock, Loader2, AlertCircle } from "lucide-react";
 import { loginSchema, type LoginData } from "@/lib/validations";
 
 export default function LoginPage() {
@@ -84,13 +85,15 @@ export default function LoginPage() {
       >
         {/* Brand */}
         <div className="flex flex-col items-center mb-8">
-          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-red-700/10 border border-red-500/20 mb-4">
-            <Scissors className="w-7 h-7 text-red-400" />
-          </div>
-          <h1 className="text-xl font-semibold text-white tracking-tight">
-            Unfiltered Barbershop
-          </h1>
-          <p className="text-sm text-zinc-500 mt-1">Simi Valley, CA</p>
+          <Image
+            src="/un.PNG"
+            alt="Unfiltered Barbershop"
+            width={200}
+            height={80}
+            className="h-20 w-auto object-contain"
+            style={{ filter: "drop-shadow(0 0 8px rgba(255,255,255,0.7)) drop-shadow(0 0 16px rgba(255,255,255,0.4))" }}
+            priority
+          />
         </div>
 
         {/* Card */}
@@ -175,7 +178,8 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-red-700 hover:bg-red-600 disabled:bg-red-700/50 disabled:cursor-not-allowed text-white font-medium text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-[#0A0A0A] mt-2"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium text-sm focus:outline-none mt-2 transition-opacity"
+              style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
             >
               {isLoading ? (
                 <>

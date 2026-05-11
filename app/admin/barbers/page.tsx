@@ -126,8 +126,8 @@ function BarberCard({
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
-            <User className="w-5 h-5 text-red-400" />
+          <div className="w-10 h-10 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center flex-shrink-0">
+            <User className="w-5 h-5 text-indigo-400" />
           </div>
           <div>
             <h3 className="text-white font-semibold">{barber.name}</h3>
@@ -193,7 +193,7 @@ function BarberCard({
         <button
           onClick={() => onToggleHouseCall(barber)}
           className={`flex items-center gap-2 text-xs font-medium transition-colors ${
-            barber.offersHouseCall ? "text-red-400" : "text-zinc-500"
+            barber.offersHouseCall ? "text-indigo-400" : "text-zinc-500"
           }`}
         >
           {barber.offersHouseCall ? (
@@ -221,7 +221,7 @@ function BarberCard({
                   key={key}
                   className={`text-xs px-1.5 py-0.5 rounded font-medium ${
                     active
-                      ? "bg-red-500/10 text-red-400 border border-red-500/20"
+                      ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
                       : "bg-zinc-800 text-zinc-600 border border-zinc-700"
                   }`}
                 >
@@ -328,7 +328,7 @@ function BarberModal({
                 onChange={(e) => handleNameChange(e.target.value)}
                 placeholder="e.g. Marco Rodriguez"
                 className="w-full bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
-                  px-3 py-2 focus:outline-none focus:border-red-500 placeholder:text-zinc-600 transition-colors"
+                  px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-zinc-600 transition-colors"
               />
             </div>
             <div>
@@ -353,7 +353,7 @@ function BarberModal({
                 onChange={(e) => setForm((f) => ({ ...f, specialty: e.target.value }))}
                 placeholder="e.g. Precision Fades"
                 className="w-full bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
-                  px-3 py-2 focus:outline-none focus:border-red-500 placeholder:text-zinc-600 transition-colors"
+                  px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-zinc-600 transition-colors"
               />
             </div>
             <div>
@@ -365,7 +365,7 @@ function BarberModal({
                 onChange={(e) => setForm((f) => ({ ...f, instagram: e.target.value }))}
                 placeholder="@handle"
                 className="w-full bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
-                  px-3 py-2 focus:outline-none focus:border-red-500 placeholder:text-zinc-600 transition-colors"
+                  px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-zinc-600 transition-colors"
               />
             </div>
           </div>
@@ -380,7 +380,7 @@ function BarberModal({
               rows={3}
               placeholder="Short bio shown on the team page…"
               className="w-full bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
-                px-3 py-2 focus:outline-none focus:border-red-500 placeholder:text-zinc-600 transition-colors resize-none"
+                px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-zinc-600 transition-colors resize-none"
             />
           </div>
 
@@ -397,7 +397,7 @@ function BarberModal({
                   setForm((f) => ({ ...f, displayOrder: parseInt(e.target.value) || 0 }))
                 }
                 className="w-full bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
-                  px-3 py-2 focus:outline-none focus:border-red-500 transition-colors"
+                  px-3 py-2 focus:outline-none focus:border-indigo-500 transition-colors"
               />
             </div>
           </div>
@@ -423,7 +423,7 @@ function BarberModal({
               <div
                 onClick={() => setForm((f) => ({ ...f, offersHouseCall: !f.offersHouseCall }))}
                 className={`w-10 h-5 rounded-full relative transition-colors ${
-                  form.offersHouseCall ? "bg-red-600" : "bg-zinc-700"
+                  form.offersHouseCall ? "bg-indigo-600" : "bg-zinc-700"
                 }`}
               >
                 <div
@@ -449,7 +449,7 @@ function BarberModal({
                     <div
                       onClick={() => handleScheduleChange(key, "isActive", !slot.isActive)}
                       className={`w-9 h-4.5 rounded-full relative cursor-pointer transition-colors flex-shrink-0 ${
-                        slot.isActive ? "bg-red-600" : "bg-zinc-700"
+                        slot.isActive ? "bg-indigo-600" : "bg-zinc-700"
                       }`}
                       style={{ height: "1.125rem" }}
                     >
@@ -472,7 +472,7 @@ function BarberModal({
                       disabled={!slot.isActive}
                       onChange={(e) => handleScheduleChange(key, "startTime", e.target.value)}
                       className="bg-zinc-900 border border-zinc-700 text-white text-xs rounded-lg
-                        px-2 py-1.5 focus:outline-none focus:border-red-500 transition-colors
+                        px-2 py-1.5 focus:outline-none focus:border-indigo-500 transition-colors
                         disabled:opacity-40 disabled:cursor-not-allowed"
                     />
                     <span className="text-zinc-600 text-xs">–</span>
@@ -482,7 +482,7 @@ function BarberModal({
                       disabled={!slot.isActive}
                       onChange={(e) => handleScheduleChange(key, "endTime", e.target.value)}
                       className="bg-zinc-900 border border-zinc-700 text-white text-xs rounded-lg
-                        px-2 py-1.5 focus:outline-none focus:border-red-500 transition-colors
+                        px-2 py-1.5 focus:outline-none focus:border-indigo-500 transition-colors
                         disabled:opacity-40 disabled:cursor-not-allowed"
                     />
                   </div>
@@ -505,7 +505,7 @@ function BarberModal({
               type="submit"
               disabled={saving}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium
-                text-white bg-red-700 hover:bg-red-600 disabled:opacity-60 transition-all"
+                text-white bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 transition-colors"
             >
               <Save className="w-4 h-4" />
               {saving ? "Saving…" : isNew ? "Create Barber" : "Save Changes"}
@@ -669,7 +669,7 @@ export default function BarbersPage() {
             <button
               onClick={() => setEditBarber(null)}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium
-                text-white bg-red-700 hover:bg-red-600 transition-all"
+                text-white bg-indigo-600 hover:bg-indigo-500 transition-colors"
             >
               <Plus className="w-4 h-4" />
               Add Barber
@@ -680,7 +680,7 @@ export default function BarbersPage() {
         {/* Grid */}
         {loading ? (
           <div className="flex justify-center py-12">
-            <div className="w-8 h-8 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : barbers.length === 0 ? (
           <div className="bg-[#111111] border border-zinc-800 rounded-xl p-12 text-center">

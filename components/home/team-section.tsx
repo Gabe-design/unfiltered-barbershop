@@ -1,6 +1,7 @@
 ﻿"use client";
 import { InstagramIcon } from '@/components/ui/instagram-icon';
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Star, ArrowRight } from "lucide-react";
@@ -14,6 +15,7 @@ const barbers = [
     rating: 5.0,
     bio: "Master barber with 8+ years specializing in precision fades and creative designs.",
     instagram: "https://www.instagram.com/rmblends/",
+    image: "/barbers/roman-morales.jpeg",
   },
   {
     name: "Erick Mendoza",
@@ -91,11 +93,23 @@ export default function TeamSection() {
               className="group relative bg-[#111111] rounded-2xl p-8 border border-white/5 hover:border-white/15 transition-all duration-300 hover:shadow-[0_0_40px_rgba(220,38,38,0.08)] flex flex-col"
             >
               <div className="flex items-start justify-between mb-6">
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0"
-                  style={{ backgroundColor: barber.color }}
-                >
-                  {barber.initials}
+                <div className="w-16 h-16 rounded-full flex-shrink-0 overflow-hidden">
+                  {"image" in barber && barber.image ? (
+                    <Image
+                      src={barber.image}
+                      alt={barber.name}
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="w-full h-full flex items-center justify-center text-white font-bold text-lg"
+                      style={{ backgroundColor: barber.color }}
+                    >
+                      {barber.initials}
+                    </div>
+                  )}
                 </div>
                 <a
                   href={barber.instagram}

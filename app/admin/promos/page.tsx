@@ -64,7 +64,7 @@ function Input({ label, value, onChange, type = "text", placeholder }: {
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm
-          placeholder-zinc-600 focus:outline-none focus:border-red-500 transition-colors"
+          placeholder-zinc-600 focus:outline-none focus:border-indigo-500 transition-colors"
       />
     </div>
   );
@@ -162,7 +162,7 @@ export default function PromosPage() {
           </button>
           <button
             onClick={openCreate}
-            className="flex items-center gap-2 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-lg transition-colors"
+            className="flex items-center gap-2 px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium rounded-lg transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
             New Promo
@@ -172,7 +172,7 @@ export default function PromosPage() {
 
       {loading ? (
         <div className="flex justify-center py-12">
-          <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : promos.length === 0 ? (
         <div className="bg-[#111111] border border-zinc-800 rounded-xl py-12 text-center">
@@ -251,7 +251,7 @@ export default function PromosPage() {
                 <select
                   value={form.discountType}
                   onChange={(e) => setForm({ ...form, discountType: e.target.value as "PERCENTAGE" | "FIXED" })}
-                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-red-500"
+                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
                 >
                   <option value="PERCENTAGE">Percentage (%)</option>
                   <option value="FIXED">Fixed ($)</option>
@@ -284,7 +284,7 @@ export default function PromosPage() {
               <button onClick={() => setShowForm(false)} className="flex-1 py-2.5 rounded-lg text-sm font-medium border border-zinc-700 text-zinc-400 hover:text-white transition-colors">
                 Cancel
               </button>
-              <button onClick={save} disabled={saving} className="flex-1 py-2.5 rounded-lg text-sm font-medium bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 transition-colors">
+              <button onClick={save} disabled={saving} className="flex-1 py-2.5 rounded-lg text-sm font-medium bg-indigo-600 hover:bg-indigo-500 text-white disabled:opacity-50 transition-colors">
                 {saving ? "Saving…" : editing ? "Update" : "Create"}
               </button>
             </div>

@@ -95,7 +95,7 @@ export default async function SeoLandingPage({ params }: Props) {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/booking"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-xl transition-colors text-sm"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-colors text-sm"
               >
                 Book Appointment
                 <ArrowRight className="w-4 h-4" />
@@ -131,12 +131,12 @@ export default async function SeoLandingPage({ params }: Props) {
                   <p className="text-white font-semibold text-sm">{s.name}</p>
                   <p className="text-zinc-500 text-xs mt-0.5">{s.duration}</p>
                 </div>
-                <span className="text-blue-400 font-bold text-lg">{s.price}</span>
+                <span className="text-red-400 font-bold text-lg">{s.price}</span>
               </div>
             ))}
           </div>
           <div className="text-center mt-6">
-            <Link href="/booking" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-xl transition-colors text-sm">
+            <Link href="/booking" className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-colors text-sm">
               Book Now <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -153,7 +153,7 @@ export default async function SeoLandingPage({ params }: Props) {
                     {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />)}
                   </div>
                   <p className="text-zinc-300 text-sm leading-relaxed mb-3">&quot;{r.text}&quot;</p>
-                  <p className="text-zinc-500 text-xs font-medium">— {r.name}</p>
+                  <p className="text-zinc-500 text-xs font-medium">- {r.name}</p>
                 </div>
               ))}
             </div>
@@ -166,18 +166,18 @@ export default async function SeoLandingPage({ params }: Props) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                <MapPin className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-white font-medium">1706 Erringer Rd Suite #4</p>
                   <p className="text-zinc-400 text-sm">Simi Valley, CA 93065</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Phone className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                <a href="tel:+18059999999" className="text-white hover:text-blue-400 transition-colors">(805) 999-9999</a>
+                <Phone className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
+                <a href="tel:+18059999999" className="text-white hover:text-red-400 transition-colors">(805) 999-9999</a>
               </div>
               <div className="flex items-start gap-3">
-                <Clock className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                <Clock className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
                 <div className="text-sm text-zinc-400 space-y-1">
                   <p><span className="text-white">Mon–Fri</span> 9 AM – 7 PM</p>
                   <p><span className="text-white">Saturday</span> 9 AM – 5 PM</p>
@@ -205,7 +205,7 @@ export default async function SeoLandingPage({ params }: Props) {
           <p className="text-zinc-400 mb-8">Book online in seconds. No waiting, no guessing.</p>
           <Link
             href="/booking"
-            className="inline-flex items-center gap-2 px-10 py-4 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-xl transition-colors"
+            className="inline-flex items-center gap-2 px-10 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-colors"
           >
             Book Appointment <ArrowRight className="w-4 h-4" />
           </Link>

@@ -80,11 +80,11 @@ function ServiceCard({ service }: { service: Service }) {
   return (
     <motion.div
       variants={cardVariants}
-      className="group relative flex flex-col bg-[#111111] border border-[#262626] rounded-2xl p-6 hover:border-blue-500/30 transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(59,130,246,0.08)]"
+      className="group relative flex flex-col bg-[#111111] border border-[#262626] rounded-2xl p-6 hover:border-red-500/30 transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(220,38,38,0.08)]"
     >
       {/* House Call premium badge */}
       {isHouseCall && (
-        <div className="absolute -top-3 left-6 bg-blue-600 text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full shadow-lg shadow-blue-500/30">
+        <div className="absolute -top-3 left-6 text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full shadow-lg shadow-red-500/30" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
           Premium
         </div>
       )}
@@ -94,7 +94,7 @@ function ServiceCard({ service }: { service: Service }) {
         <h3 className="text-white font-bold text-base leading-tight group-hover:text-white transition-colors">
           {service.name}
         </h3>
-        <span className="text-blue-400 font-black text-xl shrink-0">
+        <span className="font-black text-xl shrink-0 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
           ${service.price}
         </span>
       </div>
@@ -113,7 +113,7 @@ function ServiceCard({ service }: { service: Service }) {
       {/* Book Now */}
       <Link
         href="/booking"
-        className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-blue-600 border border-white/10 hover:border-blue-600 text-white/80 hover:text-white text-sm font-semibold transition-all duration-300 group/btn"
+        className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-red-700 border border-white/10 hover:border-red-700 text-white/80 hover:text-white text-sm font-semibold transition-all duration-300 group/btn"
       >
         Book Now
         <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-200" />
@@ -134,14 +134,14 @@ export default function ServicesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-blue-500 text-xs font-bold tracking-[0.25em] uppercase mb-4">
+          <p className="text-xs font-bold tracking-[0.25em] uppercase mb-4 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
             Our Services
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white mb-5 tracking-tight">
             Every Cut, A Masterpiece.
           </h2>
           <p className="text-white/50 text-base max-w-lg mx-auto leading-relaxed">
-            From precision fades to luxury house calls — every service is crafted
+            From precision fades to luxury house calls - every service is crafted
             to perfection by our expert barbers.
           </p>
         </motion.div>
@@ -169,7 +169,8 @@ export default function ServicesSection() {
         >
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold text-sm tracking-wide transition-colors group"
+            className="inline-flex items-center gap-2 font-semibold text-sm tracking-wide group text-transparent bg-clip-text hover:opacity-75 transition-opacity"
+            style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}
           >
             View All Services
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />

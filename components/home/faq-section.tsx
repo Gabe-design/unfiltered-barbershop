@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
@@ -40,7 +40,7 @@ const faqs = [
     id: "faq-6",
     question: "Are beard services available standalone?",
     answer:
-      "Yes. Our Beard Trim & Line Up with Hot Towel is a premium standalone service. No haircut required — come in just for a clean beard experience.",
+      "Yes. Our Beard Trim & Line Up with Hot Towel is a premium standalone service. No haircut required - come in just for a clean beard experience.",
   },
   {
     id: "faq-7",
@@ -68,7 +68,7 @@ function FaqItem({
       value={faq.id}
       className={`border rounded-xl overflow-hidden transition-all duration-300 ${
         isOpen
-          ? "border-[#3B82F6]/40 bg-[#3B82F6]/5"
+          ? "border-amber-500/40 bg-[#DC2626]/5"
           : "border-white/8 bg-[#111111] hover:border-white/15"
       }`}
     >
@@ -76,15 +76,16 @@ function FaqItem({
         <Accordion.Trigger className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left group">
           <span
             className={`text-sm sm:text-base font-semibold transition-colors duration-200 ${
-              isOpen ? "text-[#3B82F6]" : "text-white group-hover:text-white/90"
+              isOpen ? "text-transparent bg-clip-text" : "text-white group-hover:text-white/90"
             }`}
+          style={isOpen ? { backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" } : undefined}
           >
             {faq.question}
           </span>
           <span
             className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center border transition-all duration-200 ${
               isOpen
-                ? "bg-[#3B82F6] border-[#3B82F6] text-white"
+                ? "bg-[#DC2626] border-[#DC2626] text-white"
                 : "border-white/20 text-white/40 group-hover:border-white/40 group-hover:text-white/60"
             }`}
           >
@@ -114,12 +115,12 @@ export default function FaqSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <span className="inline-block text-xs font-semibold tracking-[0.25em] text-[#3B82F6] uppercase mb-4">
+          <span className="inline-block text-xs font-semibold tracking-[0.25em] uppercase mb-4 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
             FAQ
           </span>
           <h2 className="text-4xl sm:text-5xl font-bold text-white">
             Got Questions?{" "}
-            <span className="text-[#3B82F6]">We&apos;ve Got Answers.</span>
+            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>We&apos;ve Got Answers.</span>
           </h2>
         </motion.div>
 

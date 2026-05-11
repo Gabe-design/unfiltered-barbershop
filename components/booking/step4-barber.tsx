@@ -65,7 +65,7 @@ export function Step4Barber() {
         transition={{ duration: 0.4 }}
         className="mb-8"
       >
-        <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.25em] mb-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-2 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
           Step 4 of 7
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
@@ -115,7 +115,8 @@ export function Step4Barber() {
                 initial={false}
                 animate={isSelected ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="absolute top-4 right-4 w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center"
+                className="absolute top-4 right-4 w-6 h-6 rounded-full flex items-center justify-center"
+                style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
               >
                 <Check className="w-3.5 h-3.5 text-white" />
               </motion.div>
@@ -139,7 +140,7 @@ export function Step4Barber() {
                   <p className="text-white font-semibold text-sm leading-tight">
                     {barber.name}
                   </p>
-                  <p className="text-blue-400 text-xs mt-0.5 font-medium">
+                  <p className="text-red-400 text-xs mt-0.5 font-medium">
                     {barber.specialty}
                   </p>
                 </div>
@@ -191,9 +192,10 @@ export function Step4Barber() {
           className={cn(
             "flex items-center gap-2 font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200",
             canContinue
-              ? "bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white hover:shadow-lg hover:shadow-blue-500/25"
+              ? "text-white hover:brightness-110 active:scale-[0.98]"
               : "bg-white/5 text-gray-600 cursor-not-allowed"
           )}
+          style={canContinue ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
         >
           Review Booking
           <ArrowRight className="w-4 h-4" />

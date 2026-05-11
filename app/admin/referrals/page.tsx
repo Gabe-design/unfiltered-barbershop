@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { Gift, RefreshCw } from "lucide-react";
@@ -36,7 +36,7 @@ interface Stats {
 
 const STATUS_COLORS: Record<string, string> = {
   PENDING: "bg-amber-500/10 text-amber-400",
-  CONVERTED: "bg-blue-500/10 text-blue-400",
+  CONVERTED: "bg-red-500/10 text-red-400",
   REWARDED: "bg-green-500/10 text-green-400",
 };
 
@@ -90,7 +90,7 @@ export default function ReferralsPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { label: "Total Codes", value: stats.totalCodes, color: "text-white" },
-          { label: "Total Referrals", value: stats.totalReferrals, color: "text-blue-400" },
+          { label: "Total Referrals", value: stats.totalReferrals, color: "text-red-400" },
           { label: "Converted", value: stats.converted, color: "text-green-400" },
           { label: "Pending", value: stats.pending, color: "text-amber-400" },
         ].map((s) => (
@@ -109,7 +109,7 @@ export default function ReferralsPage() {
             onClick={() => setTab(t)}
             className={`px-4 py-2 rounded-lg text-xs font-medium transition-all capitalize ${
               tab === t
-                ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                ? "bg-red-500/10 text-red-400 border border-red-500/20"
                 : "text-zinc-500 hover:text-white border border-transparent"
             }`}
           >
@@ -146,7 +146,7 @@ export default function ReferralsPage() {
                         <p className="text-zinc-500 text-xs">{c.customer?.email}</p>
                       </td>
                       <td className="px-4 py-3">
-                        <span className="text-blue-400 font-mono font-bold text-sm">{c.code}</span>
+                        <span className="text-red-400 font-mono font-bold text-sm">{c.code}</span>
                       </td>
                       <td className="px-4 py-3">
                         <span className="text-zinc-300 text-xs font-medium">{c.usedCount}</span>
@@ -194,7 +194,7 @@ export default function ReferralsPage() {
                   {referrals.map((r) => (
                     <tr key={r.id} className="border-b border-zinc-800/50 hover:bg-zinc-800/20 transition-colors">
                       <td className="px-4 py-3">
-                        <p className="text-white text-xs">{r.referralCode.customer?.name ?? "—"}</p>
+                        <p className="text-white text-xs">{r.referralCode.customer?.name ?? "-"}</p>
                         <p className="text-zinc-600 text-xs font-mono">{r.referralCode.code}</p>
                       </td>
                       <td className="px-4 py-3"><span className="text-zinc-300 text-xs">{r.referredEmail}</span></td>
@@ -206,7 +206,7 @@ export default function ReferralsPage() {
                       <td className="px-4 py-3">
                         {r.booking ? (
                           <span className="text-zinc-400 text-xs">${r.booking.totalPrice.toFixed(0)}</span>
-                        ) : <span className="text-zinc-700 text-xs">—</span>}
+                        ) : <span className="text-zinc-700 text-xs">-</span>}
                       </td>
                       <td className="px-4 py-3"><span className="text-zinc-500 text-xs">{format(new Date(r.createdAt), "MMM d")}</span></td>
                       <td className="px-4 py-3">

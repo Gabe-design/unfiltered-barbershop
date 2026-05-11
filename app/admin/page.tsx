@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import {
@@ -57,8 +57,8 @@ const STATUS_CONFIG: Record<
   },
   CONFIRMED: {
     label: "Confirmed",
-    classes: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-    dot: "bg-blue-400",
+    classes: "bg-red-500/10 text-red-400 border-red-500/20",
+    dot: "bg-red-400",
   },
   CONTACTED: {
     label: "Contacted",
@@ -119,7 +119,7 @@ function StatCard({ icon: Icon, label, value, sub, color }: StatCardProps) {
 
 function getServiceName(booking: Booking): string {
   const service = booking.items.find((i) => i.service)?.service;
-  return service?.name ?? "—";
+  return service?.name ?? "-";
 }
 
 // Simple CSS bar chart for status breakdown
@@ -133,7 +133,7 @@ function StatusBarChart({ bookings }: { bookings: Booking[] }) {
   );
   const total = bookings.length || 1;
   const items = [
-    { key: "CONFIRMED", label: "Confirmed", color: "bg-blue-500" },
+    { key: "CONFIRMED", label: "Confirmed", color: "bg-red-600" },
     { key: "PENDING", label: "Pending", color: "bg-amber-500" },
     { key: "COMPLETED", label: "Completed", color: "bg-green-500" },
     { key: "CANCELLED", label: "Cancelled", color: "bg-red-500" },
@@ -233,7 +233,7 @@ export default function AdminDashboard() {
           label="Total Bookings"
           value={total}
           sub="All time"
-          color="bg-blue-500/10 text-blue-400"
+          color="bg-red-500/10 text-red-400"
         />
         <StatCard
           icon={DollarSign}
@@ -264,12 +264,12 @@ export default function AdminDashboard() {
         <div className="xl:col-span-2 bg-[#111111] border border-zinc-800 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-800">
             <div className="flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-blue-400" />
+              <TrendingUp className="w-4 h-4 text-red-400" />
               <h2 className="text-white font-semibold text-sm">Recent Bookings</h2>
             </div>
             <a
               href="/admin/bookings"
-              className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 transition-colors"
+              className="flex items-center gap-1 text-xs text-red-400 hover:text-red-300 transition-colors"
             >
               View all
               <ArrowUpRight className="w-3 h-3" />
@@ -278,7 +278,7 @@ export default function AdminDashboard() {
 
           {loading ? (
             <div className="p-8 text-center">
-              <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
+              <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mx-auto" />
             </div>
           ) : recent.length === 0 ? (
             <div className="p-8 text-center text-zinc-500 text-sm">No bookings yet.</div>
@@ -358,12 +358,12 @@ export default function AdminDashboard() {
         {/* Status breakdown chart */}
         <div className="bg-[#111111] border border-zinc-800 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-5">
-            <TrendingUp className="w-4 h-4 text-blue-400" />
+            <TrendingUp className="w-4 h-4 text-red-400" />
             <h2 className="text-white font-semibold text-sm">Status Breakdown</h2>
           </div>
           {loading ? (
             <div className="flex justify-center py-6">
-              <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+              <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
             </div>
           ) : (
             <StatusBarChart bookings={bookings} />
@@ -393,7 +393,7 @@ export default function AdminDashboard() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-zinc-400 text-xs">Confirmed</span>
-                <span className="text-blue-400 text-xs font-medium">{confirmedCount}</span>
+                <span className="text-red-400 text-xs font-medium">{confirmedCount}</span>
               </div>
             </div>
           </div>

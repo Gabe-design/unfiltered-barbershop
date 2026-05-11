@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -74,8 +74,8 @@ const STATUS_CONFIG: Record<BookingStatus, { label: string; classes: string; dot
   },
   CONFIRMED: {
     label: "Confirmed",
-    classes: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-    dot: "bg-blue-400",
+    classes: "bg-red-500/10 text-red-400 border-red-500/20",
+    dot: "bg-red-400",
   },
   CONTACTED: {
     label: "Contacted",
@@ -167,7 +167,7 @@ function DetailModal({
               onChange={(e) => handleStatus(e.target.value as BookingStatus)}
               disabled={updating}
               className="ml-auto bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg px-3 py-1.5
-                focus:outline-none focus:border-blue-500 transition-colors"
+                focus:outline-none focus:border-red-500 transition-colors"
             >
               {STATUS_OPTIONS.slice(1).map((o) => (
                 <option key={o.value} value={o.value}>
@@ -191,7 +191,7 @@ function DetailModal({
                 <p className="text-zinc-500 text-xs">Email</p>
                 <a
                   href={`mailto:${booking.customerEmail}`}
-                  className="text-blue-400 text-sm hover:underline"
+                  className="text-red-400 text-sm hover:underline"
                 >
                   {booking.customerEmail}
                 </a>
@@ -200,7 +200,7 @@ function DetailModal({
                 <p className="text-zinc-500 text-xs">Phone</p>
                 <a
                   href={`tel:${booking.customerPhone}`}
-                  className="text-blue-400 text-sm hover:underline"
+                  className="text-red-400 text-sm hover:underline"
                 >
                   {booking.customerPhone}
                 </a>
@@ -265,7 +265,7 @@ function DetailModal({
               ))}
               <div className="flex items-center justify-between px-4 py-2">
                 <p className="text-white font-semibold text-sm">Total</p>
-                <p className="text-blue-400 font-bold">${booking.totalPrice.toFixed(2)}</p>
+                <p className="text-red-400 font-bold">${booking.totalPrice.toFixed(2)}</p>
               </div>
             </div>
           </section>
@@ -288,7 +288,7 @@ function DetailModal({
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-blue-400 text-xs mt-2 hover:underline"
+                  className="inline-flex items-center gap-1 text-red-400 text-xs mt-2 hover:underline"
                 >
                   Open in Maps <ExternalLink className="w-3 h-3" />
                 </a>
@@ -468,7 +468,7 @@ export default function BookingsPage() {
             <button
               onClick={exportCSV}
               className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium
-                text-white bg-blue-600 hover:bg-blue-500 transition-all"
+                text-white bg-red-700 hover:bg-red-600 transition-all"
             >
               <Download className="w-4 h-4" />
               <span className="hidden sm:inline">Export CSV</span>
@@ -488,7 +488,7 @@ export default function BookingsPage() {
                 value={search}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 className="w-full bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
-                  pl-9 pr-4 py-2 focus:outline-none focus:border-blue-500 placeholder:text-zinc-600 transition-colors"
+                  pl-9 pr-4 py-2 focus:outline-none focus:border-red-500 placeholder:text-zinc-600 transition-colors"
               />
             </div>
 
@@ -499,7 +499,7 @@ export default function BookingsPage() {
                 value={status}
                 onChange={(e) => { setStatus(e.target.value); setPage(1); }}
                 className="bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
-                  pl-9 pr-8 py-2 focus:outline-none focus:border-blue-500 transition-colors appearance-none"
+                  pl-9 pr-8 py-2 focus:outline-none focus:border-red-500 transition-colors appearance-none"
               >
                 {STATUS_OPTIONS.map((o) => (
                   <option key={o.value} value={o.value}>
@@ -515,7 +515,7 @@ export default function BookingsPage() {
               value={dateFrom}
               onChange={(e) => { setDateFrom(e.target.value); setPage(1); }}
               className="bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
-                px-3 py-2 focus:outline-none focus:border-blue-500 transition-colors"
+                px-3 py-2 focus:outline-none focus:border-red-500 transition-colors"
             />
 
             {/* Date to */}
@@ -524,7 +524,7 @@ export default function BookingsPage() {
               value={dateTo}
               onChange={(e) => { setDateTo(e.target.value); setPage(1); }}
               className="bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg
-                px-3 py-2 focus:outline-none focus:border-blue-500 transition-colors"
+                px-3 py-2 focus:outline-none focus:border-red-500 transition-colors"
             />
 
             {hasFilters && (
@@ -544,7 +544,7 @@ export default function BookingsPage() {
         <div className="bg-[#111111] border border-zinc-800 rounded-xl overflow-hidden">
           {loading ? (
             <div className="p-12 text-center">
-              <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
+              <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mx-auto" />
               <p className="text-zinc-500 text-sm mt-3">Loading bookings…</p>
             </div>
           ) : bookings.length === 0 ? (
@@ -598,7 +598,7 @@ export default function BookingsPage() {
                       </td>
                       <td className="px-5 py-3">
                         <span className="text-zinc-300 text-xs">
-                          {booking.items.find((i) => i.service)?.service?.name ?? "—"}
+                          {booking.items.find((i) => i.service)?.service?.name ?? "-"}
                         </span>
                       </td>
                       <td className="px-5 py-3">
@@ -636,7 +636,7 @@ export default function BookingsPage() {
                             handleStatusChange(booking.id, e.target.value as BookingStatus)
                           }
                           className="bg-zinc-900 border border-zinc-700 text-white text-xs rounded-lg
-                            px-2 py-1.5 focus:outline-none focus:border-blue-500 transition-colors
+                            px-2 py-1.5 focus:outline-none focus:border-red-500 transition-colors
                             disabled:opacity-50"
                         >
                           {STATUS_OPTIONS.slice(1).map((o) => (

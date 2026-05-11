@@ -48,7 +48,7 @@ const features: Feature[] = [
     icon: Calendar,
     title: "Online Booking",
     description:
-      "Reserve your seat in seconds — no phone tag, no waiting, just seamless scheduling.",
+      "Reserve your seat in seconds - no phone tag, no waiting, just seamless scheduling.",
   },
   {
     icon: Award,
@@ -94,13 +94,13 @@ function FeatureCard({ feature }: { feature: Feature }) {
   return (
     <motion.div
       variants={cardVariants}
-      className="group relative flex flex-col gap-4 p-6 bg-[#111111] border border-[#1E1E1E] rounded-2xl hover:border-blue-500/25 transition-all duration-400 hover:-translate-y-0.5 hover:shadow-[0_4px_30px_rgba(59,130,246,0.07)]"
+      className="group relative flex flex-col gap-4 p-6 bg-[#111111] border border-[#1E1E1E] rounded-2xl hover:border-red-500/25 transition-all duration-400 hover:-translate-y-0.5 hover:shadow-[0_4px_30px_rgba(220,38,38,0.07)]"
     >
       {/* Icon container */}
       <div className="relative self-start">
-        <div className="absolute inset-0 rounded-xl bg-blue-500/20 blur-md group-hover:bg-blue-500/30 transition-colors duration-400" />
-        <div className="relative flex items-center justify-center w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/15 transition-colors duration-400">
-          <Icon className="w-5 h-5 text-blue-400" strokeWidth={1.75} />
+        <div className="absolute inset-0 rounded-xl blur-md opacity-40" style={{ background: "linear-gradient(135deg, #B91C1C, #1D4ED8)" }} />
+        <div className="relative flex items-center justify-center w-11 h-11 rounded-xl" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+          <Icon className="w-5 h-5 text-white" strokeWidth={1.75} />
         </div>
       </div>
 
@@ -121,7 +121,7 @@ export default function WhyChooseSection() {
   return (
     <section className="bg-[#0A0A0A] py-24 px-6 relative overflow-hidden">
       {/* Background accent */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_100%,rgba(59,130,246,0.04),transparent)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_100%,rgba(220,38,38,0.04),transparent)] pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto">
         {/* Header */}
@@ -132,17 +132,17 @@ export default function WhyChooseSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-blue-500 text-xs font-bold tracking-[0.25em] uppercase mb-4">
+          <p className="text-xs font-bold tracking-[0.25em] uppercase mb-4 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
             Why Choose Us
           </p>
           <h2 className="text-4xl sm:text-5xl font-black text-white mb-5 tracking-tight">
             Why Simi Valley Chooses{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
               Unfiltered
             </span>
           </h2>
           <p className="text-white/50 text-base max-w-lg mx-auto leading-relaxed">
-            We don&apos;t just cut hair — we craft experiences. Here&apos;s what
+            We don&apos;t just cut hair - we craft experiences. Here&apos;s what
             sets us apart from every other shop in the valley.
           </p>
         </motion.div>

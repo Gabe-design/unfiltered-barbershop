@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { Star, RefreshCw, Send, ChevronLeft, ChevronRight } from "lucide-react";
@@ -28,7 +28,7 @@ interface ReviewRequest {
 
 const STATUS_CONFIG: Record<ReviewStatus, { label: string; classes: string }> = {
   NOT_REQUESTED: { label: "Not Sent", classes: "bg-zinc-800 text-zinc-400" },
-  REQUESTED: { label: "Sent", classes: "bg-blue-500/10 text-blue-400" },
+  REQUESTED: { label: "Sent", classes: "bg-red-500/10 text-red-400" },
   CLICKED: { label: "Clicked", classes: "bg-amber-500/10 text-amber-400" },
   REVIEWED: { label: "Reviewed", classes: "bg-green-500/10 text-green-400" },
 };
@@ -104,7 +104,7 @@ export default function ReviewsPage() {
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Sent", value: stats.sent, color: "text-blue-400" },
+          { label: "Sent", value: stats.sent, color: "text-red-400" },
           { label: "Clicked", value: stats.clicked, color: "text-amber-400" },
           { label: "Reviewed", value: stats.reviewed, color: "text-green-400" },
         ].map((s) => (
@@ -123,7 +123,7 @@ export default function ReviewsPage() {
             onClick={() => { setFilter(f); setPage(1); }}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
               filter === f
-                ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                ? "bg-red-500/10 text-red-400 border border-red-500/20"
                 : "text-zinc-500 hover:text-white border border-transparent"
             }`}
           >
@@ -135,7 +135,7 @@ export default function ReviewsPage() {
       <div className="bg-[#111111] border border-zinc-800 rounded-xl overflow-hidden">
         {loading ? (
           <div className="flex justify-center py-12">
-            <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : requests.length === 0 ? (
           <div className="py-12 text-center text-zinc-500 text-sm">No review requests found.</div>
@@ -169,7 +169,7 @@ export default function ReviewsPage() {
                       </td>
                       <td className="px-4 py-3">
                         <span className="text-zinc-400 text-xs">
-                          {r.sentAt ? format(new Date(r.sentAt), "MMM d") : "—"}
+                          {r.sentAt ? format(new Date(r.sentAt), "MMM d") : "-"}
                         </span>
                       </td>
                       <td className="px-4 py-3">
@@ -182,7 +182,7 @@ export default function ReviewsPage() {
                           onClick={() => sendRequest(r.booking.confirmationId ? r.id : r.id)}
                           disabled={sending === r.id || r.status === "REVIEWED"}
                           className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium
-                            bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20
+                            bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20
                             disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                           title="Send review request email"
                         >

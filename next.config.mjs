@@ -40,8 +40,8 @@ const nextConfig = {
               "img-src 'self' data: blob: https:",
               // Connections: self + external APIs
               "connect-src 'self' https://vitals.vercel-insights.com https://www.google-analytics.com",
-              // Frames: deny all
-              "frame-src 'none'",
+              // Frames: allow Google Maps embeds
+              "frame-src https://www.google.com",
               // Objects: deny plugins
               "object-src 'none'",
               // Base URI: restrict to self

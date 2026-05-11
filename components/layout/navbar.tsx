@@ -86,7 +86,8 @@ export function Navbar() {
             </a>
             <Link
               href="/booking"
-              className="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25 active:scale-95"
+              className="text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 hover:brightness-110 hover:shadow-lg active:scale-95"
+              style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
             >
               Book Appointment
             </Link>
@@ -146,7 +147,8 @@ export function Navbar() {
               </a>
               <Link
                 href="/booking"
-                className="flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-4 rounded-xl transition-colors"
+                className="flex items-center justify-center text-white font-semibold py-4 rounded-xl transition-all duration-200 hover:brightness-110"
+                style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
               >
                 Book Appointment
               </Link>
@@ -159,7 +161,8 @@ export function Navbar() {
       <div className="lg:hidden fixed bottom-6 left-4 right-4 z-30">
         <Link
           href="/booking"
-          className="flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-2xl shadow-2xl shadow-blue-500/40 transition-all active:scale-95"
+          className="flex items-center justify-center gap-2 w-full text-white font-bold py-4 rounded-2xl shadow-2xl transition-all active:scale-95 hover:brightness-110"
+          style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)", boxShadow: "0 8px 32px rgba(185,28,28,0.3), 0 8px 32px rgba(29,78,216,0.2)" }}
         >
           <Scissors className="w-5 h-5" />
           Book Your Cut

@@ -61,9 +61,9 @@ export default function LoginPage() {
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0A0A]">
       {/* Decorative gradient background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-blue-600/10 blur-[120px]" />
-        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-blue-500/8 blur-[120px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-blue-900/5 blur-[160px]" />
+        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-red-700/10 blur-[120px]" />
+        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-red-600/8 blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-red-900/5 blur-[160px]" />
       </div>
 
       {/* Subtle grid overlay */}
@@ -84,8 +84,8 @@ export default function LoginPage() {
       >
         {/* Brand */}
         <div className="flex flex-col items-center mb-8">
-          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-600/10 border border-blue-500/20 mb-4">
-            <Scissors className="w-7 h-7 text-blue-400" />
+          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-red-700/10 border border-red-500/20 mb-4">
+            <Scissors className="w-7 h-7 text-red-400" />
           </div>
           <h1 className="text-xl font-semibold text-white tracking-tight">
             Unfiltered Barbershop
@@ -131,7 +131,7 @@ export default function LoginPage() {
                   autoComplete="email"
                   placeholder="you@example.com"
                   {...register("email")}
-                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/[0.04] border text-white placeholder:text-zinc-600 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/50 ${
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/[0.04] border text-white placeholder:text-zinc-600 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/40 focus:border-red-500/50 ${
                     errors.email
                       ? "border-red-500/50 bg-red-500/5"
                       : "border-white/[0.08] hover:border-white/[0.14]"
@@ -159,7 +159,7 @@ export default function LoginPage() {
                   autoComplete="current-password"
                   placeholder="••••••••"
                   {...register("password")}
-                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/[0.04] border text-white placeholder:text-zinc-600 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/50 ${
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/[0.04] border text-white placeholder:text-zinc-600 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/40 focus:border-red-500/50 ${
                     errors.password
                       ? "border-red-500/50 bg-red-500/5"
                       : "border-white/[0.08] hover:border-white/[0.14]"
@@ -175,7 +175,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white font-medium text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-[#0A0A0A] mt-2"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-red-700 hover:bg-red-600 disabled:bg-red-700/50 disabled:cursor-not-allowed text-white font-medium text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-[#0A0A0A] mt-2"
             >
               {isLoading ? (
                 <>

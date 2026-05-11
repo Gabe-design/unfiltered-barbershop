@@ -59,7 +59,7 @@ const barbers: Barber[] = [
     role: "Barber & Artist",
     experience: "5+ Years",
     specialty: "Hair Enhancements & Line Art",
-    bio: "Fitted brings a creative edge to every appointment. Known for his bold hair designs and seamless enhancement work, he turns heads and starts conversations. Five years deep in the craft, Fitted operates at the intersection of precision and artistry — every line intentional, every cut a reflection of the client's identity.",
+    bio: "Fitted brings a creative edge to every appointment. Known for his bold hair designs and seamless enhancement work, he turns heads and starts conversations. Five years deep in the craft, Fitted operates at the intersection of precision and artistry - every line intentional, every cut a reflection of the client's identity.",
     rating: 5.0,
     reviewCount: 153,
     instagram: "@fitted_cuts",
@@ -92,7 +92,7 @@ function BarberCard({ barber }: { barber: Barber }) {
   return (
     <motion.div
       variants={cardVariants}
-      className="bg-[#111111] border border-[#262626] hover:border-blue-500/30 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-[0_16px_60px_rgba(59,130,246,0.09)] group"
+      className="bg-[#111111] border border-[#262626] hover:border-red-500/30 rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-[0_16px_60px_rgba(220,38,38,0.09)] group"
     >
       {/* Top visual: avatar + gradient header */}
       <div
@@ -104,7 +104,7 @@ function BarberCard({ barber }: { barber: Barber }) {
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 opacity-10"
           style={{
-            backgroundImage: "radial-gradient(circle at 2px 2px, rgba(59,130,246,0.4) 1px, transparent 0)",
+            backgroundImage: "radial-gradient(circle at 2px 2px, rgba(220,38,38,0.4) 1px, transparent 0)",
             backgroundSize: "24px 24px",
           }}
         />
@@ -121,7 +121,7 @@ function BarberCard({ barber }: { barber: Barber }) {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+              <div className="w-full h-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
                 <span className="text-white font-black text-xl tracking-wider">{barber.initials}</span>
               </div>
             )}
@@ -142,12 +142,12 @@ function BarberCard({ barber }: { barber: Barber }) {
             <h3 className="text-white font-black text-2xl leading-none mb-1">
               {barber.name}
             </h3>
-            <p className="text-blue-400 text-sm font-semibold">{barber.role}</p>
+            <p className="text-sm font-semibold text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>{barber.role}</p>
           </div>
           <div className="text-right shrink-0">
             <div className="flex items-center gap-1 justify-end mb-0.5">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-blue-400 text-blue-400" />
+                <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-amber-400" />
               ))}
             </div>
             <p className="text-white/40 text-xs font-medium">
@@ -157,9 +157,9 @@ function BarberCard({ barber }: { barber: Barber }) {
         </div>
 
         {/* Specialty badge */}
-        <div className="inline-flex items-center gap-1.5 bg-blue-600/12 border border-blue-500/20 rounded-full px-3.5 py-1.5 mb-5 mt-3">
-          <Award className="w-3.5 h-3.5 text-blue-400" />
-          <span className="text-blue-400 text-xs font-semibold">{barber.specialty}</span>
+        <div className="inline-flex items-center gap-1.5 bg-red-700/12 border border-red-500/20 rounded-full px-3.5 py-1.5 mb-5 mt-3">
+          <Award className="w-3.5 h-3.5 text-white/60" />
+          <span className="text-xs font-semibold text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>{barber.specialty}</span>
         </div>
 
         {/* Bio */}
@@ -181,7 +181,8 @@ function BarberCard({ barber }: { barber: Barber }) {
         <div className="flex flex-col sm:flex-row gap-3">
           <Link
             href="/booking"
-            className="flex-1 inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm py-3.5 px-5 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 group/btn"
+            className="flex-1 inline-flex items-center justify-center gap-2 text-white font-semibold text-sm py-3.5 px-5 rounded-xl transition-all duration-200 hover:brightness-110 hover:shadow-lg hover:shadow-red-600/20 active:scale-95 group/btn"
+            style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
           >
             <Scissors className="w-4 h-4" />
             Book With {barber.name.split(" ")[0]}
@@ -210,7 +211,7 @@ export default function TeamPage() {
         {/* Hero */}
         <section className="relative pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-blue-600/7 rounded-full blur-[120px]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-red-700/7 rounded-full blur-[120px]" />
           </div>
 
           <div className="relative max-w-3xl mx-auto text-center">
@@ -219,12 +220,12 @@ export default function TeamPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block text-xs font-bold tracking-[0.3em] text-blue-500 uppercase mb-5">
+              <span className="inline-block text-xs font-bold tracking-[0.3em] uppercase mb-5 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
                 The Crew
               </span>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight leading-none">
                 Meet Our{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+                <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
                   Team
                 </span>
               </h1>
@@ -247,7 +248,7 @@ export default function TeamPage() {
                 { value: "5.0", label: "Avg Rating" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="text-2xl font-black text-blue-400">{stat.value}</p>
+                  <p className="text-2xl font-black text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>{stat.value}</p>
                   <p className="text-white/40 text-xs font-medium mt-0.5">{stat.label}</p>
                 </div>
               ))}
@@ -283,12 +284,12 @@ export default function TeamPage() {
               className="relative bg-[#111111] border border-[#262626] rounded-3xl p-10 sm:p-14 text-center overflow-hidden"
             >
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-blue-600/8 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-red-700/8 rounded-full blur-3xl" />
               </div>
 
               <div className="relative">
-                <div className="w-14 h-14 rounded-2xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center mx-auto mb-6">
-                  <Scissors className="w-6 h-6 text-blue-400" />
+                <div className="w-14 h-14 rounded-2xl bg-red-700/15 border border-red-500/20 flex items-center justify-center mx-auto mb-6">
+                  <Scissors className="w-6 h-6 text-amber-400" />
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 tracking-tight">
                   Join Our Team
@@ -300,7 +301,8 @@ export default function TeamPage() {
                 </p>
                 <a
                   href="mailto:careers@unfilteredbarbershop.com"
-                  className="inline-flex items-center gap-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-200 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95"
+                  className="inline-flex items-center gap-2.5 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-200 hover:brightness-110 hover:shadow-xl hover:shadow-red-600/25 active:scale-95"
+                  style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
                 >
                   <Mail className="w-5 h-5" />
                   careers@unfilteredbarbershop.com

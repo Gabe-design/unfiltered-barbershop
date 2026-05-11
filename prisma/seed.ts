@@ -1,4 +1,4 @@
-import { PrismaClient, ServiceCategory } from "@prisma/client";
+﻿import { PrismaClient, ServiceCategory } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -199,11 +199,11 @@ async function main() {
 
   // Testimonials
   const testimonials = [
-    { customerName: "Darius M.", rating: 5, content: "Alex gave me the cleanest fade I've ever had. The atmosphere is elite — feels like a luxury lounge, not just a barbershop. I'll never go anywhere else.", service: "Haircut", displayOrder: 1 },
+    { customerName: "Darius M.", rating: 5, content: "Alex gave me the cleanest fade I've ever had. The atmosphere is elite - feels like a luxury lounge, not just a barbershop. I'll never go anywhere else.", service: "Haircut", displayOrder: 1 },
     { customerName: "Kevin T.", rating: 5, content: "Walked in for a beard trim and left feeling like a new man. Marcus is an artist. The hot towel treatment alone is worth the trip.", service: "Beard Trim & Line Up w/ Hot Towel", displayOrder: 2 },
     { customerName: "Jordan P.", rating: 5, content: "Booked a house call for a special event and they absolutely delivered. Professional, on time, and my cut was perfect. 10/10.", service: "House Call", displayOrder: 3 },
     { customerName: "Marcus L.", rating: 5, content: "Best barbershop in the valley, period. The design on my fade was so crisp I got compliments all week. These guys are on another level.", service: "Haircut & Design", displayOrder: 4 },
-    { customerName: "Chris V.", rating: 5, content: "I've been to shops in LA and Miami — Unfiltered matches that energy right here in Simi Valley. Booking is easy, the wait is non-existent, and the cuts are elite.", service: "Haircut", displayOrder: 5 },
+    { customerName: "Chris V.", rating: 5, content: "I've been to shops in LA and Miami - Unfiltered matches that energy right here in Simi Valley. Booking is easy, the wait is non-existent, and the cuts are elite.", service: "Haircut", displayOrder: 5 },
     { customerName: "Anthony R.", rating: 5, content: "The haircut + beard combo is a total package. Jordan had me looking fresh for my interview and I got the job. These barbers are life changers.", service: "Haircut & Beard", displayOrder: 6 },
   ];
 
@@ -217,10 +217,10 @@ async function main() {
   // FAQs
   const faqs = [
     { question: "Do you accept walk-ins?", answer: "We welcome walk-ins based on availability, but we strongly recommend booking online to guarantee your slot with your preferred barber. Our online booking system shows real-time availability so you can plan your visit perfectly.", displayOrder: 1 },
-    { question: "How do I book an appointment?", answer: "Booking is easy — use our online booking system right here on our website. Select your service, choose your preferred barber and time, fill in your details, and you're all set. You'll receive an email confirmation instantly.", displayOrder: 2 },
+    { question: "How do I book an appointment?", answer: "Booking is easy - use our online booking system right here on our website. Select your service, choose your preferred barber and time, fill in your details, and you're all set. You'll receive an email confirmation instantly.", displayOrder: 2 },
     { question: "What haircut styles do you specialize in?", answer: "We specialize in precision fades (skin, low, mid, and high), modern textured cuts, beard sculpting, creative hair designs, and hair enhancements. Our barbers stay current on all the latest trends in men's grooming.", displayOrder: 3 },
     { question: "Do you cut kids' hair?", answer: "Yes! We cut hair for all ages. Kids' cuts are available at our standard haircut pricing. We recommend booking during our less busy mid-week morning slots for a more relaxed experience with younger clients.", displayOrder: 4 },
-    { question: "What payment methods do you accept?", answer: "We accept all major credit cards, debit cards, cash, Venmo, CashApp, and Zelle. We do not require payment at the time of booking — you pay after your service.", displayOrder: 5 },
+    { question: "What payment methods do you accept?", answer: "We accept all major credit cards, debit cards, cash, Venmo, CashApp, and Zelle. We do not require payment at the time of booking - you pay after your service.", displayOrder: 5 },
     { question: "Are beard services available as a standalone?", answer: "Absolutely. Our Beard Trim & Line Up with Hot Towel is a premium standalone service. We also offer beard grooming as an add-on to any haircut service.", displayOrder: 6 },
     { question: "Do you offer house calls?", answer: "Yes! Our House Call service brings the full Unfiltered experience to your location. The $300 service includes a 3-hour session within a 40-mile radius of our shop. Perfect for events, busy executives, or those who prefer in-home luxury. Contact us for details outside the standard radius.", displayOrder: 7 },
     { question: "What is your cancellation policy?", answer: "We ask that you cancel or reschedule at least 24 hours in advance. Late cancellations may result in a fee. No-shows may be required to prepay for future appointments. We respect your time and ask that you respect ours.", displayOrder: 8 },

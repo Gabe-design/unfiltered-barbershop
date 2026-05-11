@@ -122,7 +122,7 @@ export default function ServicesPage() {
     <div className="p-6 space-y-5 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-500/10 rounded-lg"><Scissors className="w-4 h-4 text-blue-400" /></div>
+          <div className="p-2 bg-red-500/10 rounded-lg"><Scissors className="w-4 h-4 text-red-400" /></div>
           <div>
             <h1 className="text-xl font-bold text-white">Services</h1>
             <p className="text-zinc-400 text-xs mt-0.5">{services.length} services</p>
@@ -132,14 +132,14 @@ export default function ServicesPage() {
           <button onClick={load} className="p-2 rounded-lg text-zinc-400 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 transition-all">
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
           </button>
-          <button onClick={openCreate} className="flex items-center gap-2 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-colors">
+          <button onClick={openCreate} className="flex items-center gap-2 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-lg transition-colors">
             <Plus className="w-3.5 h-3.5" />New Service
           </button>
         </div>
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-12"><div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" /></div>
+        <div className="flex justify-center py-12"><div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" /></div>
       ) : (
         <div className="bg-[#111111] border border-zinc-800 rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
@@ -207,7 +207,7 @@ export default function ServicesPage() {
                     setForm({ ...form, [key]: val, ...(key === "name" && !editing ? { slug: slugify(val) } : {}) });
                   }}
                   placeholder={placeholder}
-                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-red-500"
                 />
               </div>
             ))}
@@ -224,7 +224,7 @@ export default function ServicesPage() {
                     type={type}
                     value={form[key as keyof typeof form] as number}
                     onChange={(e) => setForm({ ...form, [key]: e.target.value })}
-                    className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                    className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-red-500"
                   />
                 </div>
               ))}
@@ -233,7 +233,7 @@ export default function ServicesPage() {
             <div>
               <label className="text-zinc-400 text-xs mb-1.5 block">Category</label>
               <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value as ServiceCategory })}
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500">
+                className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-red-500">
                 {Object.entries(CATEGORY_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
               </select>
             </div>
@@ -245,7 +245,7 @@ export default function ServicesPage() {
               ].map(({ label, key }) => (
                 <label key={key} className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={form[key as keyof typeof form] as boolean} onChange={(e) => setForm({ ...form, [key]: e.target.checked })}
-                    className="rounded border-zinc-700 bg-zinc-900 text-blue-500 focus:ring-0" />
+                    className="rounded border-zinc-700 bg-zinc-900 text-red-600 focus:ring-0" />
                   <span className="text-zinc-300 text-sm">{label}</span>
                 </label>
               ))}
@@ -253,7 +253,7 @@ export default function ServicesPage() {
 
             <div className="flex gap-3 pt-2">
               <button onClick={() => setShowForm(false)} className="flex-1 py-2.5 rounded-lg text-sm border border-zinc-700 text-zinc-400 hover:text-white transition-colors">Cancel</button>
-              <button onClick={save} disabled={saving} className="flex-1 py-2.5 rounded-lg text-sm bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-50 transition-colors">
+              <button onClick={save} disabled={saving} className="flex-1 py-2.5 rounded-lg text-sm bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 transition-colors">
                 {saving ? "Saving…" : editing ? "Update" : "Create"}
               </button>
             </div>

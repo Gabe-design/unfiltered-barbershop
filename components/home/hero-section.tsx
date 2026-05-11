@@ -106,7 +106,8 @@ export default function HeroSection() {
         >
           <Link
             href="/booking"
-            className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-base tracking-wide transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.35)] hover:shadow-[0_0_50px_rgba(59,130,246,0.55)] hover:-translate-y-0.5"
+            className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-white font-bold text-base tracking-wide transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5"
+            style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)", boxShadow: "0 0 30px rgba(185,28,28,0.3), 0 0 30px rgba(29,78,216,0.2)" }}
           >
             Book Appointment
             <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
@@ -129,8 +130,8 @@ export default function HeroSection() {
           className="relative mb-16 max-w-sm w-full"
         >
           <div className="relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-5 shadow-[0_8px_40px_rgba(0,0,0,0.6)]">
-            {/* Blue glow on card */}
-            <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-blue-500/20 via-transparent to-transparent pointer-events-none" />
+            {/* Barber pole glow on card */}
+            <div className="absolute -inset-px rounded-2xl pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(185,28,28,0.15) 0%, transparent 50%, rgba(29,78,216,0.15) 100%)" }} />
             <div className="flex items-center gap-1 mb-3">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -139,9 +140,9 @@ export default function HeroSection() {
             <p className="text-white/90 text-sm leading-relaxed italic mb-3">
               &ldquo;Alex gave me the cleanest fade I&apos;ve ever had. I won&apos;t go anywhere else.&rdquo;
             </p>
-            <p className="text-blue-400 text-sm font-semibold">— Darius M.</p>
+            <p className="text-white/70 text-sm font-semibold">- Darius M.</p>
             {/* Verified badge */}
-            <div className="absolute -top-3 -right-3 bg-blue-600 rounded-full px-2.5 py-1 text-[10px] font-bold text-white tracking-wide shadow-lg">
+            <div className="absolute -top-3 -right-3 rounded-full px-2.5 py-1 text-[10px] font-bold text-white tracking-wide shadow-lg" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
               VERIFIED
             </div>
           </div>

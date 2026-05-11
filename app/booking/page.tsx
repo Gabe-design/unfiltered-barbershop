@@ -51,12 +51,12 @@ function StepIndicator({
                 <motion.div
                   animate={{
                     backgroundColor: isCompleted
-                      ? "#2563EB"
+                      ? "#B91C1C"
                       : isCurrent
-                      ? "#3B82F6"
+                      ? "#DC2626"
                       : "transparent",
                     borderColor:
-                      isCompleted || isCurrent ? "#3B82F6" : "#262626",
+                      isCompleted || isCurrent ? "#DC2626" : "#262626",
                     scale: isCurrent ? 1.08 : 1,
                   }}
                   transition={{ duration: 0.3 }}
@@ -83,7 +83,7 @@ function StepIndicator({
                   className={cn(
                     "text-[10px] font-medium whitespace-nowrap transition-colors hidden sm:block",
                     isCurrent
-                      ? "text-blue-400"
+                      ? "text-red-400"
                       : isCompleted
                       ? "text-gray-400"
                       : "text-gray-700",
@@ -99,7 +99,7 @@ function StepIndicator({
                 <motion.div
                   animate={{
                     backgroundColor:
-                      currentStep > step.number ? "#3B82F6" : "#262626",
+                      currentStep > step.number ? "#DC2626" : "#262626",
                   }}
                   transition={{ duration: 0.4 }}
                   className="w-8 sm:w-12 h-0.5 mx-1 mb-5 rounded-full shrink-0"
@@ -159,7 +159,7 @@ export default function BookingPage() {
               animate={{ opacity: 1, y: 0 }}
               className="text-center mb-8"
             >
-              <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.25em] mb-3">
+              <p className="text-red-400 text-xs font-semibold uppercase tracking-[0.25em] mb-3">
                 Online Booking
               </p>
               <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-1.5">

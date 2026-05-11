@@ -9,7 +9,7 @@ const barbers = [
   {
     name: "Roman Morales",
     initials: "RM",
-    color: "#3B82F6",
+    color: "#DC2626",
     specialty: "Precision Fades & Designs",
     rating: 5.0,
     bio: "Master barber with 8+ years specializing in precision fades and creative designs.",
@@ -68,12 +68,12 @@ export default function TeamSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block text-xs font-semibold tracking-[0.25em] text-[#3B82F6] uppercase mb-4">
+          <span className="inline-block text-xs font-semibold tracking-[0.25em] uppercase mb-4 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
             OUR TEAM
           </span>
           <h2 className="text-4xl sm:text-5xl font-bold text-white">
             Master Barbers.{" "}
-            <span className="text-[#3B82F6]">Elite Results.</span>
+            <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>Elite Results.</span>
           </h2>
         </motion.div>
 
@@ -88,7 +88,7 @@ export default function TeamSection() {
             <motion.div
               key={barber.name}
               variants={cardVariants}
-              className="group relative bg-[#111111] rounded-2xl p-8 border border-white/5 hover:border-[#3B82F6]/30 transition-all duration-300 hover:shadow-[0_0_40px_rgba(59,130,246,0.08)] flex flex-col"
+              className="group relative bg-[#111111] rounded-2xl p-8 border border-white/5 hover:border-white/15 transition-all duration-300 hover:shadow-[0_0_40px_rgba(220,38,38,0.08)] flex flex-col"
             >
               <div className="flex items-start justify-between mb-6">
                 <div
@@ -101,7 +101,7 @@ export default function TeamSection() {
                   href={barber.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/30 hover:text-[#3B82F6] transition-colors duration-200 mt-1"
+                  className="text-white/30 hover:text-white/70 transition-colors duration-200 mt-1"
                   aria-label={`${barber.name} on Instagram`}
                 >
                   <InstagramIcon className="w-5 h-5" />
@@ -112,7 +112,7 @@ export default function TeamSection() {
                 <h3 className="text-xl font-bold text-white mb-2">
                   {barber.name}
                 </h3>
-                <span className="inline-block text-xs font-semibold tracking-wider text-[#3B82F6] bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-full px-3 py-1 uppercase">
+                <span className="inline-block text-xs font-semibold tracking-wider text-transparent bg-clip-text border border-white/10 rounded-full px-3 py-1 uppercase" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
                   {barber.specialty}
                 </span>
               </div>
@@ -122,7 +122,7 @@ export default function TeamSection() {
                   <Star
                     key={i}
                     size={14}
-                    className="fill-[#3B82F6] text-[#3B82F6]"
+                    className="fill-yellow-400 text-yellow-400"
                   />
                 ))}
                 <span className="text-white/60 text-sm ml-1">
@@ -136,7 +136,8 @@ export default function TeamSection() {
 
               <Link
                 href="/booking"
-                className="flex items-center justify-center gap-2 w-full bg-[#3B82F6]/10 hover:bg-[#3B82F6] border border-[#3B82F6]/30 hover:border-[#3B82F6] text-[#3B82F6] hover:text-white rounded-xl py-3 text-sm font-semibold tracking-wide transition-all duration-300"
+                className="flex items-center justify-center gap-2 w-full border border-white/10 text-white rounded-xl py-3 text-sm font-semibold tracking-wide transition-all duration-300 hover:brightness-110"
+                style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
               >
                 Book With Me
                 <ArrowRight size={15} />
@@ -154,7 +155,7 @@ export default function TeamSection() {
         >
           <Link
             href="/team"
-            className="inline-flex items-center gap-2 text-white/60 hover:text-[#3B82F6] text-sm font-semibold tracking-wide transition-colors duration-200 group"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-white/90 text-sm font-semibold tracking-wide transition-colors duration-200 group"
           >
             Meet The Full Team
             <ArrowRight

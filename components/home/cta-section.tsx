@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -11,7 +11,7 @@ export default function CtaSection() {
         className="absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(59,130,246,0.12) 0%, transparent 70%), linear-gradient(180deg, #0A0A0A 0%, #0d1117 50%, #0A0A0A 100%)",
+            "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(220,38,38,0.12) 0%, transparent 70%), linear-gradient(180deg, #0A0A0A 0%, #0d1117 50%, #0A0A0A 100%)",
         }}
       />
 
@@ -29,7 +29,7 @@ export default function CtaSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.25em] text-[#3B82F6] uppercase mb-6">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.25em] uppercase mb-6 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
             <Scissors size={14} />
             READY TO ELEVATE
           </span>
@@ -40,7 +40,7 @@ export default function CtaSection() {
               className="text-transparent bg-clip-text"
               style={{
                 backgroundImage:
-                  "linear-gradient(135deg, #3B82F6 0%, #6366F1 100%)",
+                  "linear-gradient(135deg, #DC2626 0%, #ffffff 50%, #2563EB 100%)",
               }}
             >
               Starts Here.
@@ -61,7 +61,8 @@ export default function CtaSection() {
           >
             <Link
               href="/booking"
-              className="inline-flex items-center gap-2.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-sm tracking-wide px-8 py-4 rounded-full shadow-[0_0_30px_rgba(59,130,246,0.35)] hover:shadow-[0_0_40px_rgba(59,130,246,0.5)] transition-all duration-300"
+              className="inline-flex items-center gap-2.5 text-white font-semibold text-sm tracking-wide px-8 py-4 rounded-full transition-all duration-300 hover:brightness-110"
+              style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)", boxShadow: "0 0 30px rgba(185,28,28,0.3), 0 0 30px rgba(29,78,216,0.2)" }}
             >
               <Scissors size={16} />
               Book Appointment

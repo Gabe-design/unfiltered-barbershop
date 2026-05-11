@@ -15,12 +15,12 @@ const galleryItems = [
 ];
 
 const gradients = [
-  "from-blue-900/80 to-black",
+  "from-red-900/80 to-black",
   "from-slate-800/80 to-black",
-  "from-blue-800/60 to-slate-900",
+  "from-red-800/60 to-slate-900",
   "from-gray-800/80 to-black",
   "from-slate-700/80 to-black",
-  "from-blue-950/80 to-black",
+  "from-red-950/80 to-black",
 ];
 
 export function GalleryPreview() {
@@ -34,7 +34,7 @@ export function GalleryPreview() {
           className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4"
         >
           <div>
-            <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.25em] mb-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-3 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
               The Work
             </p>
             <h2 className="text-4xl md:text-5xl font-black text-white">
@@ -43,7 +43,8 @@ export function GalleryPreview() {
           </div>
           <Link
             href="/gallery"
-            className="flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group"
+            className="flex items-center gap-2 font-semibold transition-opacity group text-transparent bg-clip-text hover:opacity-80"
+            style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}
           >
             View Full Gallery
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -76,7 +77,7 @@ export function GalleryPreview() {
                 }}
               />
               {/* Hover overlay */}
-              <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/10 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-red-700/0 group-hover:bg-red-700/10 transition-colors duration-300" />
               {/* Label */}
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <p className="text-white text-sm font-semibold">{item.label}</p>

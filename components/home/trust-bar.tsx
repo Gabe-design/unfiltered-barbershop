@@ -19,7 +19,7 @@ function TrustItem({ text }: { text: string }) {
       <span className="text-white/80 text-sm font-semibold tracking-wide whitespace-nowrap">
         {text}
       </span>
-      <span className="text-blue-500 text-xs select-none">◆</span>
+      <span className="text-xs select-none text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>◆</span>
     </div>
   );
 }

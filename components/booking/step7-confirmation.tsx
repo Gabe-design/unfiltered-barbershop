@@ -139,7 +139,7 @@ function NextStep({ number, title, description }: { number: number; title: strin
       transition={{ delay: 0.4 + number * 0.1 }}
       className="flex items-start gap-4"
     >
-      <div className="w-8 h-8 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xs font-bold shrink-0 mt-0.5">
+      <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white text-xs font-bold shrink-0 mt-0.5" style={{ background: "linear-gradient(135deg, rgba(185,28,28,0.3) 0%, rgba(29,78,216,0.3) 100%)" }}>
         {number}
       </div>
       <div>
@@ -195,9 +195,10 @@ export function Step7Confirmation() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
-            className="w-20 h-20 mx-auto mb-5 rounded-full bg-blue-600/20 border-2 border-blue-500/50 flex items-center justify-center"
+            className="w-20 h-20 mx-auto mb-5 rounded-full border-2 border-white/20 flex items-center justify-center"
+            style={{ background: "linear-gradient(135deg, rgba(185,28,28,0.25) 0%, rgba(29,78,216,0.25) 100%)" }}
           >
-            <CheckCircle className="w-10 h-10 text-blue-400" />
+            <CheckCircle className="w-10 h-10 text-white" />
           </motion.div>
 
           <motion.h2
@@ -223,10 +224,11 @@ export function Step7Confirmation() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="bg-blue-600/10 border border-blue-500/30 rounded-2xl p-5 mb-5 flex items-center justify-between gap-4"
+          className="border border-white/15 rounded-2xl p-5 mb-5 flex items-center justify-between gap-4"
+          style={{ background: "linear-gradient(135deg, rgba(185,28,28,0.08) 0%, rgba(29,78,216,0.08) 100%)" }}
         >
           <div>
-            <p className="text-[10px] text-blue-300 uppercase tracking-widest font-medium mb-1">
+            <p className="text-[10px] text-white/50 uppercase tracking-widest font-medium mb-1">
               Confirmation ID
             </p>
             <p className="text-white font-mono font-bold text-lg tracking-wider">
@@ -275,7 +277,7 @@ export function Step7Confirmation() {
               <div>
                 <p className="text-[10px] text-gray-600 uppercase tracking-widest mb-0.5">Date & Time</p>
                 <p className="text-white text-sm font-medium">
-                  {date ? format(date, "EEEE, MMMM d, yyyy") : "—"}
+                  {date ? format(date, "EEEE, MMMM d, yyyy") : "-"}
                   {startTime && ` at ${formatTime(startTime)}`}
                 </p>
                 <p className="text-gray-500 text-xs mt-0.5">
@@ -403,7 +405,8 @@ export function Step7Confirmation() {
           </button>
           <Link
             href="/"
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25 active:scale-[0.98]"
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-white text-sm font-semibold transition-all duration-200 hover:brightness-110 active:scale-[0.98]"
+            style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
           >
             Back to Home
           </Link>

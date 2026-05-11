@@ -90,8 +90,8 @@ export default function EmailTemplatesPage() {
     <div className="p-6 space-y-5 max-w-4xl mx-auto">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-500/10 rounded-lg">
-            <Mail className="w-4 h-4 text-blue-400" />
+          <div className="p-2 bg-red-500/10 rounded-lg">
+            <Mail className="w-4 h-4 text-red-400" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-white">Email Templates</h1>
@@ -109,7 +109,7 @@ export default function EmailTemplatesPage() {
 
       {loading ? (
         <div className="flex justify-center py-12">
-          <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : (
         <div className="space-y-3">
@@ -177,7 +177,7 @@ export default function EmailTemplatesPage() {
                 <input
                   value={editing.name}
                   onChange={(e) => setEditing({ ...editing, name: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-red-500"
                 />
               </div>
               <div>
@@ -185,7 +185,7 @@ export default function EmailTemplatesPage() {
                 <input
                   value={editing.subject}
                   onChange={(e) => setEditing({ ...editing, subject: e.target.value })}
-                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-red-500"
                   placeholder="Subject line…"
                 />
               </div>
@@ -195,7 +195,7 @@ export default function EmailTemplatesPage() {
                   value={editing.htmlBody}
                   onChange={(e) => setEditing({ ...editing, htmlBody: e.target.value })}
                   rows={14}
-                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-xs font-mono focus:outline-none focus:border-blue-500 resize-y"
+                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-xs font-mono focus:outline-none focus:border-red-500 resize-y"
                   placeholder="<!DOCTYPE html>…"
                 />
               </div>
@@ -204,7 +204,7 @@ export default function EmailTemplatesPage() {
                   type="checkbox"
                   checked={editing.isActive}
                   onChange={(e) => setEditing({ ...editing, isActive: e.target.checked })}
-                  className="rounded border-zinc-700 bg-zinc-900 text-blue-500 focus:ring-0"
+                  className="rounded border-zinc-700 bg-zinc-900 text-red-600 focus:ring-0"
                 />
                 <span className="text-zinc-300 text-sm">Active (overrides built-in template)</span>
               </label>
@@ -213,7 +213,7 @@ export default function EmailTemplatesPage() {
               <button onClick={() => setEditing(null)} className="flex-1 py-2.5 rounded-lg text-sm font-medium border border-zinc-700 text-zinc-400 hover:text-white transition-colors">
                 Cancel
               </button>
-              <button onClick={save} disabled={saving} className="flex-1 py-2.5 rounded-lg text-sm font-medium bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-50 transition-colors flex items-center justify-center gap-2">
+              <button onClick={save} disabled={saving} className="flex-1 py-2.5 rounded-lg text-sm font-medium bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 transition-colors flex items-center justify-center gap-2">
                 {saving ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
                 {saving ? "Saving…" : "Save Template"}
               </button>

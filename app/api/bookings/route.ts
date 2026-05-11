@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendBookingConfirmation, sendAdminNotification } from "@/lib/email";
 import { generateConfirmationId, minutesToTime, timeToMinutes } from "@/lib/utils";
@@ -221,7 +221,7 @@ export async function POST(req: NextRequest) {
         : undefined,
     };
 
-    // Send emails (fire and forget — don't await in prod for latency)
+    // Send emails (fire and forget - don't await in prod for latency)
     Promise.all([
       sendBookingConfirmation(emailData).catch(console.error),
       sendAdminNotification(emailData).catch(console.error),

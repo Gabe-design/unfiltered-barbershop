@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { UserX, RefreshCw, Send, ChevronLeft, ChevronRight } from "lucide-react";
@@ -103,7 +103,7 @@ export default function AbandonedPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { label: "Total", value: stats.total, color: "text-white" },
-          { label: "Has Email", value: stats.hasEmail, color: "text-blue-400" },
+          { label: "Has Email", value: stats.hasEmail, color: "text-red-400" },
           { label: "Followed Up", value: stats.followedUp, color: "text-amber-400" },
           { label: "Recovered", value: stats.recovered, color: "text-green-400" },
         ].map((s) => (
@@ -126,7 +126,7 @@ export default function AbandonedPage() {
             onClick={() => { setFilter(f.value); setPage(1); }}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
               filter === f.value
-                ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                ? "bg-red-500/10 text-red-400 border border-red-500/20"
                 : "text-zinc-500 hover:text-white border border-transparent"
             }`}
           >
@@ -138,7 +138,7 @@ export default function AbandonedPage() {
       <div className="bg-[#111111] border border-zinc-800 rounded-xl overflow-hidden">
         {loading ? (
           <div className="flex justify-center py-12">
-            <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : abandoned.length === 0 ? (
           <div className="py-12 text-center text-zinc-500 text-sm">No abandoned bookings found.</div>
@@ -169,11 +169,11 @@ export default function AbandonedPage() {
                       <p className="text-zinc-600 text-xs mt-0.5">{format(new Date(a.createdAt), "MMM d, h:mm a")}</p>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="text-zinc-400 text-xs">{a.serviceSlug?.replace(/-/g, " ") ?? "—"}</span>
+                      <span className="text-zinc-400 text-xs">{a.serviceSlug?.replace(/-/g, " ") ?? "-"}</span>
                     </td>
                     <td className="px-4 py-3">
                       <span className="text-zinc-400 text-xs">
-                        {a.preferredDate ? format(new Date(a.preferredDate), "MMM d") : "—"}
+                        {a.preferredDate ? format(new Date(a.preferredDate), "MMM d") : "-"}
                         {a.preferredTime && ` · ${a.preferredTime}`}
                       </span>
                     </td>
@@ -192,7 +192,7 @@ export default function AbandonedPage() {
                           onClick={() => sendFollowUp(a.id)}
                           disabled={sending === a.id}
                           className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium
-                            bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20
+                            bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20
                             disabled:opacity-30 transition-all"
                         >
                           {sending === a.id ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Send className="w-3 h-3" />}

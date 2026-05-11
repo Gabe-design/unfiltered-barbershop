@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, ArrowRight, Sparkles } from "lucide-react";
@@ -26,7 +26,7 @@ export function Step2AddOns() {
         transition={{ duration: 0.4 }}
         className="mb-8"
       >
-        <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.25em] mb-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-2 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
           Step 2 of 7
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
@@ -61,7 +61,7 @@ export function Step2AddOns() {
               className={cn(
                 "flex items-center justify-between p-5 rounded-2xl border transition-all duration-300",
                 isActive
-                  ? "bg-blue-600/10 border-blue-500/50 shadow-sm shadow-blue-500/10"
+                  ? "bg-red-700/10 border-red-600/50 shadow-sm shadow-red-600/10"
                   : "bg-[#111111] border-[#262626] hover:border-[#333]"
               )}
             >
@@ -70,7 +70,7 @@ export function Step2AddOns() {
                 <div
                   className={cn(
                     "w-10 h-10 rounded-xl flex items-center justify-center transition-colors duration-300 shrink-0",
-                    isActive ? "bg-blue-600" : "bg-white/5"
+                    isActive ? "bg-red-700" : "bg-white/5"
                   )}
                 >
                   <Sparkles
@@ -92,7 +92,7 @@ export function Step2AddOns() {
                   <p
                     className={cn(
                       "text-xs mt-0.5 font-medium",
-                      isActive ? "text-blue-400" : "text-gray-500"
+                      isActive ? "text-red-400" : "text-gray-500"
                     )}
                   >
                     +{formatCurrency(addOn.price)} each
@@ -109,7 +109,7 @@ export function Step2AddOns() {
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
-                      className="text-blue-400 font-semibold text-sm tabular-nums"
+                      className="text-red-400 font-semibold text-sm tabular-nums"
                     >
                       {formatCurrency(addOn.price * qty)}
                     </motion.span>
@@ -146,7 +146,7 @@ export function Step2AddOns() {
 
                   <button
                     onClick={() => toggleAddOn(addOn.id as AddOnId, 1)}
-                    className="w-8 h-8 rounded-lg bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white flex items-center justify-center transition-all duration-200 active:scale-90"
+                    className="w-8 h-8 rounded-lg bg-red-700/20 hover:bg-red-700 text-red-400 hover:text-white flex items-center justify-center transition-all duration-200 active:scale-90"
                     aria-label={`Add ${addOn.name}`}
                   >
                     <Plus className="w-3.5 h-3.5" />
@@ -165,7 +165,7 @@ export function Step2AddOns() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className="mt-5 p-4 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-between"
+            className="mt-5 p-4 rounded-xl bg-red-700/10 border border-red-600/20 flex items-center justify-between"
           >
             <div>
               <p className="text-gray-400 text-xs">Service + {activeCount} add-on{activeCount !== 1 ? "s" : ""}</p>
@@ -175,7 +175,7 @@ export function Step2AddOns() {
             </div>
             <motion.div
               key={totalPrice}
-              initial={{ scale: 1.2, color: "#60A5FA" }}
+              initial={{ scale: 1.2, color: "#F87171" }}
               animate={{ scale: 1, color: "#FFFFFF" }}
               className="text-right"
             >
@@ -196,7 +196,8 @@ export function Step2AddOns() {
         </button>
         <button
           onClick={nextStep}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25"
+          className="flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 hover:brightness-110 active:scale-[0.98]"
+          style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
         >
           {activeCount === 0 ? "Skip Add-ons" : "Continue"}
           <ArrowRight className="w-4 h-4" />

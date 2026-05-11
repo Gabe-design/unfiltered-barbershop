@@ -177,7 +177,7 @@ export function OrderSidebar() {
                 <div className="flex items-center gap-2 text-gray-300 text-sm">
                   <Calendar className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                   <span>
-                    {date ? format(date, "EEE, MMM d") : "—"}
+                    {date ? format(date, "EEE, MMM d") : "-"}
                     {startTime && ` at ${formatTime(startTime)}`}
                   </span>
                 </div>
@@ -222,7 +222,8 @@ export function OrderSidebar() {
           {step < 6 && (
             <button
               onClick={() => setStep(6)}
-              className="w-full bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white font-semibold py-3 rounded-xl text-sm transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25"
+              className="w-full text-white font-semibold py-3 rounded-xl text-sm transition-all duration-200 hover:brightness-110 active:scale-[0.98]"
+              style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
             >
               Proceed to Checkout
             </button>

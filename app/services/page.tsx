@@ -41,6 +41,7 @@ const services: Service[] = [
     description:
       "Our signature precision haircut, tailored to your face shape and personal style. Includes a consultation, shampoo, and a detailed finish with clippers and shears for a clean, polished look every time.",
     afterHoursNote: "+$20 after-hours fee applies outside regular business hours.",
+    highlight: true,
   },
   {
     name: "Haircut w/ Enhancement",
@@ -54,16 +55,15 @@ const services: Service[] = [
     price: 55,
     duration: "75 min",
     description:
-      "Express yourself with a precision cut topped with custom artistic line designs. Our barbers work with you to create a unique design that reflects your personality — geometric, freehand, or logo-inspired.",
+      "Express yourself with a precision cut topped with custom artistic line designs. Our barbers work with you to create a unique design that reflects your personality - geometric, freehand, or logo-inspired.",
   },
   {
     name: "Haircut & Beard",
     price: 60,
     duration: "60 min",
     description:
-      "The complete grooming experience. A full precision haircut paired with a detailed beard trim, shaping, and lineup — sculpted to perfection and finished with a hot towel treatment.",
+      "The complete grooming experience. A full precision haircut paired with a detailed beard trim, shaping, and lineup - sculpted to perfection and finished with a hot towel treatment.",
     afterHoursNote: "+$20 after-hours fee applies outside regular business hours.",
-    highlight: true,
   },
   {
     name: "Beard Trim & Line Up w/ Hot Towel",
@@ -77,14 +77,14 @@ const services: Service[] = [
     price: 20,
     duration: "15 min",
     description:
-      "Keep your edges crisp and your look fresh between cuts. A quick, precise lineup of your hairline — perfect for maintaining your style without a full service.",
+      "Keep your edges crisp and your look fresh between cuts. A quick, precise lineup of your hairline - perfect for maintaining your style without a full service.",
   },
   {
     name: "House Call",
     price: 300,
     duration: "3 hrs",
     description:
-      "We come to you. Our barber brings the full shop experience to your location — home, office, event, or photoshoot. Price includes travel within a 40-mile radius of Simi Valley, CA.",
+      "We come to you. Our barber brings the full shop experience to your location - home, office, event, or photoshoot. Price includes travel within a 40-mile radius of Simi Valley, CA.",
     badge: "Premium",
     badgeColor: "blue",
   },
@@ -141,16 +141,16 @@ function ServiceCard({ service }: { service: Service }) {
   return (
     <motion.div
       variants={cardVariants}
-      className={`group relative flex flex-col bg-[#111111] border rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_48px_rgba(59,130,246,0.1)] ${
+      className={`group relative flex flex-col bg-[#111111] border rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_48px_rgba(220,38,38,0.1)] ${
         service.highlight
-          ? "border-blue-500/40 shadow-[0_0_30px_rgba(59,130,246,0.08)]"
-          : "border-[#262626] hover:border-blue-500/30"
+          ? "border-red-500/40 shadow-[0_0_30px_rgba(220,38,38,0.08)]"
+          : "border-[#262626] hover:border-red-500/30"
       }`}
     >
       {/* Badges */}
       {service.badge && (
         <div className="absolute -top-3.5 left-6">
-          <span className="inline-flex items-center gap-1.5 bg-blue-600 text-white text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-full shadow-lg shadow-blue-500/30">
+          <span className="inline-flex items-center gap-1.5 text-white text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-full shadow-lg shadow-red-500/30" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
             <Home className="w-3 h-3" />
             {service.badge}
           </span>
@@ -158,7 +158,7 @@ function ServiceCard({ service }: { service: Service }) {
       )}
       {service.highlight && !service.badge && (
         <div className="absolute -top-3.5 left-6">
-          <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-600 to-blue-500 text-white text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-full shadow-lg shadow-blue-500/30">
+          <span className="inline-flex items-center gap-1.5 text-white text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-full shadow-lg shadow-red-500/30" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
             <Star className="w-3 h-3 fill-white" />
             Most Popular
           </span>
@@ -169,7 +169,7 @@ function ServiceCard({ service }: { service: Service }) {
       <div className="flex items-start justify-between gap-4 mb-3 mt-2">
         <h3 className="text-white font-bold text-lg leading-tight">{service.name}</h3>
         <div className="text-right shrink-0">
-          <span className="text-blue-400 font-black text-2xl">${service.price}</span>
+          <span className="font-black text-2xl text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>${service.price}</span>
         </div>
       </div>
 
@@ -198,9 +198,9 @@ function ServiceCard({ service }: { service: Service }) {
 
       {/* House Call radius note */}
       {isHouseCall && (
-        <div className="flex items-start gap-2 mb-5 bg-blue-500/8 border border-blue-500/20 rounded-xl px-4 py-3">
-          <Home className="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5" />
-          <p className="text-blue-400/80 text-xs leading-relaxed">
+        <div className="flex items-start gap-2 mb-5 bg-red-500/8 border border-red-500/20 rounded-xl px-4 py-3">
+          <Home className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+          <p className="text-amber-400/80 text-xs leading-relaxed">
             Includes travel within 40-mile radius of Simi Valley, CA.
           </p>
         </div>
@@ -209,7 +209,7 @@ function ServiceCard({ service }: { service: Service }) {
       {/* CTA */}
       <Link
         href="/booking"
-        className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl bg-white/5 hover:bg-blue-600 border border-white/10 hover:border-blue-600 text-white/70 hover:text-white text-sm font-semibold transition-all duration-300 group/btn"
+        className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl bg-white/5 hover:bg-red-700 border border-white/10 hover:border-red-700 text-white/70 hover:text-white text-sm font-semibold transition-all duration-300 group/btn"
       >
         Book This Service
         <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-200" />
@@ -222,15 +222,15 @@ function AddonCard({ addon }: { addon: Addon }) {
   return (
     <motion.div
       variants={cardVariants}
-      className="flex items-start gap-4 bg-[#111111] border border-[#262626] hover:border-blue-500/25 rounded-2xl p-5 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(59,130,246,0.07)] group"
+      className="flex items-start gap-4 bg-[#111111] border border-[#262626] hover:border-red-500/25 rounded-2xl p-5 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(220,38,38,0.07)] group"
     >
-      <div className="w-9 h-9 rounded-xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0 group-hover:bg-blue-600/25 transition-colors">
+      <div className="w-9 h-9 rounded-xl bg-red-700/15 border border-red-500/20 flex items-center justify-center text-white/60 shrink-0 group-hover:bg-red-700/25 transition-colors">
         {addon.icon}
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-3 mb-1">
           <h4 className="text-white font-semibold text-sm">{addon.name}</h4>
-          <span className="text-blue-400 font-bold text-base shrink-0">+${addon.price}</span>
+          <span className="font-bold text-base shrink-0 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>+${addon.price}</span>
         </div>
         <p className="text-white/45 text-xs leading-relaxed">{addon.description}</p>
       </div>
@@ -247,7 +247,7 @@ export default function ServicesPage() {
         <section className="relative pt-32 pb-20 px-4 sm:px-6 overflow-hidden">
           {/* Background glow */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-blue-600/8 rounded-full blur-[100px]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-red-700/8 rounded-full blur-[100px]" />
           </div>
 
           <div className="relative max-w-3xl mx-auto text-center">
@@ -256,17 +256,17 @@ export default function ServicesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block text-xs font-bold tracking-[0.3em] text-blue-500 uppercase mb-5">
+              <span className="inline-block text-xs font-bold tracking-[0.3em] uppercase mb-5 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
                 Pricing & Services
               </span>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight leading-none">
                 Our{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+                <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
                   Services
                 </span>
               </h1>
               <p className="text-white/50 text-lg leading-relaxed max-w-xl mx-auto">
-                From precision fades to luxury house calls — every service is executed by
+                From precision fades to luxury house calls - every service is executed by
                 skilled barbers who take pride in their craft.
               </p>
             </motion.div>
@@ -300,7 +300,7 @@ export default function ServicesPage() {
               transition={{ duration: 0.6 }}
               className="text-center mb-12"
             >
-              <span className="inline-block text-xs font-bold tracking-[0.3em] text-blue-500 uppercase mb-4">
+              <span className="inline-block text-xs font-bold tracking-[0.3em] uppercase mb-4 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
                 Enhancements
               </span>
               <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 tracking-tight">
@@ -337,24 +337,24 @@ export default function ServicesPage() {
               className="bg-[#111111] border border-[#262626] rounded-2xl p-6 sm:p-8"
             >
               <h3 className="text-white font-bold text-base mb-4 flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-blue-400" />
+                <AlertCircle className="w-4 h-4 text-amber-400" />
                 Pricing Notes
               </h3>
               <ul className="space-y-2.5 text-sm text-white/50 leading-relaxed">
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-500 mt-1">•</span>
+                  <span className="text-amber-500 mt-1">•</span>
                   After-hours appointments (outside 9 AM – 7 PM) incur a $20 additional fee for select services.
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-500 mt-1">•</span>
+                  <span className="text-amber-500 mt-1">•</span>
                   Add-ons can be requested at the time of booking or discussed with your barber.
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-500 mt-1">•</span>
+                  <span className="text-amber-500 mt-1">•</span>
                   House Call pricing includes a 40-mile radius from Simi Valley, CA. Additional mileage may apply.
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-500 mt-1">•</span>
+                  <span className="text-amber-500 mt-1">•</span>
                   All prices are subject to change. Confirmed booking prices are honored at the time of appointment.
                 </li>
               </ul>
@@ -370,15 +370,15 @@ export default function ServicesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative bg-gradient-to-br from-blue-600/15 to-blue-800/5 border border-blue-500/20 rounded-3xl p-10 sm:p-14 text-center overflow-hidden"
+              className="relative bg-gradient-to-br from-red-700/15 to-red-800/5 border border-red-500/20 rounded-3xl p-10 sm:p-14 text-center overflow-hidden"
             >
               {/* Decorative glow */}
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-blue-500/15 rounded-full blur-3xl" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-red-500/15 rounded-full blur-3xl" />
               </div>
 
               <div className="relative">
-                <Scissors className="w-10 h-10 text-blue-400 mx-auto mb-5" />
+                <Scissors className="w-10 h-10 text-amber-400 mx-auto mb-5" />
                 <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 tracking-tight">
                   Ready to Book Your Appointment?
                 </h2>
@@ -389,7 +389,8 @@ export default function ServicesPage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     href="/booking"
-                    className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-200 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95"
+                    className="inline-flex items-center justify-center gap-2 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-200 hover:brightness-110 active:scale-95"
+                    style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
                   >
                     <Scissors className="w-5 h-5" />
                     Book Now

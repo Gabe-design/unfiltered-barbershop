@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -36,7 +36,7 @@ const faqs: FAQ[] = [
     category: "Services",
     question: "What haircut styles do you specialize in?",
     answer:
-      "Our barbers are trained in a wide range of styles including precision skin fades, low/mid/high fades, modern textured cuts, classic scissor cuts, beard sculpting, creative hair designs, and hair enhancements. We work across all hair types — straight, wavy, curly, and coily. If you have a reference photo, bring it in or send it ahead of time.",
+      "Our barbers are trained in a wide range of styles including precision skin fades, low/mid/high fades, modern textured cuts, classic scissor cuts, beard sculpting, creative hair designs, and hair enhancements. We work across all hair types - straight, wavy, curly, and coily. If you have a reference photo, bring it in or send it ahead of time.",
   },
   {
     id: "faq-4",
@@ -50,7 +50,7 @@ const faqs: FAQ[] = [
     category: "Pricing & Payment",
     question: "What payment methods do you accept?",
     answer:
-      "We accept all major credit cards (Visa, Mastercard, Amex), debit cards, cash, Venmo, CashApp, and Zelle. There is no minimum purchase required for card payments. Gratuity is always appreciated but never required — it can be added to card payments at checkout.",
+      "We accept all major credit cards (Visa, Mastercard, Amex), debit cards, cash, Venmo, CashApp, and Zelle. There is no minimum purchase required for card payments. Gratuity is always appreciated but never required - it can be added to card payments at checkout.",
   },
   {
     id: "faq-6",
@@ -64,14 +64,14 @@ const faqs: FAQ[] = [
     category: "Services",
     question: "Do you offer house calls?",
     answer:
-      "Yes — our House Call service is available at $300 for a 3-hour session. This includes a barber traveling to your location (home, office, event, or photoshoot) within a 40-mile radius of Simi Valley, CA. Additional mileage may incur extra charges. House calls are perfect for events, executives, or anyone who prefers the Unfiltered experience on their terms.",
+      "Yes - our House Call service is available at $300 for a 3-hour session. This includes a barber traveling to your location (home, office, event, or photoshoot) within a 40-mile radius of Simi Valley, CA. Additional mileage may incur extra charges. House calls are perfect for events, executives, or anyone who prefers the Unfiltered experience on their terms.",
   },
   {
     id: "faq-8",
     category: "Appointments",
     question: "What is your cancellation and no-show policy?",
     answer:
-      "We ask that you cancel or reschedule at least 24 hours in advance. This gives us time to offer the slot to another client. Late cancellations (within 24 hours) or no-shows may incur a fee of up to 50% of the service price. We understand emergencies happen — please reach out and we'll work with you. Repeated no-shows may result in loss of booking privileges.",
+      "We ask that you cancel or reschedule at least 24 hours in advance. This gives us time to offer the slot to another client. Late cancellations (within 24 hours) or no-shows may incur a fee of up to 50% of the service price. We understand emergencies happen - please reach out and we'll work with you. Repeated no-shows may result in loss of booking privileges.",
   },
 ];
 
@@ -84,7 +84,7 @@ function FAQItem({ faq, isOpen }: { faq: FAQ; isOpen: boolean }) {
       className={cn(
         "border rounded-xl overflow-hidden transition-all duration-300",
         isOpen
-          ? "border-blue-500/40 bg-blue-600/5"
+          ? "border-red-500/40 bg-red-700/5"
           : "border-[#262626] bg-[#111111] hover:border-[#333333]"
       )}
     >
@@ -93,8 +93,9 @@ function FAQItem({ faq, isOpen }: { faq: FAQ; isOpen: boolean }) {
           <span
             className={cn(
               "text-sm sm:text-base font-semibold leading-snug transition-colors duration-200",
-              isOpen ? "text-blue-400" : "text-white group-hover:text-white/90"
+              isOpen ? "text-transparent bg-clip-text" : "text-white group-hover:text-white/90"
             )}
+            style={isOpen ? { backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" } : undefined}
           >
             {faq.question}
           </span>
@@ -102,7 +103,7 @@ function FAQItem({ faq, isOpen }: { faq: FAQ; isOpen: boolean }) {
             className={cn(
               "flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center border transition-all duration-200",
               isOpen
-                ? "bg-blue-600 border-blue-600 text-white"
+                ? "bg-red-700 border-red-700 text-white"
                 : "border-[#303030] text-white/35 group-hover:border-white/30 group-hover:text-white/60"
             )}
           >
@@ -144,7 +145,7 @@ export default function FAQPage() {
         {/* Hero */}
         <section className="relative pt-32 pb-16 px-4 sm:px-6 overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-600/7 rounded-full blur-[120px]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-red-700/7 rounded-full blur-[120px]" />
           </div>
 
           <div className="relative max-w-3xl mx-auto text-center">
@@ -153,12 +154,12 @@ export default function FAQPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block text-xs font-bold tracking-[0.3em] text-blue-500 uppercase mb-5">
+              <span className="inline-block text-xs font-bold tracking-[0.3em] uppercase mb-5 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
                 Support
               </span>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight leading-none">
                 Frequently Asked{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+                <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
                   Questions
                 </span>
               </h1>
@@ -186,7 +187,7 @@ export default function FAQPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search questions..."
-                className="w-full bg-[#111111] border border-[#262626] hover:border-blue-500/30 focus:border-blue-500/50 focus:outline-none rounded-2xl pl-11 pr-5 py-4 text-white placeholder-white/25 text-sm transition-colors"
+                className="w-full bg-[#111111] border border-[#262626] hover:border-red-500/30 focus:border-red-500/50 focus:outline-none rounded-2xl pl-11 pr-5 py-4 text-white placeholder-white/25 text-sm transition-colors"
               />
               {searchQuery && (
                 <button
@@ -212,8 +213,8 @@ export default function FAQPage() {
                   className={cn(
                     "px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200",
                     activeCategory === cat
-                      ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
-                      : "bg-[#111111] border border-[#262626] text-white/45 hover:text-white hover:border-blue-500/25"
+                      ? "bg-red-700 text-white shadow-lg shadow-red-600/20"
+                      : "bg-[#111111] border border-[#262626] text-white/45 hover:text-white hover:border-red-500/25"
                   )}
                 >
                   {cat}
@@ -266,7 +267,8 @@ export default function FAQPage() {
                   Try a different search term or{" "}
                   <button
                     onClick={() => { setSearchQuery(""); setActiveCategory("All"); }}
-                    className="text-blue-400 hover:text-blue-300 underline transition-colors"
+                    className="underline transition-opacity text-transparent bg-clip-text hover:opacity-75"
+                    style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}
                   >
                     clear filters
                   </button>
@@ -284,15 +286,15 @@ export default function FAQPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative bg-gradient-to-br from-blue-600/12 to-blue-900/5 border border-blue-500/20 rounded-3xl p-10 sm:p-12 text-center overflow-hidden"
+              className="relative bg-gradient-to-br from-red-700/12 to-red-900/5 border border-red-500/20 rounded-3xl p-10 sm:p-12 text-center overflow-hidden"
             >
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-blue-500/10 rounded-full blur-3xl" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-red-600/10 rounded-full blur-3xl" />
               </div>
 
               <div className="relative">
-                <div className="w-14 h-14 rounded-2xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center mx-auto mb-6">
-                  <MessageCircle className="w-6 h-6 text-blue-400" />
+                <div className="w-14 h-14 rounded-2xl bg-red-700/15 border border-red-500/20 flex items-center justify-center mx-auto mb-6">
+                  <MessageCircle className="w-6 h-6 text-white/70" />
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white mb-3 tracking-tight">
                   Still Have Questions?
@@ -304,7 +306,7 @@ export default function FAQPage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     href="/contact"
-                    className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-7 py-3.5 rounded-2xl transition-all duration-200 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95"
+                    className="inline-flex items-center justify-center gap-2 bg-red-700 hover:bg-red-600 text-white font-bold px-7 py-3.5 rounded-2xl transition-all duration-200 hover:shadow-xl hover:shadow-red-600/25 active:scale-95"
                   >
                     Contact Us
                     <ArrowRight className="w-4 h-4" />

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -38,12 +38,12 @@ export default function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <span className="inline-block text-xs font-semibold tracking-[0.25em] text-[#3B82F6] uppercase mb-5">
+            <span className="inline-block text-xs font-semibold tracking-[0.25em] uppercase mb-5 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
               OUR STORY
             </span>
             <h2 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
               More Than a Cut.{" "}
-              <span className="text-[#3B82F6]">It&apos;s an Experience.</span>
+              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>It&apos;s an Experience.</span>
             </h2>
 
             <div className="space-y-5 text-white/55 text-[15px] leading-relaxed">
@@ -56,7 +56,7 @@ export default function AboutSection() {
               <p>
                 Located in the heart of Simi Valley, we&apos;ve spent over seven
                 years refining our craft and earning the trust of our community.
-                Our barbers aren&apos;t just skilled — they&apos;re dedicated
+                Our barbers aren&apos;t just skilled - they&apos;re dedicated
                 professionals who treat every appointment as an opportunity to
                 deliver their best work.
               </p>
@@ -68,7 +68,7 @@ export default function AboutSection() {
                 event, the standard never drops.
               </p>
               <p>
-                Unfiltered isn&apos;t just a barbershop — it&apos;s where
+                Unfiltered isn&apos;t just a barbershop - it&apos;s where
                 confidence is built, communities are connected, and
                 craftsmanship is never compromised.
               </p>
@@ -77,7 +77,8 @@ export default function AboutSection() {
             <div className="mt-8">
               <Link
                 href="/team"
-                className="inline-flex items-center gap-2 text-[#3B82F6] hover:text-white border border-[#3B82F6]/30 hover:bg-[#3B82F6] font-semibold text-sm tracking-wide px-6 py-3 rounded-full transition-all duration-300 group"
+                className="inline-flex items-center gap-2 text-white font-semibold text-sm tracking-wide px-6 py-3 rounded-full transition-all duration-300 hover:brightness-110 group"
+                style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
               >
                 Learn More
                 <ArrowRight
@@ -111,8 +112,8 @@ export default function AboutSection() {
                       transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                       className="flex flex-col"
                     >
-                      <div className="w-9 h-9 rounded-xl bg-[#3B82F6]/10 border border-[#3B82F6]/20 flex items-center justify-center mb-3">
-                        <Icon size={16} className="text-[#3B82F6]" />
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                        <Icon size={16} className="text-white" />
                       </div>
                       <span className="text-3xl font-bold text-white tracking-tight mb-1">
                         {stat.value}
@@ -133,7 +134,7 @@ export default function AboutSection() {
                         key={initials}
                         className="w-8 h-8 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center text-white text-[10px] font-bold"
                         style={{
-                          backgroundColor: ["#3B82F6", "#6366F1", "#8B5CF6"][i],
+                          backgroundColor: ["#DC2626", "#6366F1", "#8B5CF6"][i],
                         }}
                       >
                         {initials}

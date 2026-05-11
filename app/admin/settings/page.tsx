@@ -38,7 +38,7 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean
       type="button"
       onClick={() => onChange(!checked)}
       className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-        checked ? "bg-blue-500" : "bg-zinc-700"
+        checked ? "bg-red-600" : "bg-zinc-700"
       }`}
     >
       <span
@@ -89,7 +89,7 @@ function Input({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm
-        placeholder-zinc-600 focus:outline-none focus:border-blue-500 transition-colors"
+        placeholder-zinc-600 focus:outline-none focus:border-red-500 transition-colors"
     />
   );
 }
@@ -132,7 +132,7 @@ export default function SettingsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -141,8 +141,8 @@ export default function SettingsPage() {
     <div className="p-6 space-y-6 max-w-2xl">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-500/10 rounded-lg">
-            <Settings className="w-4 h-4 text-blue-400" />
+          <div className="p-2 bg-red-500/10 rounded-lg">
+            <Settings className="w-4 h-4 text-red-400" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-white">Settings</h1>
@@ -152,7 +152,7 @@ export default function SettingsPage() {
         <button
           onClick={save}
           disabled={saving}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50
+          className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 disabled:opacity-50
             text-white text-sm font-medium rounded-lg transition-colors"
         >
           {saving ? (

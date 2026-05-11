@@ -1,6 +1,7 @@
 ﻿import { InstagramIcon } from '@/components/ui/instagram-icon';
 import Link from "next/link";
-import { Scissors, MapPin, Phone, Mail, Clock } from "lucide-react";
+import Image from "next/image";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { BUSINESS_HOURS, SHOP_ADDRESS } from "@/lib/utils";
 
 export function Footer() {
@@ -12,18 +13,15 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 group mb-6">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center">
-                <Scissors className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="text-white font-black text-lg leading-none tracking-widest uppercase">
-                  Unfiltered
-                </p>
-                <p className="text-blue-400 text-[9px] tracking-[0.35em] uppercase font-medium">
-                  Barbershop
-                </p>
-              </div>
+            <Link href="/" className="inline-block mb-6">
+              <Image
+                src="/un.PNG"
+                alt="Unfiltered Barbershop"
+                width={180}
+                height={72}
+                className="h-14 w-auto object-contain"
+                style={{ filter: "drop-shadow(0 0 6px rgba(255,255,255,0.7)) drop-shadow(0 0 12px rgba(255,255,255,0.4))" }}
+              />
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
               Simi Valley&apos;s premier luxury barbershop. Precision cuts, modern culture,
@@ -34,7 +32,7 @@ export function Footer() {
                 href={`https://instagram.com/${SHOP_ADDRESS.instagram}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl bg-[#161616] border border-[#262626] flex items-center justify-center text-gray-400 hover:text-white hover:border-blue-500/50 transition-all"
+                className="w-10 h-10 rounded-xl bg-[#161616] border border-[#262626] flex items-center justify-center text-gray-400 hover:text-white hover:border-red-500/50 transition-all"
               >
                 <InstagramIcon className="w-5 h-5" />
               </a>
@@ -71,7 +69,9 @@ export function Footer() {
           {/* Hours */}
           <div>
             <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-5 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-blue-400" />
+              <span className="w-5 h-5 rounded-md flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                <Clock className="w-3 h-3 text-white" />
+              </span>
               Hours
             </h4>
             <ul className="space-y-2">
@@ -97,7 +97,9 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-start gap-3 text-gray-500 hover:text-white text-sm transition-colors group"
                 >
-                  <MapPin className="w-4 h-4 mt-0.5 text-blue-400 shrink-0" />
+                  <span className="w-5 h-5 rounded-md flex items-center justify-center shrink-0 mt-0.5" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                    <MapPin className="w-3 h-3 text-white" />
+                  </span>
                   <span>
                     1706 Erringer Rd Suite #4
                     <br />
@@ -110,7 +112,9 @@ export function Footer() {
                   href="tel:+18055550100"
                   className="flex items-center gap-3 text-gray-500 hover:text-white text-sm transition-colors"
                 >
-                  <Phone className="w-4 h-4 text-blue-400" />
+                  <span className="w-5 h-5 rounded-md flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                    <Phone className="w-3 h-3 text-white" />
+                  </span>
                   (805) 555-0100
                 </a>
               </li>
@@ -119,7 +123,9 @@ export function Footer() {
                   href="mailto:info@unfilteredbarbershop.com"
                   className="flex items-center gap-3 text-gray-500 hover:text-white text-sm transition-colors"
                 >
-                  <Mail className="w-4 h-4 text-blue-400" />
+                  <span className="w-5 h-5 rounded-md flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                    <Mail className="w-3 h-3 text-white" />
+                  </span>
                   info@unfilteredbarbershop.com
                 </a>
               </li>
@@ -127,7 +133,8 @@ export function Footer() {
 
             <Link
               href="/booking"
-              className="mt-6 w-full flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold py-3 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25"
+              className="mt-6 w-full flex items-center justify-center text-white text-sm font-semibold py-3 rounded-xl transition-all duration-200 hover:brightness-110 hover:shadow-lg"
+              style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
             >
               Book Appointment
             </Link>

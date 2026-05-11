@@ -1,4 +1,4 @@
-import { Resend } from "resend";
+﻿import { Resend } from "resend";
 import { format } from "date-fns";
 import { formatCurrency, formatDuration, formatTime } from "./utils";
 
@@ -104,7 +104,7 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
   return getResend().emails.send({
     from: FROM_EMAIL,
     to: data.customerEmail,
-    subject: `Booking Confirmed — ${dateStr} at ${timeStr} | Unfiltered Barbershop`,
+    subject: `Booking Confirmed - ${dateStr} at ${timeStr} | Unfiltered Barbershop`,
     html,
   });
 }
@@ -118,7 +118,7 @@ export async function sendAdminNotification(data: BookingEmailData) {
 <html>
 <body style="font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;">
   <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:8px;padding:32px;">
-    <h2 style="margin:0 0 24px;">🔔 New Booking — ${data.confirmationId}</h2>
+    <h2 style="margin:0 0 24px;">🔔 New Booking - ${data.confirmationId}</h2>
     <p><strong>Customer:</strong> ${data.customerName}</p>
     <p><strong>Email:</strong> ${data.customerEmail}</p>
     <p><strong>Phone:</strong> ${data.customerPhone || "Not provided"}</p>
@@ -136,7 +136,7 @@ export async function sendAdminNotification(data: BookingEmailData) {
   return getResend().emails.send({
     from: FROM_EMAIL,
     to: ADMIN_EMAIL,
-    subject: `New Booking: ${data.customerName} — ${dateStr} ${timeStr}`,
+    subject: `New Booking: ${data.customerName} - ${dateStr} ${timeStr}`,
     html,
   });
 }
@@ -236,7 +236,7 @@ export async function sendAbandonedBookingFollowUp(data: {
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
       <div style="font-size:48px;margin-bottom:16px;">💈</div>
       <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 12px;">Still want to lock in your spot?</h2>
-      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${data.name}, you started booking with us but didn't finish. Slots fill up fast — lock yours in before it's gone.</p>
+      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${data.name}, you started booking with us but didn't finish. Slots fill up fast - lock yours in before it's gone.</p>
       <a href="${data.bookingUrl}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Complete My Booking</a>
     </div>
     <p style="text-align:center;color:#6B7280;font-size:12px;margin-top:24px;">© ${new Date().getFullYear()} Unfiltered Barbershop · Simi Valley, CA</p>
@@ -318,7 +318,7 @@ export async function sendContactNotification(data: {
   return getResend().emails.send({
     from: FROM_EMAIL,
     to: ADMIN_EMAIL,
-    subject: `Contact Form: ${data.name} — ${data.service || "General Inquiry"}`,
+    subject: `Contact Form: ${data.name} - ${data.service || "General Inquiry"}`,
     html,
   });
 }

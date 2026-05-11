@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Unfiltered Barbershop — Premium Barber in Simi Valley, CA",
+        alt: "Unfiltered Barbershop - Premium Barber in Simi Valley, CA",
       },
     ],
   },

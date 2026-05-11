@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { format } from "date-fns";
@@ -112,7 +112,7 @@ export function Step5Summary() {
             {/* Service */}
             <SummaryRow
               label="Service"
-              value={service?.name ?? "—"}
+              value={service?.name ?? "-"}
               subValue={
                 isHouseCall ? "At your location (House Call)" : "At Unfiltered Barbershop"
               }
@@ -163,7 +163,7 @@ export function Step5Summary() {
             {/* Barber */}
             <SummaryRow
               label="Barber"
-              value={barber?.name === "no-preference" ? "No Preference" : (barber?.name ?? "—")}
+              value={barber?.name === "no-preference" ? "No Preference" : (barber?.name ?? "-")}
               subValue={barber?.specialty}
               onEdit={() => setStep(4)}
             />
@@ -174,7 +174,7 @@ export function Step5Summary() {
               value={
                 date
                   ? `${format(date, "EEEE, MMMM d, yyyy")}${startTime ? ` at ${formatTime(startTime)}` : ""}`
-                  : "—"
+                  : "-"
               }
               subValue={`Duration: ${formatDuration(totalDuration)}`}
               onEdit={() => setStep(3)}
@@ -224,7 +224,7 @@ export function Step5Summary() {
                 </div>
                 <div className="flex justify-between items-center mt-1.5">
                   <span className="text-gray-500 text-xs">Tax (paid at shop)</span>
-                  <span className="text-gray-600 text-xs">—</span>
+                  <span className="text-gray-600 text-xs">-</span>
                 </div>
               </div>
 
@@ -249,8 +249,8 @@ export function Step5Summary() {
 
           {/* Duration Card */}
           <div className="bg-[#111111] border border-[#262626] rounded-2xl p-5 flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-blue-600/20 flex items-center justify-center shrink-0">
-              <Clock className="w-5 h-5 text-blue-400" />
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, rgba(185,28,28,0.2) 0%, rgba(29,78,216,0.2) 100%)" }}>
+              <Clock className="w-5 h-5 text-white/70" />
             </div>
             <div>
               <p className="text-gray-500 text-xs mb-0.5">Est. Duration</p>
@@ -272,9 +272,10 @@ export function Step5Summary() {
         </button>
         <button
           onClick={nextStep}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25"
+          className="flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 hover:brightness-110 active:scale-[0.98]"
+          style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
         >
-          Looks Good — Proceed
+          Looks Good - Proceed
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

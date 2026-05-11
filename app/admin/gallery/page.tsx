@@ -85,14 +85,14 @@ export default function GalleryPage() {
           <button onClick={load} className="p-2 rounded-lg text-zinc-400 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 transition-all">
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
           </button>
-          <button onClick={() => setShowForm(true)} className="flex items-center gap-2 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-colors">
+          <button onClick={() => setShowForm(true)} className="flex items-center gap-2 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-lg transition-colors">
             <Plus className="w-3.5 h-3.5" />Add Image
           </button>
         </div>
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-12"><div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" /></div>
+        <div className="flex justify-center py-12"><div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" /></div>
       ) : images.length === 0 ? (
         <div className="bg-[#111111] border border-zinc-800 rounded-xl py-12 text-center">
           <ImageIcon className="w-8 h-8 text-zinc-700 mx-auto mb-3" />
@@ -147,7 +147,7 @@ export default function GalleryPage() {
                   value={form[key as keyof typeof form] as string}
                   onChange={(e) => setForm({ ...form, [key]: e.target.value })}
                   placeholder={placeholder}
-                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-red-500"
                 />
               </div>
             ))}
@@ -158,7 +158,7 @@ export default function GalleryPage() {
             )}
             <div className="flex gap-3">
               <button onClick={() => setShowForm(false)} className="flex-1 py-2.5 rounded-lg text-sm border border-zinc-700 text-zinc-400 hover:text-white transition-colors">Cancel</button>
-              <button onClick={save} disabled={saving} className="flex-1 py-2.5 rounded-lg text-sm bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-50 transition-colors">
+              <button onClick={save} disabled={saving} className="flex-1 py-2.5 rounded-lg text-sm bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 transition-colors">
                 {saving ? "Saving…" : "Add Image"}
               </button>
             </div>

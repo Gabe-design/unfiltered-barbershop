@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import Link from "next/link";
 import { Star, ExternalLink } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -20,7 +20,7 @@ export default async function ReviewPage() {
       <div className="w-full max-w-sm text-center">
         <div className="mb-8">
           <h1 className="text-2xl font-black text-white tracking-wider mb-1">UNFILTERED</h1>
-          <p className="text-blue-400 text-xs tracking-widest font-medium">BARBERSHOP</p>
+          <p className="text-xs tracking-widest font-medium text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>BARBERSHOP</p>
         </div>
 
         <div className="bg-[#111111] border border-zinc-800 rounded-2xl p-8 space-y-6">
@@ -33,7 +33,7 @@ export default async function ReviewPage() {
           <div>
             <h2 className="text-white text-xl font-bold mb-2">How was your experience?</h2>
             <p className="text-zinc-400 text-sm leading-relaxed">
-              Your review helps other guys in Simi Valley discover us — and it means the world to our team.
+              Your review helps other guys in Simi Valley discover us - and it means the world to our team.
             </p>
           </div>
 
@@ -42,7 +42,7 @@ export default async function ReviewPage() {
               href={googleReviewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-4 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-xl transition-colors"
+              className="flex items-center justify-center gap-2 w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-colors"
             >
               <ExternalLink className="w-4 h-4" />
               Leave a Google Review

@@ -387,9 +387,10 @@ export function HouseCallFlow() {
           className={cn(
             "w-full flex items-center justify-center gap-2 font-semibold py-4 rounded-xl text-sm transition-all duration-200",
             isSubmitting
-              ? "bg-blue-600/50 text-blue-300 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white hover:shadow-lg hover:shadow-blue-500/25"
+              ? "bg-white/10 text-white/40 cursor-not-allowed"
+              : "text-white hover:brightness-110 active:scale-[0.98]"
           )}
+          style={!isSubmitting ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
         >
           {isSubmitting ? (
             <>

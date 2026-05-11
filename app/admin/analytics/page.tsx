@@ -65,7 +65,7 @@ function Panel({ title, icon: Icon, children }: { title: string; icon: React.Ele
   return (
     <div className="bg-[#111111] border border-zinc-800 rounded-xl p-5">
       <div className="flex items-center gap-2 mb-4">
-        <Icon className="w-4 h-4 text-blue-400" />
+        <Icon className="w-4 h-4 text-red-400" />
         <h2 className="text-white font-semibold text-sm">{title}</h2>
       </div>
       {children}
@@ -79,7 +79,7 @@ const SOURCE_LABELS: Record<string, string> = {
 };
 
 const VIP_COLORS: Record<string, string> = {
-  bronze: "bg-amber-600", silver: "bg-zinc-400", gold: "bg-yellow-400", platinum: "bg-blue-400",
+  bronze: "bg-amber-600", silver: "bg-zinc-400", gold: "bg-yellow-400", platinum: "bg-red-400",
 };
 
 export default function AnalyticsPage() {
@@ -99,7 +99,7 @@ export default function AnalyticsPage() {
   if (loading || !data) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -127,7 +127,7 @@ export default function AnalyticsPage() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <StatCard icon={Calendar} label="Total Bookings" value={overview.totalBookings} sub="All time" color="bg-blue-500/10 text-blue-400" />
+        <StatCard icon={Calendar} label="Total Bookings" value={overview.totalBookings} sub="All time" color="bg-red-500/10 text-red-400" />
         <StatCard icon={DollarSign} label="Total Revenue" value={`$${overview.totalRevenue.toFixed(0)}`} sub={`Avg $${overview.avgBookingValue.toFixed(0)}/booking`} color="bg-green-500/10 text-green-400" />
         <StatCard icon={CheckCircle} label="Completed" value={overview.completedBookings} sub={`${Math.round((overview.completedBookings / Math.max(overview.totalBookings, 1)) * 100)}% rate`} color="bg-emerald-500/10 text-emerald-400" />
         <StatCard icon={XCircle} label="No-Show Rate" value={`${(overview.noShowRate * 100).toFixed(1)}%`} sub={`${(overview.repeatCustomerRate * 100).toFixed(0)}% repeat customers`} color="bg-red-500/10 text-red-400" />
@@ -140,7 +140,7 @@ export default function AnalyticsPage() {
             {[
               { label: "Bookings", value: thisMonth.bookings, color: "text-white" },
               { label: "Revenue", value: `$${thisMonth.revenue.toFixed(0)}`, color: "text-green-400" },
-              { label: "New Customers", value: thisMonth.newCustomers, color: "text-blue-400" },
+              { label: "New Customers", value: thisMonth.newCustomers, color: "text-red-400" },
             ].map((r) => (
               <div key={r.label} className="flex justify-between items-center">
                 <span className="text-zinc-400 text-xs">{r.label}</span>
@@ -178,7 +178,7 @@ export default function AnalyticsPage() {
         <Panel title="Bookings by Source" icon={TrendingUp}>
           <div className="space-y-2.5">
             {Object.entries(bySource).filter(([, v]) => v > 0).sort(([, a], [, b]) => b - a).map(([src, count]) => (
-              <BarRow key={src} label={SOURCE_LABELS[src] ?? src} value={count} max={maxSource} color="bg-blue-500" />
+              <BarRow key={src} label={SOURCE_LABELS[src] ?? src} value={count} max={maxSource} color="bg-red-600" />
             ))}
             {Object.values(bySource).every((v) => v === 0) && <p className="text-zinc-600 text-xs text-center py-4">No data yet</p>}
           </div>
@@ -211,7 +211,7 @@ export default function AnalyticsPage() {
         <Panel title="Review Requests" icon={Star}>
           <div className="space-y-3">
             {[
-              { label: "Sent", value: reviewStats.sent, color: "text-blue-400" },
+              { label: "Sent", value: reviewStats.sent, color: "text-red-400" },
               { label: "Clicked", value: reviewStats.clicked, color: "text-amber-400" },
               { label: "Reviewed", value: reviewStats.reviewed, color: "text-green-400" },
               { label: "Conversion", value: `${(reviewStats.conversionRate * 100).toFixed(1)}%`, color: "text-emerald-400" },
@@ -258,7 +258,7 @@ export default function AnalyticsPage() {
             ))}
             <p className="text-zinc-500 text-[10px] uppercase tracking-wide font-semibold pt-2 border-t border-zinc-800">Referrals</p>
             {[
-              { label: "Active codes", value: referralStats.totalCodes, color: "text-blue-400" },
+              { label: "Active codes", value: referralStats.totalCodes, color: "text-red-400" },
               { label: "Total referrals", value: referralStats.totalReferrals, color: "text-white" },
               { label: "Converted", value: referralStats.converted, color: "text-green-400" },
             ].map((r) => (

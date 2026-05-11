@@ -41,7 +41,7 @@ export function Step1Service() {
         transition={{ duration: 0.4 }}
         className="mb-8"
       >
-        <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.25em] mb-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-2 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
           Step 1 of 7
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
@@ -73,8 +73,8 @@ export function Step1Service() {
                 "group relative text-left rounded-2xl border p-5 transition-all duration-300 cursor-pointer",
                 "bg-[#111111] hover:bg-[#141414]",
                 isSelected
-                  ? "border-blue-500 shadow-lg shadow-blue-500/20 ring-1 ring-blue-500/50"
-                  : "border-[#262626] hover:border-blue-500/40",
+                  ? "border-red-500 shadow-lg shadow-red-500/20 ring-1 ring-red-500/50"
+                  : "border-[#262626] hover:border-red-500/40",
                 isHouseCall && "sm:col-span-2"
               )}
             >
@@ -83,7 +83,7 @@ export function Step1Service() {
 
               {/* House call badge */}
               {isHouseCall && (
-                <span className="absolute top-4 right-4 flex items-center gap-1.5 bg-blue-600/20 border border-blue-500/30 text-blue-400 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full">
+                <span className="absolute top-4 right-4 flex items-center gap-1.5 bg-red-700/20 border border-red-600/30 text-red-400 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full">
                   <Home className="w-3 h-3" />
                   At Your Location
                 </span>
@@ -94,22 +94,22 @@ export function Step1Service() {
                 className={cn(
                   "w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300",
                   isSelected
-                    ? "bg-blue-600"
-                    : "bg-white/5 group-hover:bg-blue-600/20"
+                    ? "bg-red-700"
+                    : "bg-white/5 group-hover:bg-red-700/20"
                 )}
               >
                 {isHouseCall ? (
                   <Home
                     className={cn(
                       "w-5 h-5 transition-colors",
-                      isSelected ? "text-white" : "text-gray-400 group-hover:text-blue-400"
+                      isSelected ? "text-white" : "text-gray-400 group-hover:text-red-400"
                     )}
                   />
                 ) : (
                   <Scissors
                     className={cn(
                       "w-5 h-5 transition-colors",
-                      isSelected ? "text-white" : "text-gray-400 group-hover:text-blue-400"
+                      isSelected ? "text-white" : "text-gray-400 group-hover:text-red-400"
                     )}
                   />
                 )}
@@ -131,7 +131,7 @@ export function Step1Service() {
                   <span
                     className={cn(
                       "text-xl font-bold transition-colors",
-                      isSelected ? "text-blue-400" : "text-white"
+                      isSelected ? "text-red-400" : "text-white"
                     )}
                   >
                     {formatCurrency(s.price)}
@@ -146,8 +146,8 @@ export function Step1Service() {
                   className={cn(
                     "text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all duration-300",
                     isSelected
-                      ? "bg-blue-600 border-blue-500 text-white"
-                      : "border-[#333] text-gray-500 group-hover:border-blue-500/50 group-hover:text-blue-400"
+                      ? "bg-red-700 border-red-600 text-white"
+                      : "border-[#333] text-gray-500 group-hover:border-red-500/50 group-hover:text-red-400"
                   )}
                 >
                   {isSelected ? "Selected" : "Select"}
@@ -178,7 +178,7 @@ function AnimatedCheck({ visible }: { visible: boolean }) {
       initial={false}
       animate={visible ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      className="absolute top-4 right-4 w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center"
+      className="absolute top-4 right-4 w-6 h-6 rounded-full bg-red-700 flex items-center justify-center"
     >
       <Check className="w-3.5 h-3.5 text-white" />
     </motion.div>

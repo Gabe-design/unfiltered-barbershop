@@ -279,15 +279,17 @@ export function Step6CustomerInfo() {
               className={cn(
                 "w-full flex items-center gap-4 p-4 rounded-xl border transition-all duration-200 text-left",
                 watchedSms
-                  ? "bg-blue-600/10 border-blue-500/40"
+                  ? "border-white/20"
                   : "bg-[#161616] border-[#262626] hover:border-[#333]"
               )}
+              style={watchedSms ? { background: "linear-gradient(135deg, rgba(185,28,28,0.08) 0%, rgba(29,78,216,0.08) 100%)" } : undefined}
             >
               <div
                 className={cn(
                   "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors",
-                  watchedSms ? "bg-blue-600" : "bg-white/5"
+                  watchedSms ? "" : "bg-white/5"
                 )}
+                style={watchedSms ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
               >
                 <Bell className={cn("w-4 h-4", watchedSms ? "text-white" : "text-gray-500")} />
               </div>
@@ -303,8 +305,9 @@ export function Step6CustomerInfo() {
               <div
                 className={cn(
                   "w-11 h-6 rounded-full border transition-all duration-300 relative shrink-0",
-                  watchedSms ? "bg-blue-600 border-blue-500" : "bg-white/10 border-white/20"
+                  watchedSms ? "border-white/20" : "bg-white/10 border-white/20"
                 )}
+                style={watchedSms ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
               >
                 <motion.div
                   animate={{ x: watchedSms ? 20 : 2 }}
@@ -371,8 +374,8 @@ export function Step6CustomerInfo() {
                 </p>
               </div>
 
-              <div className="bg-blue-600/10 border border-blue-500/20 rounded-xl p-3">
-                <p className="text-blue-300 text-xs leading-relaxed">
+              <div className="border border-white/10 rounded-xl p-3" style={{ background: "linear-gradient(135deg, rgba(185,28,28,0.06) 0%, rgba(29,78,216,0.06) 100%)" }}>
+                <p className="text-white/50 text-xs leading-relaxed">
                   A confirmation email will be sent once your booking is complete.
                 </p>
               </div>
@@ -396,9 +399,10 @@ export function Step6CustomerInfo() {
             className={cn(
               "flex items-center gap-2 font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 min-w-[160px] justify-center",
               isSubmitting
-                ? "bg-blue-600/50 text-blue-300 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white hover:shadow-lg hover:shadow-blue-500/25"
+                ? "bg-white/10 text-white/40 cursor-not-allowed"
+                : "text-white hover:brightness-110 active:scale-[0.98]"
             )}
+            style={!isSubmitting ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
           >
             {isSubmitting ? (
               <>

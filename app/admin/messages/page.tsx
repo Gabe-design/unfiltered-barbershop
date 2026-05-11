@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -52,8 +52,8 @@ const STATUS_CONFIG: Record<
 > = {
   NEW: {
     label: "New",
-    classes: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-    dot: "bg-blue-400",
+    classes: "bg-red-500/10 text-red-400 border-red-500/20",
+    dot: "bg-red-400",
   },
   READ: {
     label: "Read",
@@ -125,8 +125,8 @@ function MessageModal({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 sticky top-0 bg-[#111111] z-10">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
-              <MessageSquare className="w-4 h-4 text-blue-400" />
+            <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/20">
+              <MessageSquare className="w-4 h-4 text-red-400" />
             </div>
             <div>
               <h2 className="text-white font-bold">{message.name}</h2>
@@ -177,7 +177,7 @@ function MessageModal({
               <p className="text-zinc-500 text-xs">Email</p>
               <a
                 href={`mailto:${message.email}`}
-                className="text-blue-400 text-sm hover:underline flex items-center gap-1"
+                className="text-red-400 text-sm hover:underline flex items-center gap-1"
               >
                 {message.email}
                 <ExternalLink className="w-3 h-3 flex-shrink-0" />
@@ -188,7 +188,7 @@ function MessageModal({
                 <p className="text-zinc-500 text-xs">Phone</p>
                 <a
                   href={`tel:${message.phone}`}
-                  className="text-blue-400 text-sm hover:underline"
+                  className="text-red-400 text-sm hover:underline"
                 >
                   {message.phone}
                 </a>
@@ -219,7 +219,7 @@ function MessageModal({
             <a
               href={`mailto:${message.email}?subject=Re: Your message to Unfiltered Barbershop`}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium
-                text-white bg-blue-600 hover:bg-blue-500 transition-all"
+                text-white bg-red-700 hover:bg-red-600 transition-all"
             >
               <Mail className="w-4 h-4" />
               Reply via Email
@@ -322,7 +322,7 @@ export default function MessagesPage() {
             <p className="text-zinc-400 text-sm mt-1">
               {total} total
               {newCount > 0 && (
-                <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
                   {newCount} new
                 </span>
               )}
@@ -350,7 +350,7 @@ export default function MessagesPage() {
                   onClick={() => { setStatusFilter(opt.value); setPage(1); }}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all ${
                     statusFilter === opt.value
-                      ? "bg-blue-500/10 text-blue-400 border-blue-500/20"
+                      ? "bg-red-500/10 text-red-400 border-red-500/20"
                       : "text-zinc-400 border-zinc-700 hover:border-zinc-600 hover:text-white"
                   }`}
                 >
@@ -365,7 +365,7 @@ export default function MessagesPage() {
         <div className="bg-[#111111] border border-zinc-800 rounded-xl overflow-hidden">
           {loading ? (
             <div className="p-12 text-center">
-              <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
+              <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mx-auto" />
               <p className="text-zinc-500 text-sm mt-3">Loading messages…</p>
             </div>
           ) : messages.length === 0 ? (
@@ -423,7 +423,7 @@ export default function MessagesPage() {
                         <a
                           href={`mailto:${msg.email}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="text-blue-400 text-xs hover:underline flex items-center gap-1"
+                          className="text-red-400 text-xs hover:underline flex items-center gap-1"
                         >
                           <Mail className="w-3 h-3 flex-shrink-0" />
                           {msg.email}
@@ -434,17 +434,17 @@ export default function MessagesPage() {
                           <a
                             href={`tel:${msg.phone}`}
                             onClick={(e) => e.stopPropagation()}
-                            className="text-zinc-300 text-xs hover:text-blue-400 flex items-center gap-1"
+                            className="text-zinc-300 text-xs hover:text-red-400 flex items-center gap-1"
                           >
                             <Phone className="w-3 h-3 flex-shrink-0" />
                             {msg.phone}
                           </a>
                         ) : (
-                          <span className="text-zinc-600 text-xs">—</span>
+                          <span className="text-zinc-600 text-xs">-</span>
                         )}
                       </td>
                       <td className="px-5 py-3">
-                        <span className="text-zinc-400 text-xs">{msg.service ?? "—"}</span>
+                        <span className="text-zinc-400 text-xs">{msg.service ?? "-"}</span>
                       </td>
                       <td className="px-5 py-3 max-w-[200px]">
                         <p className="text-zinc-500 text-xs truncate">{msg.message}</p>
@@ -467,7 +467,7 @@ export default function MessagesPage() {
                           <a
                             href={`mailto:${msg.email}?subject=Re: Your message to Unfiltered Barbershop`}
                             title="Reply via email"
-                            className="p-1.5 rounded-lg text-zinc-500 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"
+                            className="p-1.5 rounded-lg text-zinc-500 hover:text-red-400 hover:bg-red-500/10 transition-colors"
                           >
                             <Mail className="w-3.5 h-3.5" />
                           </a>

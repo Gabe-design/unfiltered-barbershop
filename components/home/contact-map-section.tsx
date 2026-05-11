@@ -15,7 +15,7 @@ export function ContactMapSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.25em] mb-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-3 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
             Find Us
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white">
@@ -32,7 +32,7 @@ export function ContactMapSection() {
             className="rounded-2xl overflow-hidden border border-[#1a1a1a] h-[400px]"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3301.7!2d-118.7815!3d34.2694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80e82f6b1706erringer!2s1706+Erringer+Rd+Suite+4%2C+Simi+Valley%2C+CA+93065!5e0!3m2!1sen!2sus!4v1"
+              src="https://www.google.com/maps?q=1706+Erringer+Rd+Suite+%234,+Simi+Valley,+CA+93065&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
@@ -52,8 +52,8 @@ export function ContactMapSection() {
           >
             {/* Address */}
             <div className="bg-[#111111] border border-[#1e1e1e] rounded-2xl p-6 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                <MapPin className="w-5 h-5 text-blue-400" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                <MapPin className="w-5 h-5 text-white" />
               </div>
               <div>
                 <p className="text-white font-semibold mb-1">Our Location</p>
@@ -63,7 +63,8 @@ export function ContactMapSection() {
                   href="https://maps.google.com/?q=1706+Erringer+Rd+Suite+4+Simi+Valley+CA"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-400 text-sm hover:text-blue-300 transition-colors mt-1 inline-block"
+                  className="text-sm transition-opacity mt-1 inline-block text-transparent bg-clip-text hover:opacity-75"
+                  style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}
                 >
                   Get Directions →
                 </a>
@@ -72,8 +73,8 @@ export function ContactMapSection() {
 
             {/* Phone */}
             <div className="bg-[#111111] border border-[#1e1e1e] rounded-2xl p-6 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                <Phone className="w-5 h-5 text-blue-400" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                <Phone className="w-5 h-5 text-white" />
               </div>
               <div>
                 <p className="text-white font-semibold mb-1">Phone</p>
@@ -88,8 +89,8 @@ export function ContactMapSection() {
 
             {/* Social */}
             <div className="bg-[#111111] border border-[#1e1e1e] rounded-2xl p-6 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                <InstagramIcon className="w-5 h-5 text-blue-400" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                <InstagramIcon className="w-5 h-5 text-white" />
               </div>
               <div>
                 <p className="text-white font-semibold mb-1">Instagram</p>
@@ -107,8 +108,8 @@ export function ContactMapSection() {
             {/* Hours */}
             <div className="bg-[#111111] border border-[#1e1e1e] rounded-2xl p-6">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                  <Clock className="w-5 h-5 text-blue-400" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                  <Clock className="w-5 h-5 text-white" />
                 </div>
                 <p className="text-white font-semibold">Business Hours</p>
               </div>

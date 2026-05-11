@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -146,13 +146,13 @@ function Calendar({ selected, onSelect }: CalendarProps) {
                 "aspect-square flex items-center justify-center rounded-xl text-xs font-medium transition-all duration-200",
                 disabled
                   ? "text-gray-700 cursor-not-allowed"
-                  : "hover:bg-blue-600/20 hover:text-blue-400 cursor-pointer",
+                  : "hover:bg-red-700/20 hover:text-red-400 cursor-pointer",
                 isSelected
-                  ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-500/50"
+                  ? "bg-red-700 text-white shadow-lg shadow-red-600/30 ring-2 ring-red-600/50"
                   : disabled
                   ? "text-gray-700"
                   : todayFlag
-                  ? "text-blue-400 font-bold"
+                  ? "text-red-400 font-bold"
                   : "text-gray-200"
               )}
               aria-label={format(day, "MMMM d, yyyy")}
@@ -222,8 +222,8 @@ function SlotGroup({ label, Icon, slots, selected, dateStr, onSelect }: SlotGrou
                     ? "bg-amber-500 text-white shadow-lg shadow-amber-500/25"
                     : "bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20"
                   : isSelected
-                  ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25"
-                  : "bg-white/5 border border-white/10 text-gray-200 hover:bg-blue-600/20 hover:border-blue-500/40 hover:text-blue-400"
+                  ? "bg-red-700 text-white shadow-lg shadow-red-600/25"
+                  : "bg-white/5 border border-white/10 text-gray-200 hover:bg-red-700/20 hover:border-red-600/40 hover:text-red-400"
               )}
               aria-label={`Select ${formatTime(slot)}`}
               aria-pressed={isSelected}
@@ -270,7 +270,7 @@ export function Step3DateTime() {
         transition={{ duration: 0.4 }}
         className="mb-8"
       >
-        <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.25em] mb-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-2 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
           Step 3 of 7
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
@@ -368,7 +368,7 @@ export function Step3DateTime() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className="mt-5 p-4 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-between flex-wrap gap-3"
+            className="mt-5 p-4 rounded-xl bg-red-700/10 border border-red-600/20 flex items-center justify-between flex-wrap gap-3"
           >
             <div>
               <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-0.5">Selected</p>
@@ -377,7 +377,7 @@ export function Step3DateTime() {
                 {startTime && ` at ${formatTime(startTime)}`}
               </p>
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-blue-400">
+            <div className="flex items-center gap-1.5 text-xs text-red-400">
               <Clock className="w-3.5 h-3.5" />
               {durationMinutes} min session
             </div>
@@ -399,9 +399,10 @@ export function Step3DateTime() {
           className={cn(
             "flex items-center gap-2 font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200",
             canContinue
-              ? "bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white hover:shadow-lg hover:shadow-blue-500/25"
+              ? "text-white hover:brightness-110 active:scale-[0.98]"
               : "bg-white/5 text-gray-600 cursor-not-allowed"
           )}
+          style={canContinue ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
         >
           Continue
           <ArrowRight className="w-4 h-4" />

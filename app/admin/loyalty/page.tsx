@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { Trophy, RefreshCw } from "lucide-react";
@@ -38,7 +38,7 @@ const VIP_CONFIG: Record<VipStatus, { label: string; classes: string; dot: strin
   BRONZE: { label: "Bronze", classes: "bg-amber-900/40 text-amber-400", dot: "bg-amber-500" },
   SILVER: { label: "Silver", classes: "bg-zinc-600/40 text-zinc-300", dot: "bg-zinc-400" },
   GOLD: { label: "Gold", classes: "bg-yellow-900/40 text-yellow-400", dot: "bg-yellow-400" },
-  PLATINUM: { label: "Platinum", classes: "bg-blue-900/40 text-blue-400", dot: "bg-blue-400" },
+  PLATINUM: { label: "Platinum", classes: "bg-red-900/40 text-red-400", dot: "bg-red-400" },
 };
 
 const VIP_LEVELS: VipStatus[] = ["NONE", "BRONZE", "SILVER", "GOLD", "PLATINUM"];
@@ -115,7 +115,7 @@ export default function LoyaltyPage() {
       <div className="flex gap-1 flex-wrap">
         <button
           onClick={() => setFilter("all")}
-          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${filter === "all" ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "text-zinc-500 hover:text-white border border-transparent"}`}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${filter === "all" ? "bg-red-500/10 text-red-400 border border-red-500/20" : "text-zinc-500 hover:text-white border border-transparent"}`}
         >
           All
         </button>
@@ -125,7 +125,7 @@ export default function LoyaltyPage() {
             <button
               key={level}
               onClick={() => setFilter(level)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${filter === level ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "text-zinc-500 hover:text-white border border-transparent"}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${filter === level ? "bg-red-500/10 text-red-400 border border-red-500/20" : "text-zinc-500 hover:text-white border border-transparent"}`}
             >
               {cfg.label}
             </button>
@@ -136,7 +136,7 @@ export default function LoyaltyPage() {
       <div className="bg-[#111111] border border-zinc-800 rounded-xl overflow-hidden">
         {loading ? (
           <div className="flex justify-center py-12">
-            <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : profiles.length === 0 ? (
           <div className="py-12 text-center text-zinc-500 text-sm">No loyalty profiles found.</div>
@@ -168,7 +168,7 @@ export default function LoyaltyPage() {
                       </td>
                       <td className="px-4 py-3">
                         <span className="text-zinc-400 text-xs">
-                          {p.customer.lastVisitDate ? format(new Date(p.customer.lastVisitDate), "MMM d, yyyy") : "—"}
+                          {p.customer.lastVisitDate ? format(new Date(p.customer.lastVisitDate), "MMM d, yyyy") : "-"}
                         </span>
                       </td>
                       <td className="px-4 py-3">
@@ -183,7 +183,7 @@ export default function LoyaltyPage() {
                         <select
                           value={p.vipStatus}
                           onChange={(e) => updateVip(p.id, e.target.value as VipStatus)}
-                          className="bg-zinc-900 border border-zinc-700 rounded-lg px-2 py-1 text-white text-xs focus:outline-none focus:border-blue-500"
+                          className="bg-zinc-900 border border-zinc-700 rounded-lg px-2 py-1 text-white text-xs focus:outline-none focus:border-red-500"
                         >
                           {VIP_LEVELS.map((l) => (
                             <option key={l} value={l}>{VIP_CONFIG[l].label}</option>

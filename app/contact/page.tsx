@@ -28,13 +28,13 @@ interface FormState {
 }
 
 const serviceOptions = [
-  "Haircut — $45",
-  "Haircut w/ Enhancement — $50",
-  "Haircut & Design — $55",
-  "Haircut & Beard — $60",
-  "Beard Trim & Line Up w/ Hot Towel — $30",
-  "Shape Up (No Beard) — $20",
-  "House Call — $300",
+  "Haircut - $45",
+  "Haircut w/ Enhancement - $50",
+  "Haircut & Design - $55",
+  "Haircut & Beard - $60",
+  "Beard Trim & Line Up w/ Hot Towel - $30",
+  "Shape Up (No Beard) - $20",
+  "House Call - $300",
   "General Inquiry",
 ];
 
@@ -42,7 +42,7 @@ const testimonials = [
   {
     name: "Darius M.",
     review:
-      "Alex gave me the cleanest fade I've ever had. The atmosphere is elite — feels like a luxury lounge, not a typical barbershop.",
+      "Alex gave me the cleanest fade I've ever had. The atmosphere is elite - feels like a luxury lounge, not a typical barbershop.",
     service: "Haircut",
   },
   {
@@ -110,7 +110,7 @@ export default function ContactPage() {
         {/* Hero */}
         <section className="relative pt-32 pb-16 px-4 sm:px-6 overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-600/7 rounded-full blur-[120px]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-red-700/7 rounded-full blur-[120px]" />
           </div>
 
           <div className="relative max-w-3xl mx-auto text-center">
@@ -119,17 +119,17 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block text-xs font-bold tracking-[0.3em] text-blue-500 uppercase mb-5">
+              <span className="inline-block text-xs font-bold tracking-[0.3em] uppercase mb-5 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
                 Reach Out
               </span>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight leading-none">
                 Get In{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+                <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
                   Touch
                 </span>
               </h1>
               <p className="text-white/50 text-lg leading-relaxed max-w-xl mx-auto">
-                Questions, bookings, or just want to say hello — we&apos;re here. Drop us
+                Questions, bookings, or just want to say hello - we&apos;re here. Drop us
                 a message and we&apos;ll get back to you quickly.
               </p>
             </motion.div>
@@ -168,7 +168,8 @@ export default function ContactPage() {
                       </p>
                       <Link
                         href="/booking"
-                        className="mt-2 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200"
+                        className="mt-2 inline-flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 hover:brightness-110"
+                        style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
                       >
                         Book Appointment
                         <ArrowRight className="w-4 h-4" />
@@ -195,7 +196,7 @@ export default function ContactPage() {
                           value={form.name}
                           onChange={handleChange}
                           placeholder="Your name"
-                          className="w-full bg-white/5 border border-[#2a2a2a] hover:border-blue-500/30 focus:border-blue-500/60 focus:outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/25 text-sm transition-colors"
+                          className="w-full bg-white/5 border border-[#2a2a2a] hover:border-red-500/30 focus:border-red-500/60 focus:outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/25 text-sm transition-colors"
                         />
                       </div>
 
@@ -212,7 +213,7 @@ export default function ContactPage() {
                           value={form.email}
                           onChange={handleChange}
                           placeholder="you@example.com"
-                          className="w-full bg-white/5 border border-[#2a2a2a] hover:border-blue-500/30 focus:border-blue-500/60 focus:outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/25 text-sm transition-colors"
+                          className="w-full bg-white/5 border border-[#2a2a2a] hover:border-red-500/30 focus:border-red-500/60 focus:outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/25 text-sm transition-colors"
                         />
                       </div>
 
@@ -229,7 +230,7 @@ export default function ContactPage() {
                           value={form.phone}
                           onChange={handleChange}
                           placeholder="(805) 000-0000"
-                          className="w-full bg-white/5 border border-[#2a2a2a] hover:border-blue-500/30 focus:border-blue-500/60 focus:outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/25 text-sm transition-colors"
+                          className="w-full bg-white/5 border border-[#2a2a2a] hover:border-red-500/30 focus:border-red-500/60 focus:outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/25 text-sm transition-colors"
                         />
                       </div>
 
@@ -243,7 +244,7 @@ export default function ContactPage() {
                           name="service"
                           value={form.service}
                           onChange={handleChange}
-                          className="w-full bg-[#0f0f0f] border border-[#2a2a2a] hover:border-blue-500/30 focus:border-blue-500/60 focus:outline-none rounded-xl px-4 py-3.5 text-sm transition-colors appearance-none cursor-pointer"
+                          className="w-full bg-[#0f0f0f] border border-[#2a2a2a] hover:border-red-500/30 focus:border-red-500/60 focus:outline-none rounded-xl px-4 py-3.5 text-sm transition-colors appearance-none cursor-pointer"
                           style={{ color: form.service ? "white" : "rgba(255,255,255,0.25)" }}
                         >
                           <option value="" disabled className="text-white/40 bg-[#111111]">
@@ -270,7 +271,7 @@ export default function ContactPage() {
                           value={form.message}
                           onChange={handleChange}
                           placeholder="Tell us what's on your mind..."
-                          className="w-full bg-white/5 border border-[#2a2a2a] hover:border-blue-500/30 focus:border-blue-500/60 focus:outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/25 text-sm transition-colors resize-none"
+                          className="w-full bg-white/5 border border-[#2a2a2a] hover:border-red-500/30 focus:border-red-500/60 focus:outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/25 text-sm transition-colors resize-none"
                         />
                       </div>
 
@@ -285,7 +286,8 @@ export default function ContactPage() {
                       <button
                         type="submit"
                         disabled={submitting}
-                        className="w-full flex items-center justify-center gap-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/20 active:scale-[0.98]"
+                        className="w-full flex items-center justify-center gap-2.5 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-all duration-200 hover:brightness-110 active:scale-[0.98]"
+                        style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
                       >
                         {submitting ? (
                           <>
@@ -313,8 +315,8 @@ export default function ContactPage() {
               >
                 {/* Address */}
                 <div className="bg-[#111111] border border-[#262626] rounded-2xl p-6 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center shrink-0">
-                    <MapPin className="w-5 h-5 text-blue-400" />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                    <MapPin className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <p className="text-white font-semibold text-sm mb-1">Location</p>
@@ -334,8 +336,8 @@ export default function ContactPage() {
 
                 {/* Phone */}
                 <div className="bg-[#111111] border border-[#262626] rounded-2xl p-6 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center shrink-0">
-                    <Phone className="w-5 h-5 text-blue-400" />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                    <Phone className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <p className="text-white font-semibold text-sm mb-1">Phone</p>
@@ -350,8 +352,8 @@ export default function ContactPage() {
 
                 {/* Email */}
                 <div className="bg-[#111111] border border-[#262626] rounded-2xl p-6 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center shrink-0">
-                    <Mail className="w-5 h-5 text-blue-400" />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                    <Mail className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <p className="text-white font-semibold text-sm mb-1">Email</p>
@@ -366,8 +368,8 @@ export default function ContactPage() {
 
                 {/* Instagram */}
                 <div className="bg-[#111111] border border-[#262626] rounded-2xl p-6 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center shrink-0">
-                    <InstagramIcon className="w-5 h-5 text-blue-400" />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                    <InstagramIcon className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <p className="text-white font-semibold text-sm mb-1">Instagram</p>
@@ -385,8 +387,8 @@ export default function ContactPage() {
                 {/* Hours */}
                 <div className="bg-[#111111] border border-[#262626] rounded-2xl p-6">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/20 flex items-center justify-center shrink-0">
-                      <Clock className="w-5 h-5 text-blue-400" />
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
+                      <Clock className="w-5 h-5 text-white" />
                     </div>
                     <p className="text-white font-semibold text-sm">Business Hours</p>
                   </div>
@@ -417,7 +419,7 @@ export default function ContactPage() {
             >
               <iframe
                 title="Unfiltered Barbershop Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3293.4!2d-118.7815!3d34.2694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80e8234a4a4a4a4a%3A0x0!2s1706+Erringer+Rd+%234%2C+Simi+Valley%2C+CA+93065!5e0!3m2!1sen!2sus!4v1699999999999!5m2!1sen!2sus&style=feature:all|element:geometry|color:0x0a0a0a&style=feature:all|element:labels.text.stroke|color:0x0a0a0a&style=feature:all|element:labels.text.fill|color:0x666666"
+                src="https://www.google.com/maps?q=1706+Erringer+Rd+Suite+%234,+Simi+Valley,+CA+93065&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) brightness(0.85) contrast(0.9)" }}
@@ -439,7 +441,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6 }}
               className="text-center mb-12"
             >
-              <span className="inline-block text-xs font-bold tracking-[0.3em] text-blue-500 uppercase mb-4">
+              <span className="inline-block text-xs font-bold tracking-[0.3em] uppercase mb-4 text-yellow-400">
                 Google Reviews
               </span>
               <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 tracking-tight">
@@ -447,7 +449,7 @@ export default function ContactPage() {
               </h2>
               <div className="flex items-center justify-center gap-1.5 mb-3">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-blue-400 text-blue-400" />
+                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
               <p className="text-white/40 text-sm">Rated 5.0 on Google Business</p>
@@ -461,11 +463,11 @@ export default function ContactPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="bg-[#111111] border border-[#262626] hover:border-blue-500/25 rounded-2xl p-6 transition-all duration-300"
+                  className="bg-[#111111] border border-[#262626] hover:border-red-500/25 rounded-2xl p-6 transition-all duration-300"
                 >
                   <div className="flex items-center gap-1 mb-4">
                     {Array.from({ length: 5 }).map((_, j) => (
-                      <Star key={j} className="w-3.5 h-3.5 fill-blue-400 text-blue-400" />
+                      <Star key={j} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
                   <p className="text-white/60 text-sm leading-relaxed mb-5 italic">
@@ -473,7 +475,7 @@ export default function ContactPage() {
                   </p>
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
                     <span className="text-white font-semibold text-sm">{t.name}</span>
-                    <span className="text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1">
+                    <span className="text-xs font-semibold text-yellow-400 border border-yellow-400/20 rounded-full px-3 py-1">
                       {t.service}
                     </span>
                   </div>
@@ -492,11 +494,11 @@ export default function ContactPage() {
                 href="https://www.google.com/maps/search/?api=1&query=Unfiltered+Barbershop+Simi+Valley"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 bg-[#111111] hover:bg-[#161616] border border-[#262626] hover:border-blue-500/30 text-white font-semibold px-7 py-4 rounded-2xl transition-all duration-200 group"
+                className="inline-flex items-center gap-2.5 bg-[#111111] hover:bg-[#161616] border border-[#262626] hover:border-red-500/30 text-white font-semibold px-7 py-4 rounded-2xl transition-all duration-200 group"
               >
-                <Star className="w-4 h-4 text-blue-400" />
+                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                 Read All Reviews on Google
-                <ExternalLink className="w-4 h-4 text-white/40 group-hover:text-blue-400 transition-colors" />
+                <ExternalLink className="w-4 h-4 text-white/40 group-hover:text-white/70 transition-colors" />
               </a>
             </motion.div>
           </div>
@@ -510,10 +512,10 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative bg-gradient-to-br from-blue-600/12 to-blue-900/5 border border-blue-500/20 rounded-3xl p-10 sm:p-12 text-center overflow-hidden"
+              className="relative bg-gradient-to-br from-red-700/12 to-red-900/5 border border-red-500/20 rounded-3xl p-10 sm:p-12 text-center overflow-hidden"
             >
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-blue-500/10 rounded-full blur-3xl" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-red-500/10 rounded-full blur-3xl" />
               </div>
               <div className="relative">
                 <h2 className="text-3xl font-black text-white mb-4 tracking-tight">
@@ -524,7 +526,8 @@ export default function ContactPage() {
                 </p>
                 <Link
                   href="/booking"
-                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-200 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95"
+                  className="inline-flex items-center gap-2 text-white font-bold px-8 py-4 rounded-2xl transition-all duration-200 hover:brightness-110 active:scale-95"
+                  style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
                 >
                   Book Appointment
                   <ArrowRight className="w-4 h-4" />
@@ -538,4 +541,3 @@ export default function ContactPage() {
     </>
   );
 }
-

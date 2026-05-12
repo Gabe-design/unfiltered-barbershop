@@ -62,7 +62,7 @@ export function Step2AddOns() {
               className={cn(
                 "flex items-center justify-between p-5 rounded-2xl border transition-all duration-300",
                 isActive
-                  ? "bg-indigo-500/10 border-indigo-500/30 shadow-sm shadow-indigo-500/10"
+                  ? "[background:linear-gradient(135deg,#B91C1C1A_0%,#1D4ED81A_100%)] border-white/10 shadow-sm shadow-black/20"
                   : "bg-[#111111] border-[#262626] hover:border-[#333]"
               )}
             >
@@ -94,7 +94,7 @@ export function Step2AddOns() {
                   <p
                     className={cn(
                       "text-xs mt-0.5 font-medium",
-                      isActive ? "text-indigo-400" : "text-gray-500"
+                      isActive ? "text-red-400" : "text-gray-500"
                     )}
                   >
                     +{formatCurrency(addOn.price)} each
@@ -111,7 +111,7 @@ export function Step2AddOns() {
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
-                      className="text-indigo-400 font-semibold text-sm tabular-nums"
+                      className="text-transparent bg-clip-text [background-image:linear-gradient(135deg,#B91C1C,#1D4ED8)] font-semibold text-sm tabular-nums"
                     >
                       {formatCurrency(addOn.price * qty)}
                     </motion.span>
@@ -126,7 +126,7 @@ export function Step2AddOns() {
                       "w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200",
                       qty === 0
                         ? "bg-white/5 text-gray-700 cursor-not-allowed"
-                        : "bg-white/10 text-gray-300 hover:bg-indigo-500/20 hover:text-indigo-400 active:scale-90"
+                        : "bg-white/10 text-gray-300 hover:[background:linear-gradient(135deg,#B91C1C1A_0%,#1D4ED81A_100%)] hover:text-white active:scale-90"
                     )}
                     aria-label={`Remove ${addOn.name}`}
                   >
@@ -168,7 +168,7 @@ export function Step2AddOns() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className="mt-5 p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-between"
+            className="mt-5 p-4 rounded-xl border border-white/10 flex items-center justify-between [background:linear-gradient(135deg,#B91C1C1A_0%,#1D4ED81A_100%)]"
           >
             <div>
               <p className="text-gray-400 text-xs">Service + {activeCount} add-on{activeCount !== 1 ? "s" : ""}</p>

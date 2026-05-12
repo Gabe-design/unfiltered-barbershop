@@ -55,7 +55,7 @@ export function Step1Service() {
       {/* Service Cards Grid */}
       {catalogLoading ? (
         <div className="flex justify-center py-16">
-          <div className="w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-red-700 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : (
       <motion.div
@@ -78,8 +78,8 @@ export function Step1Service() {
                 "group relative text-left rounded-2xl border p-5 transition-all duration-300 cursor-pointer",
                 "bg-[#111111] hover:bg-[#141414]",
                 isSelected
-                  ? "border-indigo-500/50 shadow-lg shadow-indigo-500/20 ring-1 ring-indigo-500/30"
-                  : "border-[#262626] hover:border-indigo-500/30",
+                  ? "border-red-700/50 shadow-lg shadow-red-700/20 ring-1 ring-red-700/20"
+                  : "border-[#262626] hover:border-red-700/30",
                 isHouseCall && "sm:col-span-2"
               )}
             >
@@ -88,7 +88,7 @@ export function Step1Service() {
 
               {/* House call badge */}
               {isHouseCall && (
-                <span className="absolute top-4 right-4 flex items-center gap-1.5 bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full">
+                <span className="absolute top-4 right-4 flex items-center gap-1.5 border border-white/10 text-white text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
                   <Home className="w-3 h-3" />
                   At Your Location
                 </span>
@@ -98,7 +98,7 @@ export function Step1Service() {
               <div
                 className={cn(
                   "w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-300",
-                  !isSelected && "bg-white/5 group-hover:bg-indigo-500/10"
+                  !isSelected && "bg-white/5 group-hover:[background:linear-gradient(135deg,#B91C1C_0%,#1D4ED8_100%)]"
                 )}
                 style={isSelected ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
               >
@@ -106,14 +106,14 @@ export function Step1Service() {
                   <Home
                     className={cn(
                       "w-5 h-5 transition-colors",
-                      isSelected ? "text-white" : "text-gray-400 group-hover:text-indigo-400"
+                      isSelected ? "text-white" : "text-gray-400 group-hover:text-white"
                     )}
                   />
                 ) : (
                   <Scissors
                     className={cn(
                       "w-5 h-5 transition-colors",
-                      isSelected ? "text-white" : "text-gray-400 group-hover:text-indigo-400"
+                      isSelected ? "text-white" : "text-gray-400 group-hover:text-white"
                     )}
                   />
                 )}
@@ -149,7 +149,7 @@ export function Step1Service() {
                     "text-xs font-semibold px-3 py-1.5 rounded-lg transition-all duration-300",
                     isSelected
                       ? "text-white border-0"
-                      : "border border-[#333] text-gray-500 group-hover:border-indigo-500/30 group-hover:text-indigo-400"
+                      : "border border-[#333] text-gray-500 group-hover:border-transparent group-hover:text-transparent group-hover:bg-clip-text group-hover:[background-image:linear-gradient(135deg,#B91C1C,#1D4ED8)]"
                   )}
                   style={isSelected ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
                 >

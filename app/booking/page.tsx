@@ -56,7 +56,7 @@ function StepIndicator({
                     background: isCompleted || isCurrent
                       ? "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)"
                       : "transparent",
-                    borderColor: isCompleted || isCurrent ? "#6366F1" : "#262626",
+                    borderColor: isCompleted || isCurrent ? "#B91C1C" : "#262626",
                     transition: "background 0.3s, border-color 0.3s",
                   }}
                   className={cn(
@@ -82,7 +82,7 @@ function StepIndicator({
                   className={cn(
                     "text-[10px] font-medium whitespace-nowrap transition-colors hidden sm:block",
                     isCurrent
-                      ? "text-indigo-400"
+                      ? "text-transparent bg-clip-text [background-image:linear-gradient(135deg,#B91C1C,#1D4ED8)]"
                       : isCompleted
                       ? "text-gray-400"
                       : "text-gray-700",

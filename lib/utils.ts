@@ -93,7 +93,7 @@ export const SHOP_ADDRESS = {
   lng: -118.7815,
   phone: "(805) 555-0100",
   email: "info@unfilteredbarbershop.com",
-  instagram: "unfilteredbarbershop",
+  instagram: "unfltrdbarbershop",
 };
 
 export const BUSINESS_HOURS = [

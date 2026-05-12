@@ -157,8 +157,8 @@ export function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Mobile sticky booking button */}
-      <div className="lg:hidden fixed bottom-6 left-4 right-4 z-30">
+      {/* Mobile sticky booking button — hidden on the booking page itself */}
+      <div className={`lg:hidden fixed bottom-6 left-4 right-4 z-30 ${pathname.startsWith("/booking") ? "hidden" : ""}`}>
         <Link
           href="/booking"
           className="flex items-center justify-center gap-2 w-full text-white font-bold py-4 rounded-2xl shadow-2xl transition-all active:scale-95 hover:brightness-110"

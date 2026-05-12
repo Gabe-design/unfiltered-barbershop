@@ -112,7 +112,7 @@ export function OrderSidebar() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => toggleAddOn(addOn.id, -1)}
-                          className="w-4 h-4 rounded-full bg-white/10 hover:bg-indigo-500/20 flex items-center justify-center transition-colors"
+                          className="w-4 h-4 rounded-full bg-white/10 hover:[background:linear-gradient(135deg,#B91C1C33_0%,#1D4ED833_100%)] flex items-center justify-center transition-colors"
                           aria-label={`Remove ${addOn.name}`}
                         >
                           <X className="w-2.5 h-2.5 text-gray-400" />

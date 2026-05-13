@@ -5,7 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { format, isToday, isTomorrow } from "date-fns";
 import Image from "next/image";
-import { Calendar, Clock, Phone, MapPin, LogOut, Scissors, User, RefreshCw } from "lucide-react";
+import { Clock, Phone, MapPin, LogOut, Scissors, User, RefreshCw } from "lucide-react";
 import { formatTime, formatCurrency } from "@/lib/utils";
 
 interface BookingItem {
@@ -64,6 +64,7 @@ export default function BarberDashboard() {
       return;
     }
     if (status === "authenticated") fetchSchedule();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
   const fetchSchedule = async (isRefresh = false) => {
@@ -217,7 +218,7 @@ export default function BarberDashboard() {
                     {/* Notes */}
                     {booking.notes && (
                       <p className="text-zinc-500 text-xs italic border-t border-white/5 pt-2">
-                        "{booking.notes}"
+                        &ldquo;{booking.notes}&rdquo;
                       </p>
                     )}
 

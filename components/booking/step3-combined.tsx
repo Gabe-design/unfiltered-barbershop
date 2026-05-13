@@ -17,7 +17,7 @@ import { cn, formatTime } from "@/lib/utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type SlotStatus = "available" | "limited" | "unavailable";
+type SlotStatus = "available" | "unavailable";
 
 const NO_PREFERENCE_BARBER: Barber = {
   id: "no-preference",
@@ -113,7 +113,6 @@ function Calendar({ selected, onSelect }: { selected: Date | null; onSelect: (d:
       </div>
       <div className="mt-4 flex items-center gap-4 text-xs text-gray-500">
         <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-white/40 inline-block" />Available</span>
-        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />Limited</span>
         <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-white/10 inline-block" />Unavailable</span>
       </div>
     </div>
@@ -141,19 +140,14 @@ function SlotGroup({ label, Icon, slots, selected, slotStatuses, onSelect }: {
             <button key={slot} onClick={() => status !== "unavailable" && onSelect(slot)}
               disabled={status === "unavailable"}
               className={cn(
-                "py-2 px-2 rounded-xl text-xs font-semibold text-center transition-all duration-200 relative",
-                status === "unavailable" ? "bg-white/5 text-gray-700 cursor-not-allowed line-through"
-                  : status === "limited"
-                  ? isSelected ? "bg-amber-500 text-white shadow-lg shadow-amber-500/25"
-                    : "bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20"
+                "py-2 px-2 rounded-xl text-xs font-semibold text-center transition-all duration-200",
+                status === "unavailable"
+                  ? "bg-white/5 text-gray-700 cursor-not-allowed line-through"
                   : isSelected ? "text-white shadow-lg"
                   : "bg-white/5 border border-white/10 text-gray-200 hover:[background:linear-gradient(135deg,#B91C1C1A_0%,#1D4ED81A_100%)] hover:border-white/20 hover:text-white"
               )}
               style={status === "available" && isSelected ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}>
               {formatTime(slot)}
-              {status === "limited" && !isSelected && (
-                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-400 border border-[#111]" />
-              )}
             </button>
           );
         })}

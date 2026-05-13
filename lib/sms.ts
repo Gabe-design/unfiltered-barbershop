@@ -3,7 +3,9 @@ import { format } from "date-fns";
 import { formatTime } from "./utils";
 
 function getClient() {
-  return twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+  return twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN, {
+    timeout: 8000,
+  });
 }
 
 function normalizePhone(phone: string): string {

@@ -4,7 +4,7 @@ import { formatCurrency, formatDuration, formatTime } from "./utils";
 
 const getResend = () => new Resend(process.env.RESEND_API_KEY ?? "placeholder");
 
-const FROM_EMAIL = "Unfiltered Barbershop <bookings@unfilteredbarbershop.com>";
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? "Unfiltered Barbershop <onboarding@resend.dev>";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@unfilteredbarbershop.com";
 
 interface BookingEmailData {

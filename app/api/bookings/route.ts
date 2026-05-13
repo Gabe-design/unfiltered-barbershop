@@ -222,8 +222,8 @@ export async function POST(req: NextRequest) {
         : undefined,
     };
 
-    // Send emails + SMS (fire and forget)
-    Promise.all([
+    // Send emails + SMS
+    await Promise.all([
       sendBookingConfirmation(emailData).catch(console.error),
       sendAdminNotification(emailData).catch(console.error),
       sendBookingConfirmationSms({

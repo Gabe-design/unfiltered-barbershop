@@ -4,6 +4,8 @@ import { generateTimeSlots, timeToMinutes } from "@/lib/utils";
 import { startOfDay, isSameDay } from "date-fns";
 import { BookingStatus, type Prisma } from "@prisma/client";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const dateStr = searchParams.get("date");
@@ -16,6 +18,17 @@ export async function GET(req: NextRequest) {
 
   const date = new Date(dateStr);
   const dayOfWeek = date.getDay();
+  const startOfDate = startOfDay(date);
+  const endOfDate = new Date(startOfDate);
+  endOfDate.setDate(endOfDate.getDate() + 1);
+
+  // Fetch existing bookings upfront so both paths can use it
+  const bookingsWhere: Prisma.BookingWhereInput = {
+    date: { gte: startOfDate, lt: endOfDate },
+    status: { notIn: [BookingStatus.CANCELLED, BookingStatus.NO_SHOW] },
+  };
+  if (barberId) bookingsWhere.barberId = barberId;
+  const existingBookings = await prisma.booking.findMany({ where: bookingsWhere });
 
   // Get availability for this day
   const availabilityWhere = barberId
@@ -61,10 +74,6 @@ export async function GET(req: NextRequest) {
   }
 
   // Check for blocked dates
-  const startOfDate = startOfDay(date);
-  const endOfDate = new Date(startOfDate);
-  endOfDate.setDate(endOfDate.getDate() + 1);
-
   const blockedQuery = barberId
     ? { barberId, date: { gte: startOfDate, lt: endOfDate } }
     : { date: { gte: startOfDate, lt: endOfDate } };
@@ -74,15 +83,6 @@ export async function GET(req: NextRequest) {
   if (blockedDates.length > 0 && barberId) {
     return NextResponse.json({ slots: [], available: false, reason: "Barber unavailable" });
   }
-
-  // Get existing bookings for this day
-  const bookingsWhere: Prisma.BookingWhereInput = {
-    date: { gte: startOfDate, lt: endOfDate },
-    status: { notIn: [BookingStatus.CANCELLED, BookingStatus.NO_SHOW] },
-  };
-  if (barberId) bookingsWhere.barberId = barberId;
-
-  const existingBookings = await prisma.booking.findMany({ where: bookingsWhere });
 
   // Determine working hours (use first availability or aggregate across barbers)
   const avail = availabilities[0];

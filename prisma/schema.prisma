@@ -24,6 +24,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   bookings      Booking[]
+  barber        Barber?
 }
 
 model Account {
@@ -69,6 +70,7 @@ model Barber {
   bio             String?              @db.Text
   image           String?
   instagram       String?
+  phone           String?
   specialty       String?
   rating          Float                @default(5.0)
   reviewCount     Int                  @default(0)
@@ -78,6 +80,8 @@ model Barber {
   rebookingWeeks  Int                  @default(4)
   createdAt       DateTime             @default(now())
   updatedAt       DateTime             @updatedAt
+  userId          String?              @unique
+  user            User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
   bookings        Booking[]
   availability    BarberAvailability[]
   blockedDates    BlockedDate[]
@@ -445,6 +449,7 @@ model AppSettings {
 
 enum Role {
   CUSTOMER
+  BARBER
   ADMIN
   SUPER_ADMIN
 }

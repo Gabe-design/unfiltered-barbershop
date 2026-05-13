@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   format,
@@ -47,15 +47,6 @@ function generateSlots(date: Date, durationMinutes: number): string[] {
 }
 
 type SlotStatus = "available" | "limited" | "unavailable";
-
-// Deterministic fake availability for demo
-function getSlotStatus(dateStr: string, slot: string): SlotStatus {
-  const hash = (dateStr + slot).split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-  const r = hash % 10;
-  if (r <= 6) return "available";
-  if (r <= 8) return "limited";
-  return "unavailable";
-}
 
 function groupSlots(slots: string[]): { morning: string[]; afternoon: string[]; evening: string[] } {
   const morning: string[] = [];
@@ -191,11 +182,11 @@ interface SlotGroupProps {
   Icon: React.ElementType;
   slots: string[];
   selected: string | null;
-  dateStr: string;
+  slotStatuses: Record<string, SlotStatus>;
   onSelect: (s: string) => void;
 }
 
-function SlotGroup({ label, Icon, slots, selected, dateStr, onSelect }: SlotGroupProps) {
+function SlotGroup({ label, Icon, slots, selected, slotStatuses, onSelect }: SlotGroupProps) {
   if (slots.length === 0) return null;
 
   return (
@@ -206,7 +197,7 @@ function SlotGroup({ label, Icon, slots, selected, dateStr, onSelect }: SlotGrou
       </div>
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
         {slots.map((slot) => {
-          const status = getSlotStatus(dateStr, slot);
+          const status = slotStatuses[slot] ?? "available";
           const isSelected = selected === slot;
 
           return (
@@ -249,6 +240,7 @@ export function Step3DateTime() {
     date,
     startTime,
     service,
+    barber,
     setDate,
     setStartTime,
     nextStep,
@@ -256,6 +248,33 @@ export function Step3DateTime() {
   } = useBookingStore();
 
   const durationMinutes = service?.duration ?? 60;
+  const [slotStatuses, setSlotStatuses] = useState<Record<string, SlotStatus>>({});
+  const [loadingSlots, setLoadingSlots] = useState(false);
+
+  useEffect(() => {
+    if (!date) return;
+    const dateStr = format(date, "yyyy-MM-dd");
+    const barberId = barber?.id && barber.id !== "no-preference" ? barber.id : "";
+    const params = new URLSearchParams({ date: dateStr, duration: String(durationMinutes) });
+    if (barberId) params.set("barberId", barberId);
+
+    setLoadingSlots(true);
+    setSlotStatuses({});
+    setStartTime(null);
+
+    fetch(`/api/availability?${params}`)
+      .then((r) => r.json())
+      .then((data: { slots: { time: string; available: boolean }[] }) => {
+        const map: Record<string, SlotStatus> = {};
+        for (const s of data.slots ?? []) {
+          map[s.time] = s.available ? "available" : "unavailable";
+        }
+        setSlotStatuses(map);
+      })
+      .catch(() => {})
+      .finally(() => setLoadingSlots(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date, durationMinutes, barber?.id]);
 
   const slots = date ? generateSlots(date, durationMinutes) : [];
   const grouped = groupSlots(slots);
@@ -273,7 +292,7 @@ export function Step3DateTime() {
         className="mb-8"
       >
         <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-2 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
-          Step 3 of 7
+          Step 4 of 7
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
           Pick a Date & Time
@@ -329,34 +348,42 @@ export function Step3DateTime() {
                     {format(date, "EEEE, MMMM d")}
                   </p>
                   <span className="text-xs text-gray-500">
-                    {slots.length} slots
+                    {loadingSlots ? "Loading..." : `${slots.length} slots`}
                   </span>
                 </div>
 
-                <SlotGroup
-                  label="Morning"
-                  Icon={Sun}
-                  slots={grouped.morning}
-                  selected={startTime}
-                  dateStr={dateStr}
-                  onSelect={setStartTime}
-                />
-                <SlotGroup
-                  label="Afternoon"
-                  Icon={Sunset}
-                  slots={grouped.afternoon}
-                  selected={startTime}
-                  dateStr={dateStr}
-                  onSelect={setStartTime}
-                />
-                <SlotGroup
-                  label="Evening"
-                  Icon={Moon}
-                  slots={grouped.evening}
-                  selected={startTime}
-                  dateStr={dateStr}
-                  onSelect={setStartTime}
-                />
+                {loadingSlots ? (
+                  <div className="flex justify-center py-10">
+                    <div className="w-5 h-5 border-2 border-red-700 border-t-transparent rounded-full animate-spin" />
+                  </div>
+                ) : (
+                  <>
+                    <SlotGroup
+                      label="Morning"
+                      Icon={Sun}
+                      slots={grouped.morning}
+                      selected={startTime}
+                      slotStatuses={slotStatuses}
+                      onSelect={setStartTime}
+                    />
+                    <SlotGroup
+                      label="Afternoon"
+                      Icon={Sunset}
+                      slots={grouped.afternoon}
+                      selected={startTime}
+                      slotStatuses={slotStatuses}
+                      onSelect={setStartTime}
+                    />
+                    <SlotGroup
+                      label="Evening"
+                      Icon={Moon}
+                      slots={grouped.evening}
+                      selected={startTime}
+                      slotStatuses={slotStatuses}
+                      onSelect={setStartTime}
+                    />
+                  </>
+                )}
               </motion.div>
             )}
           </AnimatePresence>

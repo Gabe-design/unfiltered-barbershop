@@ -51,7 +51,7 @@ export function OrderSidebar() {
             </span>
           </div>
           <span className="text-xs text-gray-500 font-medium">
-            {step} of 7
+            {step} of 6
           </span>
         </div>
 
@@ -156,7 +156,7 @@ export function OrderSidebar() {
                 </p>
               </div>
               <button
-                onClick={() => setStep(4)}
+                onClick={() => setStep(3)}
                 className="text-[10px] text-gray-600 hover:text-blue-400 transition-colors underline underline-offset-2 shrink-0"
               >
                 edit
@@ -179,7 +179,7 @@ export function OrderSidebar() {
                   </span>
                 </div>
                 <button
-                  onClick={() => setStep(3)}
+                  onClick={() => setStep(4)}
                   className="text-[10px] text-gray-600 hover:text-blue-400 transition-colors underline underline-offset-2 shrink-0"
                 >
                   edit
@@ -216,10 +216,11 @@ export function OrderSidebar() {
           </div>
 
           {/* CTA */}
-          {step < 6 && (
+          {step < 5 && (
             <button
-              onClick={() => setStep(6)}
-              className="w-full text-white font-semibold py-3 rounded-xl text-sm transition-all duration-200 hover:brightness-110 active:scale-[0.98]"
+              onClick={() => setStep(5)}
+              disabled={!date || !startTime || !barber}
+              className="w-full text-white font-semibold py-3 rounded-xl text-sm transition-all duration-200 hover:brightness-110 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:brightness-100 disabled:active:scale-100"
               style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
             >
               Proceed to Checkout

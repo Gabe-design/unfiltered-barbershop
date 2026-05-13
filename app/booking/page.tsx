@@ -7,8 +7,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Step1Service } from "@/components/booking/step1-service";
 import { Step2AddOns } from "@/components/booking/step2-addons";
-import { Step3DateTime } from "@/components/booking/step3-datetime";
-import { Step4Barber } from "@/components/booking/step4-barber";
+import { Step3Combined } from "@/components/booking/step3-combined";
 import { Step5Summary } from "@/components/booking/step5-summary";
 import { Step6CustomerInfo } from "@/components/booking/step6-customer-info";
 import { Step7Confirmation } from "@/components/booking/step7-confirmation";
@@ -21,11 +20,10 @@ import { cn } from "@/lib/utils";
 const STEPS = [
   { number: 1, label: "Service" },
   { number: 2, label: "Add-ons" },
-  { number: 3, label: "Date & Time" },
-  { number: 4, label: "Barber" },
-  { number: 5, label: "Summary" },
-  { number: 6, label: "Your Info" },
-  { number: 7, label: "Confirm" },
+  { number: 3, label: "Date & Barber" },
+  { number: 4, label: "Summary" },
+  { number: 5, label: "Your Info" },
+  { number: 6, label: "Confirm" },
 ];
 
 // ─── Step Indicator ───────────────────────────────────────────────────────────
@@ -41,7 +39,7 @@ function StepIndicator({
     <div className="w-full overflow-x-auto no-scrollbar">
       <div className="flex items-center justify-center min-w-max mx-auto px-1 py-1 gap-0">
         {STEPS.map((step, index) => {
-          const isSkipped = isHouseCall && step.number === 2;
+          const isSkipped = isHouseCall && step.number === 2; // add-ons skipped for house calls
           const isCompleted = currentStep > step.number;
           const isCurrent = currentStep === step.number;
 
@@ -129,11 +127,10 @@ function StepContent({ step }: { step: number }) {
   switch (step) {
     case 1: return <Step1Service />;
     case 2: return <Step2AddOns />;
-    case 3: return <Step3DateTime />;
-    case 4: return <Step4Barber />;
-    case 5: return <Step5Summary />;
-    case 6: return <Step6CustomerInfo />;
-    case 7: return <Step7Confirmation />;
+    case 3: return <Step3Combined />;
+    case 4: return <Step5Summary />;
+    case 5: return <Step6CustomerInfo />;
+    case 6: return <Step7Confirmation />;
     default: return <Step1Service />;
   }
 }
@@ -198,8 +195,8 @@ export default function BookingPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const showSidebar = step >= 3 && step < 7;
-  const isConfirmation = step === 7;
+  const showSidebar = step >= 3 && step < 6;
+  const isConfirmation = step === 6;
 
   return (
     <>

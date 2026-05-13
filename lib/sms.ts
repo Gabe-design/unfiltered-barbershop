@@ -52,6 +52,21 @@ export async function sendBookingConfirmationSms(data: {
   return sendSms(data.customerPhone, body);
 }
 
+export async function sendBarberNotificationSms(data: {
+  barberPhone: string;
+  barberName: string;
+  customerName: string;
+  date: Date;
+  startTime: string;
+  serviceName: string;
+}) {
+  const dateStr = format(data.date, "EEEE, MMMM d");
+  const timeStr = formatTime(data.startTime);
+  const body =
+    `New booking, ${data.barberName}! ${data.customerName} booked a ${data.serviceName} on ${dateStr} at ${timeStr}. Check the admin panel for details.`;
+  return sendSms(data.barberPhone, body);
+}
+
 export async function sendBookingReminderSms(data: {
   customerPhone: string;
   customerName: string;

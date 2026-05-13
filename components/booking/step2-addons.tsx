@@ -28,7 +28,7 @@ export function Step2AddOns() {
         className="mb-8"
       >
         <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-2 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
-          Step 2 of 7
+          Step 2 of 6
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
           Enhance Your Experience
@@ -97,7 +97,7 @@ export function Step2AddOns() {
                       isActive ? "text-red-400" : "text-gray-500"
                     )}
                   >
-                    +{formatCurrency(addOn.price)} each
+                    +{formatCurrency(addOn.price)}
                   </p>
                 </div>
               </div>
@@ -148,7 +148,11 @@ export function Step2AddOns() {
 
                   <button
                     onClick={() => toggleAddOn(addOn.id, 1)}
-                    className="w-8 h-8 rounded-lg text-white flex items-center justify-center transition-all duration-200 active:scale-90 hover:brightness-110"
+                    disabled={qty >= 1}
+                    className={cn(
+                      "w-8 h-8 rounded-lg text-white flex items-center justify-center transition-all duration-200 active:scale-90 hover:brightness-110",
+                      qty >= 1 ? "opacity-30 cursor-not-allowed" : ""
+                    )}
                     style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
                     aria-label={`Add ${addOn.name}`}
                   >

@@ -194,7 +194,7 @@ export const useBookingStore = create<BookingState & BookingActions>()(
         if (step === 1 && skipAddOns) {
           set({ step: 3 }, false, "nextStep/skipAddOns");
         } else {
-          set({ step: Math.min(step + 1, 7) }, false, "nextStep");
+          set({ step: Math.min(step + 1, 6) }, false, "nextStep");
         }
       },
 

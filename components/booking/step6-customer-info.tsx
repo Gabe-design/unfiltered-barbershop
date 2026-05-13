@@ -189,7 +189,7 @@ export function Step6CustomerInfo() {
         className="mb-8"
       >
         <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.25em] mb-2">
-          Step 6 of 7
+          Step 5 of 6
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
           Your Information

@@ -27,8 +27,37 @@ export async function GET(req: NextRequest) {
     include: { barber: { select: { id: true, name: true, isActive: true } } },
   });
 
+  // Fall back to standard business hours if no availability records exist
+  const businessHours: Record<number, { start: string; end: string }> = {
+    0: { start: "10:00", end: "14:00" }, // Sunday
+    1: { start: "09:00", end: "19:00" },
+    2: { start: "09:00", end: "19:00" },
+    3: { start: "09:00", end: "19:00" },
+    4: { start: "09:00", end: "19:00" },
+    5: { start: "09:00", end: "19:00" },
+    6: { start: "09:00", end: "17:00" }, // Saturday
+  };
+
   if (availabilities.length === 0) {
-    return NextResponse.json({ slots: [], available: false });
+    const hours = businessHours[dayOfWeek];
+    if (!hours) return NextResponse.json({ slots: [], available: false });
+    const allSlots = generateTimeSlots(hours.start, hours.end, 30, duration);
+    const now = new Date();
+    const isToday = isSameDay(date, now);
+    const slots = allSlots.map((time) => {
+      const slotStart = timeToMinutes(time);
+      if (isToday) {
+        const currentMinutes = now.getHours() * 60 + now.getMinutes() + 30;
+        if (slotStart < currentMinutes) return { time, available: false, period: getPeriod(slotStart) };
+      }
+      const conflict = existingBookings.some((b) => {
+        const bStart = timeToMinutes(b.startTime);
+        const bEnd = timeToMinutes(b.endTime);
+        return slotStart < bEnd && slotStart + duration > bStart;
+      });
+      return { time, available: !conflict, period: getPeriod(slotStart) };
+    });
+    return NextResponse.json({ slots, available: slots.some((s) => s.available) });
   }
 
   // Check for blocked dates

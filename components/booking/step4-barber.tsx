@@ -91,7 +91,7 @@ export function Step4Barber() {
         className="mb-8"
       >
         <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-2 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>
-          Step 4 of 7
+          Step 3 of 7
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
           Choose Your Barber

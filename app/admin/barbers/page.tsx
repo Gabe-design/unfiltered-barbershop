@@ -14,6 +14,8 @@ import {
   RefreshCw,
   User,
   Clock,
+  KeyRound,
+  ShieldOff,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -46,6 +48,7 @@ interface Barber {
   isActive: boolean;
   offersHouseCall: boolean;
   displayOrder: number;
+  userId?: string | null;
   availability: AvailabilitySlot[];
   _count?: { bookings: number };
 }
@@ -114,12 +117,16 @@ function BarberCard({
   onDelete,
   onToggleActive,
   onToggleHouseCall,
+  onCreateLogin,
+  onRevokeLogin,
 }: {
   barber: Barber;
   onEdit: (b: Barber) => void;
   onDelete: (b: Barber) => void;
   onToggleActive: (b: Barber) => void;
   onToggleHouseCall: (b: Barber) => void;
+  onCreateLogin: (b: Barber) => void;
+  onRevokeLogin: (b: Barber) => void;
 }) {
   return (
     <div
@@ -211,6 +218,23 @@ function BarberCard({
           )}
           House Calls
         </button>
+      </div>
+
+      {/* Login */}
+      <div className="pt-2 border-t border-zinc-800">
+        {barber.userId ? (
+          <button onClick={() => onRevokeLogin(barber)}
+            className="flex items-center gap-2 text-xs font-medium text-red-400 hover:text-red-300 transition-colors">
+            <ShieldOff className="w-3.5 h-3.5" />
+            Revoke Login
+          </button>
+        ) : (
+          <button onClick={() => onCreateLogin(barber)}
+            className="flex items-center gap-2 text-xs font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+            <KeyRound className="w-3.5 h-3.5" />
+            Create Login
+          </button>
+        )}
       </div>
 
       {/* Schedule preview */}
@@ -576,6 +600,97 @@ function BarberModal({
   );
 }
 
+// -- Login Modal -----------------------------------------------------------
+
+function LoginModal({
+  barber,
+  onClose,
+  onSave,
+}: {
+  barber: Barber;
+  onClose: () => void;
+  onSave: (barberId: string, email: string, password: string) => Promise<void>;
+}) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [saving, setSaving] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    await onSave(barber.id, email, password);
+    setSaving(false);
+  };
+
+  return (
+    <div
+      ref={overlayRef}
+      className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4"
+      onClick={(e) => e.target === overlayRef.current && onClose()}
+    >
+      <div className="bg-[#111111] border border-zinc-800 rounded-2xl w-full max-w-sm p-6 space-y-5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
+              <KeyRound className="w-5 h-5 text-indigo-400" />
+            </div>
+            <div>
+              <h2 className="text-white font-bold">Create Login</h2>
+              <p className="text-zinc-400 text-sm">{barber.name}</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="text-zinc-400 text-xs font-medium uppercase tracking-wide block mb-1.5">Email</label>
+            <input
+              required
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="barber@example.com"
+              className="w-full bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-zinc-600 transition-colors"
+            />
+          </div>
+          <div>
+            <label className="text-zinc-400 text-xs font-medium uppercase tracking-wide block mb-1.5">Password</label>
+            <input
+              required
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Min. 8 characters"
+              minLength={8}
+              className="w-full bg-zinc-900 border border-zinc-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-zinc-600 transition-colors"
+            />
+          </div>
+          <div className="flex items-center gap-3 pt-1">
+            <button type="button" onClick={onClose}
+              className="flex-1 px-4 py-2 rounded-lg text-sm text-zinc-400 hover:text-white border border-zinc-700 hover:border-zinc-600 transition-all">
+              Cancel
+            </button>
+            <button type="submit" disabled={saving}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 transition-colors">
+              <Save className="w-4 h-4" />
+              {saving ? "Creating…" : "Create Login"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 // -- Delete Confirm Modal --------------------------------------------------
 
 function DeleteModal({
@@ -641,6 +756,7 @@ export default function BarbersPage() {
   const [loading, setLoading] = useState(true);
   const [editBarber, setEditBarber] = useState<Barber | null | undefined>(undefined); // undefined = closed, null = new
   const [deleteBarber, setDeleteBarber] = useState<Barber | null>(null);
+  const [loginBarber, setLoginBarber] = useState<Barber | null>(null);
 
   const fetchBarbers = useCallback(async () => {
     setLoading(true);
@@ -705,6 +821,39 @@ export default function BarbersPage() {
     }
   };
 
+  const handleCreateLogin = async (barberId: string, email: string, password: string) => {
+    try {
+      const res = await fetch("/api/admin/barbers/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ barberId, email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Failed to create login");
+      setBarbers((prev) => prev.map((b) => b.id === barberId ? { ...b, userId: data.userId } : b));
+      setLoginBarber(null);
+      toast.success("Login created — barber can now sign in");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to create login");
+    }
+  };
+
+  const handleRevokeLogin = async (barber: Barber) => {
+    if (!confirm(`Revoke login for ${barber.name}? They will no longer be able to sign in.`)) return;
+    try {
+      const res = await fetch("/api/admin/barbers/login", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ barberId: barber.id }),
+      });
+      if (!res.ok) throw new Error("Failed to revoke login");
+      setBarbers((prev) => prev.map((b) => b.id === barber.id ? { ...b, userId: null } : b));
+      toast.success("Login revoked");
+    } catch {
+      toast.error("Failed to revoke login");
+    }
+  };
+
   return (
     <>
       <div className="p-6 space-y-6 max-w-7xl mx-auto">
@@ -757,6 +906,8 @@ export default function BarbersPage() {
                 onDelete={setDeleteBarber}
                 onToggleActive={(b) => handleToggle(b, "isActive")}
                 onToggleHouseCall={(b) => handleToggle(b, "offersHouseCall")}
+                onCreateLogin={setLoginBarber}
+                onRevokeLogin={handleRevokeLogin}
               />
             ))}
           </div>
@@ -778,6 +929,15 @@ export default function BarbersPage() {
           barber={deleteBarber}
           onClose={() => setDeleteBarber(null)}
           onConfirm={() => handleDelete(deleteBarber)}
+        />
+      )}
+
+      {/* Login modal */}
+      {loginBarber && (
+        <LoginModal
+          barber={loginBarber}
+          onClose={() => setLoginBarber(null)}
+          onSave={handleCreateLogin}
         />
       )}
     </>

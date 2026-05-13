@@ -1,7 +1,7 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendBookingConfirmation, sendAdminNotification } from "@/lib/email";
-import { sendBookingConfirmationSms } from "@/lib/sms";
+import { sendBookingConfirmationSms, sendBarberNotificationSms } from "@/lib/sms";
 import { generateConfirmationId, minutesToTime, timeToMinutes } from "@/lib/utils";
 import { z } from "zod";
 
@@ -201,7 +201,7 @@ export async function POST(req: NextRequest) {
 
     // Fetch barber name if applicable
     const barber = resolvedBarberId
-      ? await prisma.barber.findUnique({ where: { id: resolvedBarberId } })
+      ? await prisma.barber.findUnique({ where: { id: resolvedBarberId }, select: { name: true, phone: true } })
       : null;
 
     const emailData = {
@@ -233,6 +233,16 @@ export async function POST(req: NextRequest) {
         startTime: data.startTime,
         barberName: barber?.name,
       }).catch(console.error),
+      barber?.phone
+        ? sendBarberNotificationSms({
+            barberPhone: barber.phone,
+            barberName: barber.name,
+            customerName: data.customerName,
+            date: bookingDate,
+            startTime: data.startTime,
+            serviceName: service.name,
+          }).catch(console.error)
+        : Promise.resolve(),
     ]);
 
     return NextResponse.json({

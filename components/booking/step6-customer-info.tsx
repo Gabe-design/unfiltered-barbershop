@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, Phone, Mail, MessageSquare, Bell, Loader2, AlertCircle, ArrowRight } from "lucide-react";
+import { User, Phone, Mail, MessageSquare, Loader2, AlertCircle, ArrowRight } from "lucide-react";
 import { format } from "date-fns";
 import { useBookingStore } from "@/lib/booking-store";
 import { cn, formatCurrency, formatTime, generateConfirmationId } from "@/lib/utils";
@@ -29,7 +29,6 @@ const customerSchema = z.object({
     .email("Please enter a valid email address")
     .max(120, "Email is too long"),
   notes: z.string().max(500, "Notes cannot exceed 500 characters").optional(),
-  smsReminder: z.boolean(),
 });
 
 type CustomerFormData = z.infer<typeof customerSchema>;
@@ -84,7 +83,6 @@ export function Step6CustomerInfo() {
     customerEmail,
     customerPhone,
     notes,
-    smsReminder,
     service,
     selectedAddOns,
     date,
@@ -109,7 +107,6 @@ export function Step6CustomerInfo() {
     register,
     handleSubmit,
     watch,
-    setValue,
     formState: { errors },
   } = useForm<CustomerFormData>({
     resolver: zodResolver(customerSchema),
@@ -119,11 +116,9 @@ export function Step6CustomerInfo() {
       customerPhone,
       customerEmail,
       notes,
-      smsReminder,
     },
   });
 
-  const watchedSms = watch("smsReminder");
   const watchedNotes = watch("notes") ?? "";
 
   const onSubmit = async (data: CustomerFormData) => {
@@ -153,7 +148,6 @@ export function Step6CustomerInfo() {
         customerPhone: data.customerPhone,
         customerEmail: data.customerEmail,
         notes: data.notes,
-        smsReminder: data.smsReminder,
       };
 
       const res = await fetch("/api/bookings", {
@@ -271,51 +265,6 @@ export function Step6CustomerInfo() {
                 </span>
               </div>
             </FormField>
-
-            {/* SMS Reminder toggle */}
-            <button
-              type="button"
-              onClick={() => setValue("smsReminder", !watchedSms, { shouldValidate: true })}
-              className={cn(
-                "w-full flex items-center gap-4 p-4 rounded-xl border transition-all duration-200 text-left",
-                watchedSms
-                  ? "border-white/20"
-                  : "bg-[#161616] border-[#262626] hover:border-[#333]"
-              )}
-              style={watchedSms ? { background: "linear-gradient(135deg, rgba(185,28,28,0.08) 0%, rgba(29,78,216,0.08) 100%)" } : undefined}
-            >
-              <div
-                className={cn(
-                  "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors",
-                  watchedSms ? "" : "bg-white/5"
-                )}
-                style={watchedSms ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
-              >
-                <Bell className={cn("w-4 h-4", watchedSms ? "text-white" : "text-gray-500")} />
-              </div>
-              <div className="flex-1">
-                <p className={cn("font-semibold text-sm transition-colors", watchedSms ? "text-white" : "text-gray-400")}>
-                  SMS Appointment Reminders
-                </p>
-                <p className="text-gray-600 text-xs mt-0.5">
-                  Get a text 24 hours and 1 hour before your appointment
-                </p>
-              </div>
-              {/* Toggle */}
-              <div
-                className={cn(
-                  "w-11 h-6 rounded-full border transition-all duration-300 relative shrink-0",
-                  watchedSms ? "border-white/20" : "bg-white/10 border-white/20"
-                )}
-                style={watchedSms ? { background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" } : undefined}
-              >
-                <motion.div
-                  animate={{ x: watchedSms ? 20 : 2 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  className="absolute top-1 w-4 h-4 rounded-full bg-white shadow"
-                />
-              </div>
-            </button>
 
             {/* Error Banner */}
             <AnimatePresence>

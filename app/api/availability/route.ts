@@ -16,7 +16,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "date required" }, { status: 400 });
   }
 
-  const date = new Date(dateStr);
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const date = new Date(year, month - 1, day); // local midnight — avoids UTC offset shifting the day
   const dayOfWeek = date.getDay();
   const startOfDate = startOfDay(date);
   const endOfDate = new Date(startOfDate);

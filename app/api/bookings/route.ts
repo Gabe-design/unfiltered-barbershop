@@ -1,7 +1,6 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendBookingConfirmation, sendAdminNotification } from "@/lib/email";
-import { sendBookingConfirmationSms, sendBarberNotificationSms } from "@/lib/sms";
 import { generateConfirmationId, minutesToTime, timeToMinutes } from "@/lib/utils";
 import { z } from "zod";
 
@@ -222,27 +221,10 @@ export async function POST(req: NextRequest) {
         : undefined,
     };
 
-    // Send emails + SMS
+    // Send confirmation emails
     await Promise.all([
       sendBookingConfirmation(emailData).catch(console.error),
       sendAdminNotification(emailData).catch(console.error),
-      sendBookingConfirmationSms({
-        customerPhone: data.customerPhone,
-        customerName: data.customerName,
-        date: bookingDate,
-        startTime: data.startTime,
-        barberName: barber?.name,
-      }).catch(console.error),
-      barber?.phone
-        ? sendBarberNotificationSms({
-            barberPhone: barber.phone,
-            barberName: barber.name,
-            customerName: data.customerName,
-            date: bookingDate,
-            startTime: data.startTime,
-            serviceName: service.name,
-          }).catch(console.error)
-        : Promise.resolve(),
     ]);
 
     return NextResponse.json({

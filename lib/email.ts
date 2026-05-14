@@ -43,13 +43,12 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
 
     <div style="text-align:center;margin-bottom:40px;">
-      <h1 style="font-size:28px;font-weight:900;color:#FFFFFF;letter-spacing:3px;margin:0;">UNFILTERED</h1>
-      <p style="color:#3B82F6;letter-spacing:6px;font-size:11px;margin:4px 0 0;">BARBERSHOP</p>
+      <img src="https://uunfiltered-barbershop.vercel.app/un.PNG" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
     </div>
 
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;margin-bottom:24px;">
       <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 8px;">Booking Confirmed! ✓</h2>
-      <p style="color:#9CA3AF;margin:0 0 24px;">Confirmation ID: <strong style="color:#3B82F6;">${data.confirmationId}</strong></p>
+      <p style="color:#9CA3AF;margin:0 0 24px;">Confirmation ID: <strong style="background:linear-gradient(135deg,#B91C1C,#FFFFFF,#1D4ED8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">${data.confirmationId}</strong></p>
 
       <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:12px;padding:20px;margin-bottom:24px;">
         <table style="width:100%;border-collapse:collapse;">
@@ -69,7 +68,10 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
             <td style="color:#9CA3AF;font-size:12px;text-transform:uppercase;letter-spacing:1px;padding:4px 0;">Duration</td>
             <td style="color:#FFFFFF;font-weight:600;text-align:right;">${formatDuration(data.totalDuration)}</td>
           </tr>
-          ${data.isHouseCall ? `<tr><td style="color:#9CA3AF;font-size:12px;text-transform:uppercase;letter-spacing:1px;padding:4px 0;">Location</td><td style="color:#FFFFFF;font-weight:600;text-align:right;">${data.houseCallAddress}</td></tr>` : ""}
+          <tr>
+            <td style="color:#9CA3AF;font-size:12px;text-transform:uppercase;letter-spacing:1px;padding:4px 0;">Location</td>
+            <td style="color:#FFFFFF;font-weight:600;text-align:right;">${data.isHouseCall ? data.houseCallAddress : "1706 Erringer Rd Suite #4, Simi Valley, CA 93065"}</td>
+          </tr>
         </table>
       </div>
 
@@ -158,8 +160,7 @@ export async function sendReviewRequest(data: {
 <body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <h1 style="font-size:28px;font-weight:900;color:#FFFFFF;letter-spacing:3px;margin:0;">UNFILTERED</h1>
-      <p style="color:#3B82F6;letter-spacing:6px;font-size:11px;margin:4px 0 0;">BARBERSHOP</p>
+      <img src="https://uunfiltered-barbershop.vercel.app/un.PNG" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
     </div>
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
       <div style="font-size:48px;margin-bottom:16px;">⭐</div>
@@ -195,8 +196,7 @@ export async function sendRebookingReminder(data: {
 <body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <h1 style="font-size:28px;font-weight:900;color:#FFFFFF;letter-spacing:3px;margin:0;">UNFILTERED</h1>
-      <p style="color:#3B82F6;letter-spacing:6px;font-size:11px;margin:4px 0 0;">BARBERSHOP</p>
+      <img src="https://uunfiltered-barbershop.vercel.app/un.PNG" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
     </div>
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
       <div style="font-size:48px;margin-bottom:16px;">✂️</div>
@@ -230,8 +230,7 @@ export async function sendAbandonedBookingFollowUp(data: {
 <body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <h1 style="font-size:28px;font-weight:900;color:#FFFFFF;letter-spacing:3px;margin:0;">UNFILTERED</h1>
-      <p style="color:#3B82F6;letter-spacing:6px;font-size:11px;margin:4px 0 0;">BARBERSHOP</p>
+      <img src="https://uunfiltered-barbershop.vercel.app/un.PNG" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
     </div>
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
       <div style="font-size:48px;margin-bottom:16px;">💈</div>
@@ -266,8 +265,7 @@ export async function sendReferralInvite(data: {
 <body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <h1 style="font-size:28px;font-weight:900;color:#FFFFFF;letter-spacing:3px;margin:0;">UNFILTERED</h1>
-      <p style="color:#3B82F6;letter-spacing:6px;font-size:11px;margin:4px 0 0;">BARBERSHOP</p>
+      <img src="https://uunfiltered-barbershop.vercel.app/un.PNG" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
     </div>
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
       <div style="font-size:48px;margin-bottom:16px;">🎁</div>

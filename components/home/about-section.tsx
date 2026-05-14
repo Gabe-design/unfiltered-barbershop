@@ -80,7 +80,7 @@ export default function AboutSection() {
                 className="inline-flex items-center gap-2 text-white font-semibold text-sm tracking-wide px-6 py-3 rounded-full transition-all duration-300 hover:brightness-110 group"
                 style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}
               >
-                Learn More
+                Meet The Team
                 <ArrowRight
                   size={15}
                   className="group-hover:translate-x-1 transition-transform duration-200"

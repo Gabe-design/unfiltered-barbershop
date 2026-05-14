@@ -18,7 +18,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "date and startTime required" }, { status: 400 });
   }
 
-  const date = new Date(dateStr + "T00:00:00.000Z");
+  const [y, m, d] = dateStr.split("-").map(Number);
+  const date = new Date(y, m - 1, d); // local midnight
   const slotStart = timeToMinutes(startTime);
   const slotEnd = slotStart + duration;
 

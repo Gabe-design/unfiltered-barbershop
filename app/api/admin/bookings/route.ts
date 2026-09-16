@@ -99,7 +99,9 @@ export async function PATCH(req: NextRequest) {
           data: { reviewStatus: "REQUESTED" },
         });
 
-        sendReviewRequest({
+        // Awaited on purpose: on Vercel the function can be frozen as soon as the
+        // response is sent, which would drop an un-awaited send.
+        await sendReviewRequest({
           customerName: booking.customerName,
           customerEmail: booking.customerEmail,
           confirmationId: booking.confirmationId,

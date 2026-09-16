@@ -1,11 +1,19 @@
 ﻿import { Resend } from "resend";
-import { format } from "date-fns";
-import { formatCurrency, formatDuration, formatTime } from "./utils";
+import { formatBookingDate, formatCurrency, formatDuration, formatTime } from "./utils";
+import { SITE_URL } from "./site";
 
 const getResend = () => new Resend(process.env.RESEND_API_KEY ?? "placeholder");
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? "Unfiltered Barbershop <onboarding@resend.dev>";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@unfilteredbarbershop.com";
+const LOGO_URL = `${SITE_URL}/un.PNG`;
+
+// Every customer-supplied string goes through this before being placed in HTML —
+// otherwise a contact form message can inject links/markup into the owner's inbox.
+const HTML_ESCAPES: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+function esc(value: unknown): string {
+  return String(value ?? "").replace(/[&<>"']/g, (c) => HTML_ESCAPES[c]);
+}
 
 interface BookingEmailData {
   customerName: string;
@@ -24,15 +32,15 @@ interface BookingEmailData {
 }
 
 export async function sendBookingConfirmation(data: BookingEmailData) {
-  const dateStr = format(data.date, "EEEE, MMMM d, yyyy");
+  const dateStr = formatBookingDate(data.date, "long");
   const timeStr = formatTime(data.startTime);
 
   const itemsHtml = data.services
-    .map((s) => `<tr><td style="padding:8px 0;">${s.name}</td><td style="text-align:right;padding:8px 0;">${formatCurrency(s.price)}</td></tr>`)
+    .map((s) => `<tr><td style="padding:8px 0;">${esc(s.name)}</td><td style="text-align:right;padding:8px 0;">${formatCurrency(s.price)}</td></tr>`)
     .join("");
 
   const addOnsHtml = data.addOns
-    .map((a) => `<tr><td style="padding:4px 0;color:#9CA3AF;">+ ${a.name}</td><td style="text-align:right;padding:4px 0;color:#9CA3AF;">${formatCurrency(a.price)}</td></tr>`)
+    .map((a) => `<tr><td style="padding:4px 0;color:#9CA3AF;">+ ${esc(a.name)}</td><td style="text-align:right;padding:4px 0;color:#9CA3AF;">${formatCurrency(a.price)}</td></tr>`)
     .join("");
 
   const html = `
@@ -43,7 +51,7 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
 
     <div style="text-align:center;margin-bottom:40px;">
-      <img src="https://uunfiltered-barbershop.vercel.app/un.PNG" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
+      <img src="${LOGO_URL}" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
     </div>
 
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;margin-bottom:24px;">
@@ -62,7 +70,7 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
           </tr>
           <tr>
             <td style="color:#9CA3AF;font-size:12px;text-transform:uppercase;letter-spacing:1px;padding:4px 0;">Barber</td>
-            <td style="color:#FFFFFF;font-weight:600;text-align:right;">${data.barberName || "No Preference"}</td>
+            <td style="color:#FFFFFF;font-weight:600;text-align:right;">${esc(data.barberName || "No Preference")}</td>
           </tr>
           <tr>
             <td style="color:#9CA3AF;font-size:12px;text-transform:uppercase;letter-spacing:1px;padding:4px 0;">Duration</td>
@@ -70,7 +78,7 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
           </tr>
           <tr>
             <td style="color:#9CA3AF;font-size:12px;text-transform:uppercase;letter-spacing:1px;padding:4px 0;">Location</td>
-            <td style="color:#FFFFFF;font-weight:600;text-align:right;">${data.isHouseCall ? data.houseCallAddress : "1706 Erringer Rd Suite #4, Simi Valley, CA 93065"}</td>
+            <td style="color:#FFFFFF;font-weight:600;text-align:right;">${data.isHouseCall ? esc(data.houseCallAddress) : "1706 Erringer Rd Suite #4, Simi Valley, CA 93065"}</td>
           </tr>
         </table>
       </div>
@@ -112,7 +120,7 @@ export async function sendBookingConfirmation(data: BookingEmailData) {
 }
 
 export async function sendAdminNotification(data: BookingEmailData) {
-  const dateStr = format(data.date, "EEEE, MMMM d, yyyy");
+  const dateStr = formatBookingDate(data.date, "long");
   const timeStr = formatTime(data.startTime);
 
   const html = `
@@ -120,17 +128,17 @@ export async function sendAdminNotification(data: BookingEmailData) {
 <html>
 <body style="font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;">
   <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:8px;padding:32px;">
-    <h2 style="margin:0 0 24px;">🔔 New Booking - ${data.confirmationId}</h2>
-    <p><strong>Customer:</strong> ${data.customerName}</p>
-    <p><strong>Email:</strong> ${data.customerEmail}</p>
-    <p><strong>Phone:</strong> ${data.customerPhone || "Not provided"}</p>
+    <h2 style="margin:0 0 24px;">🔔 New Booking - ${esc(data.confirmationId)}</h2>
+    <p><strong>Customer:</strong> ${esc(data.customerName)}</p>
+    <p><strong>Email:</strong> ${esc(data.customerEmail)}</p>
+    <p><strong>Phone:</strong> ${esc(data.customerPhone || "Not provided")}</p>
     <p><strong>Date:</strong> ${dateStr}</p>
     <p><strong>Time:</strong> ${timeStr}</p>
-    <p><strong>Barber:</strong> ${data.barberName || "No preference"}</p>
-    <p><strong>Services:</strong> ${data.services.map((s) => s.name).join(", ")}</p>
-    ${data.addOns.length ? `<p><strong>Add-ons:</strong> ${data.addOns.map((a) => a.name).join(", ")}</p>` : ""}
+    <p><strong>Barber:</strong> ${esc(data.barberName || "No preference")}</p>
+    <p><strong>Services:</strong> ${esc(data.services.map((s) => s.name).join(", "))}</p>
+    ${data.addOns.length ? `<p><strong>Add-ons:</strong> ${esc(data.addOns.map((a) => a.name).join(", "))}</p>` : ""}
     <p><strong>Total:</strong> ${formatCurrency(data.totalPrice)}</p>
-    ${data.isHouseCall ? `<p><strong>House Call Address:</strong> ${data.houseCallAddress}</p>` : ""}
+    ${data.isHouseCall ? `<p><strong>House Call Address:</strong> ${esc(data.houseCallAddress)}</p>` : ""}
   </div>
 </body>
 </html>`;
@@ -150,8 +158,7 @@ export async function sendReviewRequest(data: {
   googleReviewUrl: string;
   reviewRequestId: string;
 }) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://unfilteredbarbershop.com";
-  const trackingUrl = `${baseUrl}/api/review-request/${data.reviewRequestId}`;
+  const trackingUrl = `${SITE_URL}/api/review-request/${encodeURIComponent(data.reviewRequestId)}`;
 
   const html = `
 <!DOCTYPE html>
@@ -160,13 +167,13 @@ export async function sendReviewRequest(data: {
 <body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <img src="https://uunfiltered-barbershop.vercel.app/un.PNG" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
+      <img src="${LOGO_URL}" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
     </div>
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
       <div style="font-size:48px;margin-bottom:16px;">⭐</div>
       <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 12px;">How was your experience?</h2>
-      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${data.customerName}, we hope you loved your visit. Your review means the world to us and helps other guys in Simi Valley find us.</p>
-      <a href="${trackingUrl}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Leave a Google Review</a>
+      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${esc(data.customerName)}, we hope you loved your visit. Your review means the world to us and helps other guys in Simi Valley find us.</p>
+      <a href="${esc(trackingUrl)}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Leave a Google Review</a>
       <p style="color:#6B7280;font-size:11px;margin:20px 0 0;">Takes less than 60 seconds</p>
     </div>
     <p style="text-align:center;color:#6B7280;font-size:12px;margin-top:24px;">© ${new Date().getFullYear()} Unfiltered Barbershop · Simi Valley, CA</p>
@@ -196,13 +203,13 @@ export async function sendRebookingReminder(data: {
 <body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <img src="https://uunfiltered-barbershop.vercel.app/un.PNG" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
+      <img src="${LOGO_URL}" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
     </div>
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
       <div style="font-size:48px;margin-bottom:16px;">✂️</div>
       <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 12px;">Time for a fresh cut?</h2>
-      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${data.customerName}, it's been about ${data.weeksAgo} week${data.weeksAgo !== 1 ? "s" : ""} since your last visit. ${data.barberName ? `${data.barberName} is ready to keep you looking sharp.` : "Your barber is ready to keep you looking sharp."}</p>
-      <a href="${data.bookingUrl}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Book Now</a>
+      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${esc(data.customerName)}, it's been about ${data.weeksAgo} week${data.weeksAgo !== 1 ? "s" : ""} since your last visit. ${data.barberName ? `${esc(data.barberName)} is ready to keep you looking sharp.` : "Your barber is ready to keep you looking sharp."}</p>
+      <a href="${esc(data.bookingUrl)}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Book Now</a>
     </div>
     <p style="text-align:center;color:#6B7280;font-size:12px;margin-top:24px;">© ${new Date().getFullYear()} Unfiltered Barbershop · 1706 Erringer Rd Suite #4, Simi Valley, CA 93065</p>
   </div>
@@ -230,13 +237,13 @@ export async function sendAbandonedBookingFollowUp(data: {
 <body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <img src="https://uunfiltered-barbershop.vercel.app/un.PNG" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
+      <img src="${LOGO_URL}" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
     </div>
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
       <div style="font-size:48px;margin-bottom:16px;">💈</div>
       <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 12px;">Still want to lock in your spot?</h2>
-      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${data.name}, you started booking with us but didn't finish. Slots fill up fast - lock yours in before it's gone.</p>
-      <a href="${data.bookingUrl}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Complete My Booking</a>
+      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Hey ${esc(data.name)}, you started booking with us but didn't finish. Slots fill up fast - lock yours in before it's gone.</p>
+      <a href="${esc(data.bookingUrl)}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Complete My Booking</a>
     </div>
     <p style="text-align:center;color:#6B7280;font-size:12px;margin-top:24px;">© ${new Date().getFullYear()} Unfiltered Barbershop · Simi Valley, CA</p>
   </div>
@@ -265,17 +272,17 @@ export async function sendReferralInvite(data: {
 <body style="margin:0;padding:0;background:#0A0A0A;font-family:'Helvetica Neue',Arial,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <img src="https://uunfiltered-barbershop.vercel.app/un.PNG" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
+      <img src="${LOGO_URL}" alt="Unfiltered Barbershop" width="180" style="height:72px;width:auto;object-fit:contain;" />
     </div>
     <div style="background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid #1E3A5F;border-radius:16px;padding:32px;text-align:center;">
       <div style="font-size:48px;margin-bottom:16px;">🎁</div>
-      <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 12px;">${data.referrerName} invited you to Unfiltered</h2>
-      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Your first visit comes with a special reward: <strong style="color:#FFFFFF;">${data.rewardDescription}</strong>.</p>
+      <h2 style="color:#FFFFFF;font-size:22px;margin:0 0 12px;">${esc(data.referrerName)} invited you to Unfiltered</h2>
+      <p style="color:#9CA3AF;margin:0 0 24px;line-height:1.6;">Your first visit comes with a special reward: <strong style="color:#FFFFFF;">${esc(data.rewardDescription)}</strong>.</p>
       <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:16px;margin-bottom:24px;">
         <p style="color:#9CA3AF;font-size:12px;margin:0 0 4px;">Your referral code</p>
-        <p style="color:#3B82F6;font-size:24px;font-weight:900;letter-spacing:4px;margin:0;">${data.referralCode}</p>
+        <p style="color:#3B82F6;font-size:24px;font-weight:900;letter-spacing:4px;margin:0;">${esc(data.referralCode)}</p>
       </div>
-      <a href="${data.bookingUrl}?ref=${data.referralCode}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Book Now</a>
+      <a href="${esc(`${data.bookingUrl}?ref=${encodeURIComponent(data.referralCode)}`)}" style="display:inline-block;background:#3B82F6;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:14px;padding:14px 32px;border-radius:8px;letter-spacing:1px;">Book Now</a>
     </div>
     <p style="text-align:center;color:#6B7280;font-size:12px;margin-top:24px;">© ${new Date().getFullYear()} Unfiltered Barbershop · Simi Valley, CA</p>
   </div>
@@ -303,12 +310,12 @@ export async function sendContactNotification(data: {
 <body style="font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;">
   <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:8px;padding:32px;">
     <h2>New Contact Form Submission</h2>
-    <p><strong>Name:</strong> ${data.name}</p>
-    <p><strong>Email:</strong> ${data.email}</p>
-    ${data.phone ? `<p><strong>Phone:</strong> ${data.phone}</p>` : ""}
-    ${data.service ? `<p><strong>Service Interest:</strong> ${data.service}</p>` : ""}
+    <p><strong>Name:</strong> ${esc(data.name)}</p>
+    <p><strong>Email:</strong> ${esc(data.email)}</p>
+    ${data.phone ? `<p><strong>Phone:</strong> ${esc(data.phone)}</p>` : ""}
+    ${data.service ? `<p><strong>Service Interest:</strong> ${esc(data.service)}</p>` : ""}
     <p><strong>Message:</strong></p>
-    <p style="background:#f9f9f9;padding:16px;border-radius:4px;">${data.message}</p>
+    <p style="background:#f9f9f9;padding:16px;border-radius:4px;">${esc(data.message).replace(/\n/g, "<br>")}</p>
   </div>
 </body>
 </html>`;

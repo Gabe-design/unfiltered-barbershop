@@ -7,7 +7,12 @@ import { parseDateOnly, shopDateTimeToInstant, shopNow } from "@/lib/utils";
 // Set CRON_SECRET in your Vercel env vars to protect this endpoint.
 function isAuthorized(req: NextRequest) {
   const secret = process.env.CRON_SECRET;
-  if (!secret) return true; // not configured — allow (dev only)
+  if (!secret) {
+    // Fail closed: without a secret, only local development may trigger the job
+    if (process.env.NODE_ENV === "development") return true;
+    console.error("[SMS Reminders] CRON_SECRET is not set — refusing to run");
+    return false;
+  }
   const auth = req.headers.get("authorization");
   return auth === `Bearer ${secret}`;
 }

@@ -72,7 +72,7 @@ async function main() {
       referralEnabled: true,
       referralRewardDescription: "Get a free upgrade on your next visit",
       smsEnabled: false,
-      shopPhone: "+18059999999",
+      shopPhone: "+18054380050",
       instagramUrl: "https://instagram.com/unfilteredbarbershop",
     },
   });

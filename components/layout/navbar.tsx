@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Scissors } from "lucide-react";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn, SHOP_ADDRESS } from "@/lib/utils";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -78,11 +78,11 @@ export function Navbar() {
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
             <a
-              href="tel:+18055550100"
+              href={`tel:${SHOP_ADDRESS.phoneHref}`}
               className="flex items-center gap-2 text-gray-400 hover:text-white text-sm transition-colors"
             >
               <Phone className="w-4 h-4" />
-              (805) 555-0100
+              {SHOP_ADDRESS.phone}
             </a>
             <Link
               href="/booking"
@@ -139,7 +139,7 @@ export function Navbar() {
 
             <div className="mt-8 flex flex-col gap-3">
               <a
-                href="tel:+18055550100"
+                href={`tel:${SHOP_ADDRESS.phoneHref}`}
                 className="flex items-center justify-center gap-2 border border-white/20 text-white font-semibold py-4 rounded-xl hover:bg-white/5 transition-colors"
               >
                 <Phone className="w-5 h-5" />

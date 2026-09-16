@@ -79,10 +79,10 @@ export function ContactMapSection() {
               <div>
                 <p className="text-white font-semibold mb-1">Phone</p>
                 <a
-                  href="tel:+18055550100"
+                  href={`tel:${SHOP_ADDRESS.phoneHref}`}
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  (805) 555-0100
+                  {SHOP_ADDRESS.phone}
                 </a>
               </div>
             </div>

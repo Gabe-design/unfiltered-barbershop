@@ -91,7 +91,8 @@ export const SHOP_ADDRESS = {
   zip: "93065",
   lat: 34.2694,
   lng: -118.7815,
-  phone: "(805) 555-0100",
+  phone: "(805) 438-0050",
+  phoneHref: "+18054380050",
   email: "info@unfilteredbarbershop.com",
   instagram: "unfltrdbarbershop",
 };

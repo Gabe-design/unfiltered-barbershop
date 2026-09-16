@@ -7,7 +7,7 @@ import { Plus, Minus, Search, ArrowRight, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { cn } from "@/lib/utils";
+import { cn, SHOP_ADDRESS } from "@/lib/utils";
 
 interface FAQ {
   id: string;
@@ -29,7 +29,7 @@ const faqs: FAQ[] = [
     category: "Appointments",
     question: "How do I book an appointment?",
     answer:
-      "Use our online booking system at the 'Book Appointment' link. Select your service, choose your preferred barber, pick a date and time, and fill in your contact details. A confirmation email is sent instantly upon booking. You can also call us at (805) 555-0100 during business hours.",
+      `Use our online booking system at the 'Book Appointment' link. Select your service, choose your preferred barber, pick a date and time, and fill in your contact details. A confirmation email is sent instantly upon booking. You can also call us at ${SHOP_ADDRESS.phone} during business hours.`,
   },
   {
     id: "faq-3",

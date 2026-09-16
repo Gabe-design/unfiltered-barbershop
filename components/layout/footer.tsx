@@ -109,13 +109,13 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="tel:+18055550100"
+                  href={`tel:${SHOP_ADDRESS.phoneHref}`}
                   className="flex items-center gap-3 text-gray-500 hover:text-white text-sm transition-colors"
                 >
                   <span className="w-5 h-5 rounded-md flex items-center justify-center shrink-0" style={{ background: "linear-gradient(135deg, #B91C1C 0%, #1D4ED8 100%)" }}>
                     <Phone className="w-3 h-3 text-white" />
                   </span>
-                  (805) 555-0100
+                  {SHOP_ADDRESS.phone}
                 </a>
               </li>
               <li>

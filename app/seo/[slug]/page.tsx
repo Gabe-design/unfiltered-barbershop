@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { MapPin, Phone, Star, Clock, ArrowRight } from "lucide-react";
+import { SHOP_ADDRESS } from "@/lib/utils";
+import { SITE_URL } from "@/lib/site";
 
 interface Props {
   params: { slug: string };
@@ -55,8 +57,8 @@ export default async function SeoLandingPage({ params }: Props) {
     "@type": "HairSalon",
     name: "Unfiltered Barbershop",
     description: page.metaDescription,
-    url: `https://unfilteredbarbershop.com/seo/${page.slug}`,
-    telephone: "+18059999999",
+    url: `${SITE_URL}/seo/${page.slug}`,
+    telephone: SHOP_ADDRESS.phoneHref,
     address: {
       "@type": "PostalAddress",
       streetAddress: "1706 Erringer Rd Suite #4",
@@ -101,7 +103,7 @@ export default async function SeoLandingPage({ params }: Props) {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="tel:+18059999999"
+                href={`tel:${SHOP_ADDRESS.phoneHref}`}
                 className="inline-flex items-center gap-2 px-8 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-bold rounded-xl transition-colors text-sm"
               >
                 <Phone className="w-4 h-4" />
@@ -174,7 +176,7 @@ export default async function SeoLandingPage({ params }: Props) {
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
-                <a href="tel:+18059999999" className="text-white hover:text-red-400 transition-colors">(805) 999-9999</a>
+                <a href={`tel:${SHOP_ADDRESS.phoneHref}`} className="text-white hover:text-red-400 transition-colors">{SHOP_ADDRESS.phone}</a>
               </div>
               <div className="flex items-start gap-3">
                 <Clock className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Phone, Scissors } from "lucide-react";
+import { SHOP_ADDRESS } from "@/lib/utils";
 
 export default function CtaSection() {
   return (
@@ -69,7 +70,7 @@ export default function CtaSection() {
             </Link>
 
             <a
-              href="tel:+18055550100"
+              href={`tel:${SHOP_ADDRESS.phoneHref}`}
               className="inline-flex items-center gap-2.5 bg-transparent border border-white/20 hover:border-white/50 text-white/80 hover:text-white font-semibold text-sm tracking-wide px-8 py-4 rounded-full transition-all duration-300"
             >
               <Phone size={16} />

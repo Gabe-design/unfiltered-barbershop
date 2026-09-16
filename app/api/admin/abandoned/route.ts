@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { sendAbandonedBookingFollowUp } from "@/lib/email";
+import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -57,7 +58,7 @@ export async function POST(req: NextRequest) {
     name: abandoned.name ?? "there",
     email: abandoned.email,
     serviceSlug: abandoned.serviceSlug ?? undefined,
-    bookingUrl: `${process.env.NEXT_PUBLIC_BASE_URL ?? "https://unfilteredbarbershop.com"}/booking`,
+    bookingUrl: `${SITE_URL}/booking`,
   }).catch(console.error);
 
   await prisma.abandonedBooking.update({

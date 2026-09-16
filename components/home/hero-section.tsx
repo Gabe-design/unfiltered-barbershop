@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Star, Phone, Scissors } from "lucide-react";
+import { SHOP_ADDRESS } from "@/lib/utils";
 
 const fadeIn = {
   hidden: { opacity: 0 },
@@ -84,17 +85,17 @@ export default function HeroSection() {
           />
         </motion.div>
 
-        {/* Subheadline */}
-        <motion.p
+        {/* Subheadline — also the page's H1 (the logo above is an image) */}
+        <motion.h1
           custom={0.3}
           variants={slideUp}
           initial="hidden"
           animate="visible"
-          className="text-lg sm:text-xl text-white/60 max-w-xl mb-10 leading-relaxed"
+          className="text-lg sm:text-xl font-normal text-white/60 max-w-xl mb-10 leading-relaxed"
         >
           Simi Valley&apos;s trusted barbershop with{" "}
           <span className="text-white font-semibold">585+ 5-star reviews.</span>
-        </motion.p>
+        </motion.h1>
 
         {/* CTA Buttons */}
         <motion.div
@@ -113,7 +114,7 @@ export default function HeroSection() {
             <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
           </Link>
           <Link
-            href="tel:+18054380050"
+            href={`tel:${SHOP_ADDRESS.phoneHref}`}
             className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 text-white font-bold text-base tracking-wide transition-all duration-300 hover:-translate-y-0.5"
           >
             <Phone className="w-4 h-4" />

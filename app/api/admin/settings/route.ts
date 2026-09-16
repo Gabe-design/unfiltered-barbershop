@@ -2,6 +2,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { SHOP_ADDRESS } from "@/lib/utils";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
@@ -49,7 +50,7 @@ export async function GET() {
         referralEnabled: true,
         referralRewardDescription: "Get a free upgrade on your next visit",
         smsEnabled: false,
-        shopPhone: "+18059999999",
+        shopPhone: SHOP_ADDRESS.phoneHref,
         instagramUrl: "https://instagram.com/unfilteredbarbershop",
       },
     });

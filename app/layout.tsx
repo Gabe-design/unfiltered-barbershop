@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { Providers } from "@/components/providers";
+import { SHOP_ADDRESS } from "@/lib/utils";
+import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://unfilteredbarbershop.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Unfiltered Barbershop | Premium Barber in Simi Valley, CA",
     template: "%s | Unfiltered Barbershop",
@@ -36,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://unfilteredbarbershop.com",
+    url: SITE_URL,
     siteName: "Unfiltered Barbershop",
     title: "Unfiltered Barbershop | Premium Barber in Simi Valley, CA",
     description:
@@ -70,10 +72,10 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "HairSalon",
   name: "Unfiltered Barbershop",
-  image: "https://unfilteredbarbershop.com/og-image.jpg",
-  "@id": "https://unfilteredbarbershop.com",
-  url: "https://unfilteredbarbershop.com",
-  telephone: "+18055550100",
+  image: `${SITE_URL}/og-image.jpg`,
+  "@id": SITE_URL,
+  url: SITE_URL,
+  telephone: SHOP_ADDRESS.phoneHref,
   address: {
     "@type": "PostalAddress",
     streetAddress: "1706 Erringer Rd Suite #4",

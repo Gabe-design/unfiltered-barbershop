@@ -84,6 +84,91 @@ export function generateConfirmationId(): string {
   return `UB-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 }
 
+// ─── Shop-local dates ─────────────────────────────────────────────────────────
+// The server (Vercel) runs on UTC while the shop runs on Pacific time. To keep
+// results independent of the server clock: Booking.date is always stored as UTC
+// midnight of the calendar day, and "now" is always evaluated in SHOP_TIMEZONE.
+
+export const SHOP_TIMEZONE = "America/Los_Angeles";
+
+/** Parses "YYYY-MM-DD" into the UTC-midnight Date stored in Booking.date. Returns null if malformed. */
+export function parseDateOnly(dateStr: string): Date | null {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr);
+  if (!match) return null;
+  const [y, m, d] = [Number(match[1]), Number(match[2]), Number(match[3])];
+  const date = new Date(Date.UTC(y, m - 1, d));
+  // Date.UTC silently rolls over impossible dates (e.g. Feb 31) — reject those
+  if (date.getUTCFullYear() !== y || date.getUTCMonth() !== m - 1 || date.getUTCDate() !== d) return null;
+  return date;
+}
+
+export function addDaysUTC(date: Date, days: number): Date {
+  return new Date(date.getTime() + days * 86_400_000);
+}
+
+/** 0 = Sunday … 6 = Saturday for a UTC-midnight booking date. */
+export function dayOfWeekOf(date: Date): number {
+  return date.getUTCDay();
+}
+
+function shopTimeParts(at: Date) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: SHOP_TIMEZONE,
+    hourCycle: "h23",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  }).formatToParts(at);
+  const get = (type: Intl.DateTimeFormatPartTypes) => Number(parts.find((p) => p.type === type)?.value ?? 0);
+  return { year: get("year"), month: get("month"), day: get("day"), hour: get("hour"), minute: get("minute"), second: get("second") };
+}
+
+/** The current calendar date ("YYYY-MM-DD") and minutes since midnight, in the shop's timezone. */
+export function shopNow(at: Date = new Date()): { dateStr: string; minutes: number } {
+  const t = shopTimeParts(at);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return {
+    dateStr: `${t.year}-${pad(t.month)}-${pad(t.day)}`,
+    minutes: t.hour * 60 + t.minute,
+  };
+}
+
+/** Offset of SHOP_TIMEZONE from UTC at a given instant, in minutes (e.g. -420 during PDT). */
+function shopOffsetMinutes(at: Date): number {
+  const t = shopTimeParts(at);
+  const asUtc = Date.UTC(t.year, t.month - 1, t.day, t.hour, t.minute, t.second);
+  return Math.round((asUtc - at.getTime()) / 60_000);
+}
+
+/** Converts a booking's calendar date + "HH:mm" (shop wall-clock time) into an absolute instant. */
+export function shopDateTimeToInstant(date: Date, time: string): Date {
+  const [h, m] = time.split(":").map(Number);
+  const wallClockAsUtc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), h, m);
+  // Shift by the zone offset; re-check once in case the shift crossed a DST boundary.
+  const firstGuess = wallClockAsUtc - shopOffsetMinutes(new Date(wallClockAsUtc)) * 60_000;
+  return new Date(wallClockAsUtc - shopOffsetMinutes(new Date(firstGuess)) * 60_000);
+}
+
+const BOOKING_DATE_STYLES = {
+  long: { weekday: "long", month: "long", day: "numeric", year: "numeric" },   // Sunday, September 20, 2026
+  short: { weekday: "long", month: "long", day: "numeric" },                    // Sunday, September 20
+  medium: { month: "long", day: "numeric", year: "numeric" },                   // September 20, 2026
+  compact: { month: "short", day: "numeric", year: "numeric" },                 // Sep 20, 2026
+} satisfies Record<string, Intl.DateTimeFormatOptions>;
+
+/**
+ * Formats a Booking.date (UTC midnight, or its ISO string) as a calendar date.
+ * Safe in any timezone — `format(new Date(booking.date), …)` would show the previous
+ * day for viewers west of UTC.
+ */
+export function formatBookingDate(date: Date | string, style: keyof typeof BOOKING_DATE_STYLES = "long"): string {
+  const d = typeof date === "string" ? new Date(date) : date;
+  return new Intl.DateTimeFormat("en-US", { timeZone: "UTC", ...BOOKING_DATE_STYLES[style] }).format(d);
+}
+
 export const SHOP_ADDRESS = {
   street: "1706 Erringer Rd Suite #4",
   city: "Simi Valley",

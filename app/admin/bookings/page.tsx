@@ -12,6 +12,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { format } from "date-fns";
+import { formatBookingDate } from "@/lib/utils";
 import toast from "react-hot-toast";
 
 type BookingStatus =
@@ -223,7 +224,7 @@ function DetailModal({
               <div>
                 <p className="text-zinc-500 text-xs">Date</p>
                 <p className="text-white text-sm font-medium">
-                  {format(new Date(booking.date), "MMMM d, yyyy")}
+                  {formatBookingDate(booking.date, "medium")}
                 </p>
               </div>
               <div>
@@ -415,7 +416,7 @@ export default function BookingsPage() {
       b.customerPhone,
       b.items.find((i) => i.service)?.service?.name ?? "",
       b.barber?.name ?? "Any",
-      format(new Date(b.date), "yyyy-MM-dd"),
+      b.date.slice(0, 10),
       b.startTime,
       b.totalPrice.toFixed(2),
       b.status,
@@ -608,7 +609,7 @@ export default function BookingsPage() {
                       </td>
                       <td className="px-5 py-3 whitespace-nowrap">
                         <p className="text-zinc-300 text-xs">
-                          {format(new Date(booking.date), "MMM d, yyyy")}
+                          {formatBookingDate(booking.date, "compact")}
                         </p>
                         <p className="text-zinc-500 text-xs">
                           {booking.startTime}

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { startOfDay, endOfDay, addDays } from "date-fns";
+import { addDaysUTC, parseDateOnly, shopNow } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -17,9 +17,9 @@ export async function GET() {
   });
   if (!barber) return NextResponse.json({ error: "Barber profile not found" }, { status: 404 });
 
-  const now = new Date();
-  const todayStart = startOfDay(now);
-  const weekEnd = endOfDay(addDays(now, 7));
+  // Today in the shop timezone (Booking.date is stored as UTC midnight of the calendar day)
+  const todayStart = parseDateOnly(shopNow().dateStr)!;
+  const weekEnd = addDaysUTC(todayStart, 7);
 
   const bookings = await prisma.booking.findMany({
     where: {

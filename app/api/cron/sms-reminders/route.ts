@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendBookingReminderSms } from "@/lib/sms";
+import { parseDateOnly, shopDateTimeToInstant, shopNow } from "@/lib/utils";
 
 // Vercel sends Authorization: Bearer <CRON_SECRET> with every cron invocation.
 // Set CRON_SECRET in your Vercel env vars to protect this endpoint.
@@ -21,24 +22,22 @@ export async function GET(req: NextRequest) {
   const windowStart = new Date(now.getTime() + 11 * 60 * 60 * 1000);
   const windowEnd = new Date(now.getTime() + 13 * 60 * 60 * 1000);
 
-  // Broad date filter — pull candidates, then refine in JS (date+time string combo)
+  // Broad date filter (the shop-local calendar days the window touches), then refine in JS
   const candidates = await prisma.booking.findMany({
     where: {
       smsReminder: true,
       smsReminderSent: false,
       status: { notIn: ["CANCELLED", "NO_SHOW"] },
       date: {
-        gte: new Date(windowStart.toDateString()),
-        lte: new Date(windowEnd.toDateString() + " 23:59:59"),
+        gte: parseDateOnly(shopNow(windowStart).dateStr)!,
+        lte: parseDateOnly(shopNow(windowEnd).dateStr)!,
       },
     },
     include: { barber: { select: { name: true } } },
   });
 
   const toRemind = candidates.filter((b) => {
-    const [h, m] = b.startTime.split(":").map(Number);
-    const apptTime = new Date(b.date);
-    apptTime.setHours(h, m, 0, 0);
+    const apptTime = shopDateTimeToInstant(b.date, b.startTime);
     return apptTime >= windowStart && apptTime <= windowEnd;
   });
 

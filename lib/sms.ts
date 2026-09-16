@@ -1,6 +1,5 @@
 import twilio from "twilio";
-import { format } from "date-fns";
-import { formatTime } from "./utils";
+import { formatBookingDate, formatTime } from "./utils";
 
 function getClient() {
   return twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN, {
@@ -43,7 +42,7 @@ export async function sendBookingConfirmationSms(data: {
   startTime: string;
   barberName?: string;
 }) {
-  const dateStr = format(data.date, "EEEE, MMMM d");
+  const dateStr = formatBookingDate(data.date, "short");
   const timeStr = formatTime(data.startTime);
   const barberPart = data.barberName ? ` with ${data.barberName}` : "";
   const body =
@@ -60,7 +59,7 @@ export async function sendBarberNotificationSms(data: {
   startTime: string;
   serviceName: string;
 }) {
-  const dateStr = format(data.date, "EEEE, MMMM d");
+  const dateStr = formatBookingDate(data.date, "short");
   const timeStr = formatTime(data.startTime);
   const body =
     `New booking, ${data.barberName}! ${data.customerName} booked a ${data.serviceName} on ${dateStr} at ${timeStr}. Check the admin panel for details.`;

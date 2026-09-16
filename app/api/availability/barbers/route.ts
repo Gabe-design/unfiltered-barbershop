@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { parseDateOnly, timeToMinutes } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
-
-function timeToMinutes(time: string): number {
-  const [h, m] = time.split(":").map(Number);
-  return h * 60 + m;
-}
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -18,8 +14,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "date and startTime required" }, { status: 400 });
   }
 
-  const [y, m, d] = dateStr.split("-").map(Number);
-  const date = new Date(y, m - 1, d); // local midnight
+  const date = parseDateOnly(dateStr);
+  if (!date) {
+    return NextResponse.json({ error: "date must be YYYY-MM-DD" }, { status: 400 });
+  }
   const slotStart = timeToMinutes(startTime);
   const slotEnd = slotStart + duration;
 

@@ -11,6 +11,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { format } from "date-fns";
+import { formatBookingDate } from "@/lib/utils";
 
 type BookingStatus =
   | "PENDING"
@@ -334,7 +335,7 @@ export default function AdminDashboard() {
                       <td className="px-5 py-3 hidden sm:table-cell">
                         <div>
                           <p className="text-zinc-300 text-xs">
-                            {format(new Date(booking.date), "MMM d, yyyy")}
+                            {formatBookingDate(booking.date, "compact")}
                           </p>
                           <p className="text-zinc-500 text-xs">{booking.startTime}</p>
                         </div>

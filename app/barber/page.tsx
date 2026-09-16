@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { format, isToday, isTomorrow } from "date-fns";
 import Image from "next/image";
 import { Clock, Phone, MapPin, LogOut, Scissors, User, RefreshCw } from "lucide-react";
-import { formatTime, formatCurrency } from "@/lib/utils";
+import { formatTime, formatCurrency, formatBookingDate, shopNow, addDaysUTC } from "@/lib/utils";
 
 interface BookingItem {
   service?: { name: string } | null;
@@ -36,11 +35,12 @@ interface ScheduleData {
   bookings: Booking[];
 }
 
+// Booking dates are UTC-midnight ISO strings; compare calendar days in the shop timezone
 function dayLabel(dateStr: string): string {
-  const d = new Date(dateStr);
-  if (isToday(d)) return "Today";
-  if (isTomorrow(d)) return "Tomorrow";
-  return format(d, "EEEE, MMMM d");
+  const day = dateStr.slice(0, 10);
+  if (day === shopNow().dateStr) return "Today";
+  if (day === shopNow(addDaysUTC(new Date(), 1)).dateStr) return "Tomorrow";
+  return formatBookingDate(dateStr, "short");
 }
 
 function statusColor(status: string) {
@@ -95,7 +95,8 @@ export default function BarberDashboard() {
     grouped[key].push(b);
   }
   const days = Object.keys(grouped).sort();
-  const todayBookings = data?.bookings.filter((b) => isToday(new Date(b.date))) ?? [];
+  const todayStr = shopNow().dateStr;
+  const todayBookings = data?.bookings.filter((b) => b.date.slice(0, 10) === todayStr) ?? [];
 
   return (
     <div className="min-h-screen bg-[#0A0A0A]">

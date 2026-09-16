@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { generateTimeSlots, timeToMinutes } from "@/lib/utils";
-import { startOfDay, isSameDay } from "date-fns";
+import { generateTimeSlots, timeToMinutes, parseDateOnly, addDaysUTC, dayOfWeekOf, shopNow } from "@/lib/utils";
 import { BookingStatus, type Prisma } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
@@ -10,18 +9,27 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const dateStr = searchParams.get("date");
   const barberId = searchParams.get("barberId");
-  const duration = parseInt(searchParams.get("duration") || "60");
+  const parsedDuration = parseInt(searchParams.get("duration") || "60");
+  const duration = Number.isFinite(parsedDuration) && parsedDuration > 0 ? parsedDuration : 60;
 
   if (!dateStr) {
     return NextResponse.json({ error: "date required" }, { status: 400 });
   }
 
-  const [year, month, day] = dateStr.split("-").map(Number);
-  const date = new Date(year, month - 1, day); // local midnight — avoids UTC offset shifting the day
-  const dayOfWeek = date.getDay();
-  const startOfDate = startOfDay(date);
-  const endOfDate = new Date(startOfDate);
-  endOfDate.setDate(endOfDate.getDate() + 1);
+  const startOfDate = parseDateOnly(dateStr);
+  if (!startOfDate) {
+    return NextResponse.json({ error: "date must be YYYY-MM-DD" }, { status: 400 });
+  }
+  const dayOfWeek = dayOfWeekOf(startOfDate);
+  const endOfDate = addDaysUTC(startOfDate, 1);
+
+  // "Today" and "now" are evaluated in the shop timezone, not the server one (Vercel runs on UTC)
+  const { dateStr: todayStr, minutes: nowMinutes } = shopNow();
+  if (dateStr < todayStr) {
+    return NextResponse.json({ slots: [], available: false, reason: "Date has passed" });
+  }
+  const isToday = dateStr === todayStr;
+  const earliestStart = nowMinutes + 30; // 30 min buffer before the next bookable slot
 
   // Fetch existing bookings upfront so both paths can use it
   const bookingsWhere: Prisma.BookingWhereInput = {
@@ -56,13 +64,10 @@ export async function GET(req: NextRequest) {
     const hours = businessHours[dayOfWeek];
     if (!hours) return NextResponse.json({ slots: [], available: false });
     const allSlots = generateTimeSlots(hours.start, hours.end, 30, duration);
-    const now = new Date();
-    const isToday = isSameDay(date, now);
     const slots = allSlots.map((time) => {
       const slotStart = timeToMinutes(time);
-      if (isToday) {
-        const currentMinutes = now.getHours() * 60 + now.getMinutes() + 30;
-        if (slotStart < currentMinutes) return { time, available: false, period: getPeriod(slotStart) };
+      if (isToday && slotStart < earliestStart) {
+        return { time, available: false, period: getPeriod(slotStart) };
       }
       const conflict = existingBookings.some((b) => {
         const bStart = timeToMinutes(b.startTime);
@@ -89,19 +94,13 @@ export async function GET(req: NextRequest) {
   const avail = availabilities[0];
   const allSlots = generateTimeSlots(avail.startTime, avail.endTime, avail.slotInterval, duration);
 
-  const now = new Date();
-  const isToday = isSameDay(date, now);
-
   const slotsWithAvailability = allSlots.map((time) => {
     const slotStart = timeToMinutes(time);
     const slotEnd = slotStart + duration;
 
     // Don't show past times for today
-    if (isToday) {
-      const currentMinutes = now.getHours() * 60 + now.getMinutes() + 30; // 30 min buffer
-      if (slotStart < currentMinutes) {
-        return { time, available: false, period: getPeriod(slotStart) };
-      }
+    if (isToday && slotStart < earliestStart) {
+      return { time, available: false, period: getPeriod(slotStart) };
     }
 
     // Check against bookings

@@ -1,7 +1,7 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendBookingConfirmation, sendAdminNotification } from "@/lib/email";
-import { generateConfirmationId, minutesToTime, timeToMinutes } from "@/lib/utils";
+import { generateConfirmationId, minutesToTime, timeToMinutes, parseDateOnly } from "@/lib/utils";
 import { z } from "zod";
 
 // Accepts either a DB cuid or a slug string for service/barber lookups
@@ -18,8 +18,8 @@ const bookingSchema = z.object({
   // Barber: DB id or slug
   barberId: z.string().optional().nullable(),
   barberSlug: z.string().optional().nullable(),
-  date: z.string().min(1),
-  startTime: z.string().min(1),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "date must be YYYY-MM-DD"),
+  startTime: z.string().regex(/^\d{2}:\d{2}$/, "startTime must be HH:mm"),
   customerName: z.string().min(2),
   customerEmail: z.string().email(),
   customerPhone: z.string().min(10),
@@ -131,7 +131,9 @@ export async function POST(req: NextRequest) {
     const endMinutes = startMinutes + totalDuration;
     const endTime = minutesToTime(endMinutes);
 
-    const bookingDate = new Date(data.date);
+    // Stored as UTC midnight of the calendar day — must match how /api/availability queries it
+    const bookingDate = parseDateOnly(data.date);
+    if (!bookingDate) return NextResponse.json({ error: "Invalid booking date" }, { status: 400 });
 
     // Check for conflicts with same barber
     if (resolvedBarberId) {

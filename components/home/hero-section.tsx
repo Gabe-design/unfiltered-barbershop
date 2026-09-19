@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Star, Phone, Scissors } from "lucide-react";
-import { SHOP_ADDRESS } from "@/lib/utils";
+import { SHOP_ADDRESS, SHOP_STATS } from "@/lib/utils";
 
 const fadeIn = {
   hidden: { opacity: 0 },
@@ -21,8 +21,8 @@ const slideUp = {
 };
 
 const stats = [
-  { value: "585+", label: "Reviews" },
-  { value: "5.0", label: "Stars" },
+  { value: SHOP_STATS.reviewCountLabel, label: "Reviews" },
+  { value: SHOP_STATS.rating, label: "Stars" },
   { value: "7+", label: "Years" },
   { value: "Same Day", label: "Booking" },
 ];
@@ -94,7 +94,7 @@ export default function HeroSection() {
           className="text-lg sm:text-xl font-normal text-white/60 max-w-xl mb-10 leading-relaxed"
         >
           Simi Valley&apos;s trusted barbershop with{" "}
-          <span className="text-white font-semibold">585+ 5-star reviews.</span>
+          <span className="text-white font-semibold">{SHOP_STATS.reviewCountLabel} 5-star reviews.</span>
         </motion.h1>
 
         {/* CTA Buttons */}

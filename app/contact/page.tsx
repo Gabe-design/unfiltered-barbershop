@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { BUSINESS_HOURS, SHOP_ADDRESS } from "@/lib/utils";
+import { BOOKSY_URL, BUSINESS_HOURS, SHOP_ADDRESS, SHOP_STATS } from "@/lib/utils";
 
 interface FormState {
   name: string;
@@ -445,7 +445,7 @@ export default function ContactPage() {
                 Reviews
               </span>
               <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 tracking-tight">
-                585+ Five-Star Reviews
+                {SHOP_STATS.reviewCountLabel} Five-Star Reviews
               </h2>
               <div className="flex items-center justify-center gap-1.5 mb-3">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -501,13 +501,13 @@ export default function ContactPage() {
                 <ExternalLink className="w-4 h-4 text-white/40 group-hover:text-white/70 transition-colors" />
               </a>
               <a
-                href="https://booksy.com/en-us/436530_unfiltered-barbershop_barber-shop_134644_simi-valley#reviews-section"
+                href={`${BOOKSY_URL}#reviews-section`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 bg-[#111111] hover:bg-[#161616] border border-[#262626] hover:border-indigo-500/30 text-white font-semibold px-7 py-4 rounded-2xl transition-all duration-200 group"
               >
                 <Star className="w-4 h-4 fill-indigo-400 text-indigo-400" />
-                See 585+ Reviews on Booksy
+                See {SHOP_STATS.reviewCountLabel} Reviews on Booksy
                 <ExternalLink className="w-4 h-4 text-white/40 group-hover:text-white/70 transition-colors" />
               </a>
             </motion.div>

@@ -22,7 +22,7 @@ const faqs: FAQ[] = [
     category: "Appointments",
     question: "Do you accept walk-ins?",
     answer:
-      "We welcome walk-ins based on availability, but we strongly recommend booking online to guarantee your preferred time slot and barber. Walk-in wait times can vary significantly, especially on weekends. Our online booking system makes it easy to lock in your spot in under 2 minutes.",
+      "We're appointment only. Booking online takes under two minutes and locks in your preferred barber and time. If you're nearby without an appointment, call us and we'll tell you if a chair has opened up.",
   },
   {
     id: "faq-2",

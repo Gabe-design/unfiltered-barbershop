@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Star, Check, ArrowRight, UserCheck } from "lucide-react";
 import { useBookingStore, type Barber } from "@/lib/booking-store";
-import { cn } from "@/lib/utils";
+import { cn, SHOP_STATS } from "@/lib/utils";
 
 const NO_PREFERENCE_BARBER: Barber = {
   id: "no-preference",
@@ -12,7 +12,7 @@ const NO_PREFERENCE_BARBER: Barber = {
   specialty: "Any Available Barber",
   bio: "We'll match you with the next available barber based on your appointment time. All our barbers deliver the same premium experience.",
   rating: 5.0,
-  reviewCount: 585,
+  reviewCount: SHOP_STATS.reviewCount,
   offersHouseCall: true,
 };
 

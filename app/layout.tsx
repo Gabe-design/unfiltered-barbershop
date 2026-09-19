@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { Providers } from "@/components/providers";
-import { SHOP_ADDRESS } from "@/lib/utils";
+import { SHOP_ADDRESS, SHOP_STATS } from "@/lib/utils";
 import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Unfiltered Barbershop",
   },
   description:
-    "Simi Valley's premier luxury barbershop. Precision fades, beard grooming, hair designs & house calls. 585+ 5-star reviews. Book online today at 1706 Erringer Rd Suite #4.",
+    `Simi Valley's premier luxury barbershop. Precision fades, beard grooming, hair designs & house calls. ${SHOP_STATS.reviewCountLabel} 5-star reviews. Book online today at 1706 Erringer Rd Suite #4.`,
   keywords: [
     "best barber in Simi Valley",
     "fade haircut Simi Valley",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     siteName: "Unfiltered Barbershop",
     title: "Unfiltered Barbershop | Premium Barber in Simi Valley, CA",
     description:
-      "Simi Valley's most trusted luxury barbershop. Precision fades, beard grooming & house calls. 585+ 5-star reviews.",
+      `Simi Valley's most trusted luxury barbershop. Precision fades, beard grooming & house calls. ${SHOP_STATS.reviewCountLabel} 5-star reviews.`,
     images: [
       {
         url: "/og-image.jpg",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Unfiltered Barbershop | Premium Barber in Simi Valley, CA",
-    description: "Simi Valley's premier luxury barbershop. 585+ 5-star reviews.",
+    description: `Simi Valley's premier luxury barbershop. ${SHOP_STATS.reviewCountLabel} 5-star reviews.`,
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -96,8 +96,8 @@ const jsonLd = {
   ],
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: "585",
+    ratingValue: SHOP_STATS.rating,
+    reviewCount: String(SHOP_STATS.reviewCount),
   },
   priceRange: "$$",
 };

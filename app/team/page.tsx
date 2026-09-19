@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Star, ArrowRight, Scissors, Mail } from "lucide-react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { SHOP_STATS } from "@/lib/utils";
 
 interface BarberData {
   slug: string;
@@ -192,9 +193,9 @@ export default function TeamPage() {
               className="flex items-center justify-center gap-8 mt-10"
             >
               {[
-                { value: "585+", label: "5-Star Reviews" },
+                { value: SHOP_STATS.reviewCountLabel, label: "5-Star Reviews" },
                 { value: String(barbers.length || "3"), label: "Expert Barbers" },
-                { value: "5.0", label: "Avg Rating" },
+                { value: SHOP_STATS.rating, label: "Avg Rating" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p className="text-2xl font-black text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #DC2626, #ffffff 50%, #2563EB)" }}>{stat.value}</p>

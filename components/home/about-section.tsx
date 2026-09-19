@@ -3,10 +3,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Star, MapPin, Award, Clock } from "lucide-react";
+import { SHOP_STATS } from "@/lib/utils";
 
 const stats = [
   {
-    value: "585+",
+    value: SHOP_STATS.reviewCountLabel,
     label: "Five-Star Reviews",
     icon: Star,
   },
@@ -142,7 +143,7 @@ export default function AboutSection() {
                     ))}
                   </div>
                   <p className="text-white/40 text-xs leading-tight">
-                    Three master barbers.
+                    One team of barbers.
                     <br />
                     One uncompromising standard.
                   </p>

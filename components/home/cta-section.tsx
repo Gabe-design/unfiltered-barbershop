@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Phone, Scissors } from "lucide-react";
-import { SHOP_ADDRESS } from "@/lib/utils";
+import { SHOP_ADDRESS, SHOP_STATS } from "@/lib/utils";
 
 export default function CtaSection() {
   return (
@@ -49,8 +49,7 @@ export default function CtaSection() {
           </h2>
 
           <p className="text-white/50 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-            Join 585+ satisfied clients who trust Unfiltered Barbershop for
-            their premium grooming experience.
+            {SHOP_STATS.reviewCountLabel} clients in Simi Valley already have their regular. Book yours.
           </p>
 
           <motion.div
@@ -86,9 +85,9 @@ export default function CtaSection() {
           transition={{ duration: 1, delay: 0.5 }}
           className="mt-16 flex items-center justify-center gap-8 text-white/25 text-sm"
         >
-          <span>Walk-Ins Welcome</span>
+          <span>Appointment Only</span>
           <span className="w-1 h-1 rounded-full bg-white/20" />
-          <span>Mon – Sat</span>
+          <span>Open 7 Days</span>
           <span className="w-1 h-1 rounded-full bg-white/20" />
           <span>Simi Valley, CA</span>
         </motion.div>

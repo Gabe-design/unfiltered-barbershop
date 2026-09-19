@@ -12,6 +12,7 @@ import {
   Eye,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { SHOP_STATS } from "@/lib/utils";
 
 interface Feature {
   icon: LucideIcon;
@@ -35,8 +36,7 @@ const features: Feature[] = [
   {
     icon: Star,
     title: "5-Star Reputation",
-    description:
-      "Over 585 five-star reviews from real clients across Simi Valley and beyond.",
+    description: `${SHOP_STATS.reviewCountLabel} five-star reviews from Simi Valley locals.`,
   },
   {
     icon: Shield,
@@ -169,8 +169,8 @@ export default function WhyChooseSection() {
           className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16 py-8 border-t border-white/[0.06]"
         >
           {[
-            { value: "585+", label: "Verified Reviews" },
-            { value: "5.0★", label: "Average Rating" },
+            { value: SHOP_STATS.reviewCountLabel, label: "Verified Reviews" },
+            { value: SHOP_STATS.rating, label: "Average Rating" },
             { value: "7+", label: "Years Serving Simi Valley" },
           ].map((stat) => (
             <div key={stat.label} className="flex flex-col items-center gap-1">

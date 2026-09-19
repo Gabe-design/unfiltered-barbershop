@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { MapPin, Phone, Star, Clock, ArrowRight } from "lucide-react";
-import { SHOP_ADDRESS } from "@/lib/utils";
+import { SHOP_ADDRESS, SHOP_STATS } from "@/lib/utils";
 import { SITE_URL } from "@/lib/site";
 
 interface Props {
@@ -66,7 +66,7 @@ export default async function SeoLandingPage({ params }: Props) {
       addressRegion: "CA",
       postalCode: "93065",
     },
-    aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "585" },
+    aggregateRating: { "@type": "AggregateRating", ratingValue: SHOP_STATS.rating, reviewCount: String(SHOP_STATS.reviewCount) },
     openingHoursSpecification: [
       { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "10:00", closes: "14:00" },
       { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "19:00" },
@@ -86,7 +86,7 @@ export default async function SeoLandingPage({ params }: Props) {
               {[1, 2, 3, 4, 5].map((i) => (
                 <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
               ))}
-              <span className="ml-2 text-zinc-400 text-sm">585+ Reviews</span>
+              <span className="ml-2 text-zinc-400 text-sm">{SHOP_STATS.reviewCountLabel} Reviews</span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-4 leading-tight">
               {page.h1 ?? page.title}

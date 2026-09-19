@@ -1,9 +1,10 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
+import { SHOP_STATS } from "@/lib/utils";
 
 const trustItems = [
-  "585+ 5-Star Reviews",
+  `${SHOP_STATS.reviewCountLabel} 5-Star Reviews`,
   "Trusted in Simi Valley",
   "Precision Fades",
   "Same Day Appointments",

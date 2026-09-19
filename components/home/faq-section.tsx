@@ -10,7 +10,7 @@ const faqs = [
     id: "faq-1",
     question: "Do you accept walk-ins?",
     answer:
-      "We welcome walk-ins based on availability, but we strongly recommend booking online to guarantee your slot.",
+      "We're appointment only, so book online to lock in your barber and time. If you're nearby without one, call us and we'll tell you if a chair has opened up.",
   },
   {
     id: "faq-2",

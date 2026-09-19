@@ -182,6 +182,15 @@ export const SHOP_ADDRESS = {
   instagram: "unfltrdbarbershop",
 };
 
+// Live figures from the shop's Booksy listing. Update here, not in the pages.
+export const BOOKSY_URL = "https://booksy.com/en-us/436530_unfiltered-barbershop_barber-shop_134644_simi-valley";
+
+export const SHOP_STATS = {
+  rating: "5.0",
+  reviewCount: 641, // Booksy, checked 2026-09-19
+  reviewCountLabel: "640+",
+};
+
 export const BUSINESS_HOURS = [
   { day: "Sunday", open: "10:00", close: "14:00", label: "10 AM – 2 PM" },
   { day: "Monday", open: "09:00", close: "19:00", label: "9 AM – 7 PM" },
